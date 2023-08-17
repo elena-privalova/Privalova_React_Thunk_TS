@@ -7,8 +7,8 @@ import Rating from '@mui/material/Rating';
 
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
-import { getFormatedDate } from '../../utils/getFormatedDate.ts';
-import { getFormatedSubheader } from '../../utils/getFormatedSubheader.ts';
+import { getFormattedDate } from '../../utils/getFormattedDate.ts';
+import { getFormattedSubheader } from '../../utils/getFormattedSubheader.ts';
 
 import { 
   StyledCard, 
@@ -27,11 +27,11 @@ const PostCard: FC<NewsInterface> = (news) => {
           <CardHeader
             title={news.title}
             titleTypographyProps = {StyledCardHeader.titleTypographyProps}
-            subheader={getFormatedSubheader(news.author.firstName, news.author.lastName)}
+            subheader={getFormattedSubheader(news.author.firstName, news.author.lastName)}
             subheaderTypographyProps = {StyledSubheader.subheaderTypographyProps}
           />
           <CardHeader
-            subheader={getFormatedDate(news.createdAt)}
+            subheader={getFormattedDate(news.createdAt)}
             subheaderTypographyProps = {StyledCardHeader.styledDateProps}
           />
         </div>
