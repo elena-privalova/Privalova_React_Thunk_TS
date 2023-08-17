@@ -8,7 +8,7 @@ import { NewsArray } from './PostsList.props.ts';
 const PostsList: FC<NewsArray> = (props: NewsArray) => {
   return (
     <div className='main__posts'>
-      {props.array.map((news, index) => <PostCard key={index} {...news}/>)}
+      {props.array.map(news => <PostCard key={news.id} {...news}/>)}
     </div>
   )
 }

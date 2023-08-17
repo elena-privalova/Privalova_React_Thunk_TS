@@ -2,16 +2,13 @@ import { type FC } from 'react';
 
 import Header from '../../components/Header/Header.tsx';
 import PostsList from '../../components/PostsList/PostsList.tsx';
-import { NewsInterface } from '../../vite-env';
 
 import './Main.css';
 
 export const arrayNews: NewsInterface[] = [ 
   {
+    id: 1,
     title: 'Shrimp and Chorizo Paella',
-    author: 'Ivan Privalov',
-    data: new Date(),
-    img: '',
     text: `This impressive paella is a perfect party dish and a fun meal to cook
             together with your guests. Add 1 cup of frozen peas along with the mussels,
             if you like.
@@ -21,24 +18,61 @@ export const arrayNews: NewsInterface[] = [
             This impressive paella is a perfect party dish and a fun meal to cook
             together with your guests. Add 1 cup of frozen peas along with the mussels,
             if you like`,
-    tags: ['#1', '#2', '#3'],
+    coverPath: '',
+    author: {
+      id: 1,
+      firstName: 'Ivan',
+      lastName: 'Privalov',
+      email: 'privalov_ivan@mail.ru'
+    },
+    tags: [
+      {
+        id: 1,
+        value: '#1',
+      },
+      {
+        id: 2,
+        value: '#2',
+      },
+      {
+        id: 3,
+        value: '#3',
+      },
+    ],
     rating: 4,
-    comments: 7
+    commentsCount: 7,
+    createdAt: new Date()
   },
   {
+    id: 2,
     title: 'Shrimp and Chorizo Paella',
-    author: 'Ivan Privalov',
-    data: new Date(),
-    img: '',
     text: `This impressive paella is a perfect party dish and a fun meal to cook
             together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
             if you like.`,
-    tags: ['#1', '#2', '#3'],
-    rating: 3,
-    comments: 5
+    coverPath: '',
+    author: {
+      id: 2,
+      firstName: 'Ivan',
+      lastName: 'Privalov',
+      email: 'privalov_ivan@mail.ru'
+    },
+    tags: [
+      {
+        id: 1,
+        value: '#1',
+      },
+      {
+        id: 2,
+        value: '#2',
+      },
+      {
+        id: 3,
+        value: '#3',
+      },
+    ],
+    rating: 5,
+    commentsCount: 15,
+    createdAt: new Date()
   }
 ];
 

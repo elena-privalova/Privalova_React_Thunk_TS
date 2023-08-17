@@ -13,6 +13,7 @@ import { NewsInterface } from '../../vite-env';
 
 import { StyledCard, StyledCardHeader, StyledSubheader, StyledTypography } from './style.ts';
 import './PostCard.css';
+import { getFormatedSubheader } from '../../utils/getFormatedSubheader.ts';
 
 const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
   return (
@@ -22,11 +23,11 @@ const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
           <CardHeader
             title={news.title}
             titleTypographyProps = {StyledCardHeader.titleTypographyProps}
-            subheader={news.author}
+            subheader={getFormatedSubheader(news.author.firstName, news.author.lastName)}
             subheaderTypographyProps = {StyledSubheader.subheaderTypographyProps}
           />
           <CardHeader
-            subheader={getFormatedDate(news.data)}
+            subheader={getFormatedDate(news.createdAt)}
             subheaderTypographyProps = {StyledCardHeader.styledDateProps}
           />
         </div>
@@ -34,20 +35,20 @@ const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
           <CardMedia
             component="img"
             height="180px"
-            image={news.img ? news.img : './src/images/defaultPicture.jpg'}
+            image={news.coverPath ? news.coverPath : './src/images/defaultPicture.jpg'}
             alt="Image"
           />
         </div>
         <CardContent sx={{ height: '350px' }}>
           <StyledTypography variant="body2" color="text.secondary">{news.text}</StyledTypography>
           <div className="card__tags">
-            {news.tags.map((tag, index) => <Chip key={index} label={tag} />)}
+            {news.tags.map(tag => <Chip key={tag.id} label={tag.value} />)}
           </div>
           <div className="card__rating-group rating-group">
             <Rating name="Rating" readOnly value={news.rating} />
             <div className="rating-group__comments">
               <ModeCommentOutlined fontSize="medium" color="action" />
-              <span>{news.comments}</span>
+              <span>{news.commentsCount}</span>
             </div>
           </div>
         </CardContent>

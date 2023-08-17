@@ -1,10 +1,28 @@
-export interface NewsInterface {
+interface AuthorInterface {
+  id: number,
+  firstName: string,
+  lastName: string,
+  email: string,
+  avatarPath?: string,
+  createdAt?: Date,
+  updatedAt?: Date
+}
+
+interface TagsInterface {
+  id: number,
+  value: string,
+  createdAt?: Date,
+  updatedAt?: Date
+}
+interface NewsInterface {
+  id: number,
   title: string,
-  author: string,
-  data: Date,
-  img: string,
   text: string,
-  tags: string[],
+  coverPath: string,
+  author: AuthorInterface,
+  tags: TagsInterface[],
   rating: number,
-  comments: number
+  commentsCount: number,
+  createdAt: Date,
+  updatedAt?: Date
 }
