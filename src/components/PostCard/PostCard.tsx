@@ -2,20 +2,24 @@ import { type FC } from 'react';
 
 import CardMedia from '@mui/material/CardMedia';
 import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
 import { getFormatedDate } from '../../utils/getFormatedDate.ts';
-import { NewsInterface } from '../../vite-env';
-
-import { StyledCard, StyledCardHeader, StyledSubheader, StyledTypography } from './style.ts';
-import './PostCard.css';
 import { getFormatedSubheader } from '../../utils/getFormatedSubheader.ts';
 
-const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
+import { 
+  StyledCard, 
+  StyledCardContent,
+  StyledCardHeader, 
+  StyledSubheader, 
+  StyledTypography 
+} from './style.ts';
+import './PostCard.css';
+
+const PostCard: FC<NewsInterface> = (news) => {
   return (
     <>
       <StyledCard className="card">
@@ -35,11 +39,11 @@ const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
           <CardMedia
             component="img"
             height="180px"
-            image={news.coverPath ? news.coverPath : './src/images/defaultPicture.jpg'}
+            image={news.coverPath || './src/images/defaultPicture.jpg'}
             alt="Image"
           />
         </div>
-        <CardContent sx={{ height: '350px' }}>
+        <StyledCardContent>
           <StyledTypography variant="body2" color="text.secondary">{news.text}</StyledTypography>
           <div className="card__tags">
             {news.tags.map(tag => <Chip key={tag.id} label={tag.value} />)}
@@ -51,7 +55,7 @@ const PostCard: FC<NewsInterface> = (news: NewsInterface) => {
               <span>{news.commentsCount}</span>
             </div>
           </div>
-        </CardContent>
+        </StyledCardContent>
       </StyledCard>
     </>
   )

@@ -1,44 +1,23 @@
 import { type FC } from 'react';
 
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import SearchIcon from '@mui/icons-material/Search';
-import FormControl from '@mui/material/FormControl';
 
-import { Search, SearchIconWrapper, StyledButton, StyledInput, StyledInputBase, StyledMenuItem, StyledSelect, StyledToolbar, StyledTypography } from './style.ts';
-
+import { 
+  StyledBox, 
+  StyledButton, 
+  StyledToolbar, 
+  StyledTypography 
+} from './style.ts';
 import './Header.css';
 
 const Header: FC = () => {
   return (
-    <Box>
-      <AppBar sx={{ backgroundColor: '#C1B59F' }}>
+    <StyledBox>
+      <AppBar>
         <StyledToolbar>
           <div className="logo-group">
             <StyledTypography>News</StyledTypography>
             <img className='logo-group__logo' src='./src/images/newsIcon.svg' />
-          </div>
-          <div className="search-group">
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-              />
-            </Search>
-            <FormControl>
-              <StyledSelect
-                sx={{
-                  height: '40px'
-                }}
-                input={ <StyledInput /> }
-              >
-                <StyledMenuItem value={10} sx={{ borderTop: '1px solid #908471' }}>Ten</StyledMenuItem>
-                <StyledMenuItem value={20}>Twenty</StyledMenuItem>
-                <StyledMenuItem value={30}>Thirty</StyledMenuItem>
-              </StyledSelect>
-            </FormControl>
           </div>
           <div className="buttons-group">
             <StyledButton variant="contained">Sign in</StyledButton>
@@ -46,7 +25,7 @@ const Header: FC = () => {
           </div>
         </StyledToolbar>
       </AppBar>
-    </Box>
+    </StyledBox>
   )
 }
 

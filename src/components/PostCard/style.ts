@@ -1,4 +1,7 @@
-import { Card, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 import { styled } from '@mui/material/styles';
 
 import './PostCard.css';
@@ -58,4 +61,8 @@ export const StyledTypography = styled(Typography)({
   overflow: 'hidden',
   WebkitLineClamp: 10,
   wordWrap: 'break-word'
+});
+
+export const StyledCardContent = styled(CardContent)({
+  height: '350px'
 })
