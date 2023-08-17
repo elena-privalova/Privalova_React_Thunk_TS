@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, MenuItem } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 
-import { Search, SearchIconWrapper, StyledButton, StyledInputBase, StyledSelect, StyledToolbar, StyledTypography } from './style.ts';
+import { Search, SearchIconWrapper, StyledButton, StyledInput, StyledInputBase, StyledMenuItem, StyledSelect, StyledToolbar, StyledTypography } from './style.ts';
 
 import './Header.css';
 
@@ -32,10 +32,11 @@ const Header: FC = () => {
                 sx={{
                   height: '40px'
                 }}
+                input={ <StyledInput /> }
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <StyledMenuItem value={10} sx={{ borderTop: '1px solid #908471' }}>Ten</StyledMenuItem>
+                <StyledMenuItem value={20}>Twenty</StyledMenuItem>
+                <StyledMenuItem value={30}>Thirty</StyledMenuItem>
               </StyledSelect>
             </FormControl>
           </div>

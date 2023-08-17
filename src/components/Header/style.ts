@@ -1,4 +1,4 @@
-import { Button, InputBase, Select, Toolbar, Typography } from '@mui/material';
+import { Button, InputBase, MenuItem, Select, Toolbar, Typography } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 
 export const StyledToolbar = styled(Toolbar)({
@@ -52,12 +52,29 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const StyledSelect = styled(Select)({
-  borderColor: '#908471'
-})
+  borderColor: '#908471',
+  paddingLeft: '5px',
+});
+
+export const StyledInput = styled(InputBase)({
+  height: '40px',
+  border: '1px solid #4F493F',
+  borderRadius: '10px',
+  '& .MuiInputBase-input:focus': {
+    color: '#4F493F',
+    borderColor: '#4F493F'
+  }
+});
+
+export const StyledMenuItem = styled(MenuItem)({
+  color: '#908471',
+  letterSpacing: '1px',
+  borderBottom: '1px solid #908471'
+});
 
 export const StyledButton = styled(Button)({
   backgroundColor: '#4F493F',
   '&:hover': {
     backgroundColor: '#4F493F'
   }
-})
+});

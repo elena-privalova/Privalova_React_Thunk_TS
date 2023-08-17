@@ -24,6 +24,15 @@ export const StyledCard = styled(Card)({
   transition: '0.5s ease-out',
 });
 
+export const StyledSubheader = {
+  subheaderTypographyProps: {
+    marginLeft: '10px',
+    fontFamily: 'Raleway',
+    color: '#4F493F',
+    fontSize: '16px',
+  },
+};
+
 export const StyledCardHeader = {
   titleTypographyProps: {
     fontFamily: 'Raleway',
@@ -32,13 +41,14 @@ export const StyledCardHeader = {
     letterSpacing: '1px',
     fontWeight: 'bolder'
   },
-  subheaderTypographyProps: {
+  styledDateProps: {
+    marginTop: '-35px',
     marginLeft: '10px',
     fontFamily: 'Raleway',
     color: '#4F493F',
     fontSize: '16px'
   }
-}
+};
 
 export const StyledTypography = styled(Typography)({
   height: '200px',

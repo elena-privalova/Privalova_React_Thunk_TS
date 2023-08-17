@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import Main from './pages/Main/Main.tsx';
 
 const App: FC = () => {
   return (
     <>
-      <Main/>
+      <Main />
     </>
   )
 }
 
-export default App
+export default App;
