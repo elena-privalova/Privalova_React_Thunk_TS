@@ -1,5 +1,4 @@
 import { type FC } from 'react';
-
 import AppBar from '@mui/material/AppBar';
 
 import { 
@@ -8,7 +7,7 @@ import {
   StyledToolbar, 
   StyledTypography 
 } from './style.ts';
-import './Header.css';
+import './header.css';
 
 const Header: FC = () => {
   return (

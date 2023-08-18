@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import Header from '../../components/Header/Header.tsx';
 import PostsList from '../../components/PostsList/PostsList.tsx';
 
-import './Main.css';
+import './main.css';
 
 export const arrayNews: NewsInterface[] = [ 
   {
@@ -21,8 +21,6 @@ export const arrayNews: NewsInterface[] = [
     coverPath: '',
     author: {
       id: 1,
-      firstName: 'Ivan',
-      lastName: 'Privalov',
       email: 'privalov_ivan@mail.ru'
     },
     tags: [
@@ -52,8 +50,6 @@ export const arrayNews: NewsInterface[] = [
     coverPath: '',
     author: {
       id: 2,
-      firstName: 'Ivan',
-      lastName: 'Privalov',
       email: 'privalov_ivan@mail.ru'
     },
     tags: [

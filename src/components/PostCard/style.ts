@@ -1,10 +1,10 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-
 import { styled } from '@mui/material/styles';
 
 import './PostCard.css';
+import { CardHeader } from '@mui/material';
 
 export const StyledCard = styled(Card)({
   userSelect: 'none',
@@ -27,16 +27,11 @@ export const StyledCard = styled(Card)({
   transition: '0.5s ease-out',
 });
 
-export const StyledSubheader = {
-  subheaderTypographyProps: {
-    marginLeft: '10px',
-    fontFamily: 'Raleway',
-    color: '#4F493F',
-    fontSize: '16px',
-  },
-};
+export const StyledCardHeader = styled(CardHeader)({
+  paddingBottom: 0
+});
 
-export const StyledCardHeader = {
+export const StyledCardHeaderBlock = {
   titleTypographyProps: {
     fontFamily: 'Raleway',
     color: 'black',
@@ -44,12 +39,11 @@ export const StyledCardHeader = {
     letterSpacing: '1px',
     fontWeight: 'bolder'
   },
-  styledDateProps: {
-    marginTop: '-35px',
+  subheaderTypographyProps: {
     marginLeft: '10px',
     fontFamily: 'Raleway',
     color: '#4F493F',
-    fontSize: '16px'
+    fontSize: '16px',
   }
 };
 

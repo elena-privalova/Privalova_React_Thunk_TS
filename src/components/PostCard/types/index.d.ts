@@ -1,7 +1,5 @@
 interface AuthorInterface {
   id: number,
-  firstName: string,
-  lastName: string,
   email: string,
   avatarPath?: string,
   createdAt?: Date,
@@ -14,6 +12,7 @@ interface TagsInterface {
   createdAt?: Date,
   updatedAt?: Date
 }
+
 interface NewsInterface {
   id: number,
   title: string,
