@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import { styled } from '@mui/material/styles';
 
-import './postCard.modules.css';
+import './postCard.css';
 
 export const StyledCard = styled(Card)({
   userSelect: 'none',

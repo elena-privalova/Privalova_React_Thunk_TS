@@ -17,7 +17,6 @@ export const StyledToolbar = styled(Toolbar)({
 
 export const StyledTypography = styled(Typography)({
   fontSize: '32px',
-  fontFamily: 'Playfair Display SC',
   letterSpacing: '5px',
   color: '#4F493F'
 });

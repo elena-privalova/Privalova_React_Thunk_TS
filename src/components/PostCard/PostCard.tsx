@@ -6,6 +6,7 @@ import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
 import { getFormattedDate } from '../../utils/getFormattedDate.ts';
 
+import { NewsInterface } from './types/index';
 import { 
   StyledCard, 
   StyledCardContent,
@@ -13,7 +14,7 @@ import {
   StyledCardHeaderBlock,
   StyledTypography 
 } from './styles.ts';
-import './postCard.modules.css';
+import './postCard.css';
 
 const PostCard: FC<NewsInterface> = (news) => {
   return (
@@ -31,8 +32,8 @@ const PostCard: FC<NewsInterface> = (news) => {
         <CardMedia
           component="img"
           height="180px"
-          image={news.coverPath || './src/images/defaultPicture.jpg'}
-          alt="Image"
+          image={'./src/images/defaultPicture.jpg' ?? news.coverPath}
+          alt="News image"
         />
       </div>
       <StyledCardContent>

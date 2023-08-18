@@ -9,7 +9,6 @@
 
 .header__date {
   margin-left: 26px;
-  font-family: 'Raleway';
   color: #4F493F;
   font-size: 16px
 }
@@ -46,6 +45,5 @@
 .rating-group__comments span {
   margin-left: 5px;
   color: #4F493F;
-  font-family: 'Raleway';
   font-size: 20px;
 }

@@ -13,7 +13,7 @@ interface TagsInterface {
   updatedAt?: Date
 }
 
-interface NewsInterface {
+export interface NewsInterface {
   id: number,
   title: string,
   text: string,

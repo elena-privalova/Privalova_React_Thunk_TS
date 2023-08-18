@@ -1,5 +1,9 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway&display=swap';
-@import 'https://fonts.googleapis.com/css?family=Playfair+Display+SC&display=swap';
+
+html, 
+p.css-1pn1rpo-MuiTypography-root {
+  font-family: 'Raleway';
+}
 
 * {
   user-select: none;
