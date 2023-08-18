@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import PostCard from '../PostCard/PostCard.tsx';
 
-import { NewsArrayInterface } from './types/index';
+import { NewsArrayInterface } from './types';
 import './postsList.css';
 
 const PostsList: FC<NewsArrayInterface> = (props) => {

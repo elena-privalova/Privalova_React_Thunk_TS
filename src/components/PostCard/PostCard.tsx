@@ -6,7 +6,7 @@ import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
 import { getFormattedDate } from '../../utils/getFormattedDate.ts';
 
-import { NewsInterface } from './types/index';
+import { NewsInterface } from './types';
 import { 
   StyledCard, 
   StyledCardContent,
