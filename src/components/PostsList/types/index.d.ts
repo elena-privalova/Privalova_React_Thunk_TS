@@ -1,4 +1,4 @@
-import NewsInterface from '../../PostCard/types/index.d.ts'
+import NewsInterface from '../../PostCard/types'
 
 interface NewsArrayInterface {
   array: NewsInterface[];

@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import Header from '../../components/Header/Header.tsx';
 import PostsList from '../../components/PostsList/PostsList.tsx';
-import { NewsInterface } from '../../components/PostCard/types/index';
+import { NewsInterface } from '../../components/PostCard/types';
 
 import './main.css';
 
