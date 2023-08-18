@@ -80,7 +80,10 @@ const Main: FC = () => {
   return (
     <div className="main">
       <Header />
-      <PostsList array={arrayNews}/>
+      {arrayNews.length 
+        ? <PostsList array={arrayNews}/> 
+        : <div className="main__empty">Новых новостей нет</div>
+      }
     </div>
   )
 }
