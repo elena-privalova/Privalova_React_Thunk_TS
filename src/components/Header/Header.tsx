@@ -6,15 +6,15 @@ import {
   StyledButton, 
   StyledToolbar, 
   StyledTypography 
-} from './style.ts';
-import './Header.css';
+} from './styles.ts';
+import './header.css';
 
 const Header: FC = () => {
   return (
     <StyledBox>
       <AppBar>
         <StyledToolbar>
-          <div className="logo-group">
+          <div className='logo-group'>
             <StyledTypography>News</StyledTypography>
             <img className='logo-group__logo' src='./src/images/newsIcon.svg' />
           </div>

@@ -1,11 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display+SC&display=swap');
-
 .logo-group {
   display: flex;
   align-items: center;
   height: 100%;
   font-size: 32px;
-  font-family: 'Playfair Display SC';
   letter-spacing: 5px;
   color: #4F493F;
 }

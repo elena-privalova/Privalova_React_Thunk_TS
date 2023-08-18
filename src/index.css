@@ -1,3 +1,10 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway&display=swap';
+
+html, 
+p.css-1pn1rpo-MuiTypography-root {
+  font-family: 'Raleway';
+}
+
 * {
   user-select: none;
   padding: 0;

@@ -1,89 +1,32 @@
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 
 import Header from '../../components/Header/Header.tsx';
+
+import './main.css';
+import store from '../../store/index.ts';
+import { getPostsSuccess } from '../../store/posts/slices.ts';
 import PostsList from '../../components/PostsList/PostsList.tsx';
-
-import './Main.css';
-
-export const arrayNews: NewsInterface[] = [ 
-  {
-    id: 1,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like`,
-    coverPath: '',
-    author: {
-      id: 1,
-      firstName: 'Ivan',
-      lastName: 'Privalov',
-      email: 'privalov_ivan@mail.ru'
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#1',
-      },
-      {
-        id: 2,
-        value: '#2',
-      },
-      {
-        id: 3,
-        value: '#3',
-      },
-    ],
-    rating: 4,
-    commentsCount: 7,
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.`,
-    coverPath: '',
-    author: {
-      id: 2,
-      firstName: 'Ivan',
-      lastName: 'Privalov',
-      email: 'privalov_ivan@mail.ru'
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#1',
-      },
-      {
-        id: 2,
-        value: '#2',
-      },
-      {
-        id: 3,
-        value: '#3',
-      },
-    ],
-    rating: 5,
-    commentsCount: 15,
-    createdAt: new Date()
-  }
-];
+import { Skeleton } from '@mui/material';
 
 const Main: FC = () => {
+  useEffect(() => {
+    store.dispatch(getPostsSuccess())
+  }, [])
+  const getCurrentState = () => {
+    return store.getState().posts
+  }
+  let a;
+  store.subscribe(() => a = getCurrentState())
+  console.log(a)
   return (
     <div className="main">
       <Header />
-      {arrayNews.length 
-        ? <PostsList array={arrayNews}/> 
+      {/* {state.isLoading
+        ? <Skeleton variant='rounded' width={300} height={600}/>
+        : state.postsList ? 
+        <PostsList array={state.postsList} />
         : <div className="main__empty">Новых новостей нет</div>
-      }
+      } */}
     </div>
   )
 }
