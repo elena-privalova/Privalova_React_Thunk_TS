@@ -1,5 +1,4 @@
 import { type FC } from 'react';
-
 import PostCard from '../PostCard/PostCard.tsx';
 
 import { NewsArrayInterface } from './types/index';

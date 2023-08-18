@@ -1,7 +1,5 @@
 import { type FC } from 'react';
-
 import CardMedia from '@mui/material/CardMedia';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
