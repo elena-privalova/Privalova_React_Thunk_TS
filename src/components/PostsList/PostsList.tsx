@@ -3,7 +3,7 @@ import PostCard from '../PostCard/PostCard.tsx';
 
 import { NewsArrayInterface } from './types/index';
 
-import './postsList.css';
+import './postsList.modules.css';
 
 const PostsList: FC<NewsArrayInterface> = (props) => {
   return (

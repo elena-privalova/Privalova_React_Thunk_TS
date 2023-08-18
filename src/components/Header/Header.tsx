@@ -6,8 +6,8 @@ import {
   StyledButton, 
   StyledToolbar, 
   StyledTypography 
-} from './style.ts';
-import './header.css';
+} from './styles.ts';
+import './header.modules.css';
 
 const Header: FC = () => {
   return (

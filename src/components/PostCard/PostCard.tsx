@@ -12,8 +12,8 @@ import {
   StyledCardHeader,
   StyledCardHeaderBlock,
   StyledTypography 
-} from './style.ts';
-import './postCard.css';
+} from './styles.ts';
+import './postCard.modules.css';
 
 const PostCard: FC<NewsInterface> = (news) => {
   return (
