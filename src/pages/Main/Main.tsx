@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header.tsx';
 import PostsList from '../../components/PostsList/PostsList.tsx';
 import { NewsInterface } from '../../components/PostCard/types/index';
 
-import './main.modules.css';
+import './main.css';
 
 export const arrayNews: NewsInterface[] = [ 
   {
