@@ -2,15 +2,29 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const postsSlice = createSlice({
   name: 'posts',
-  initialState: [],
+  initialState: {
+    value: []
+  },
   reducers: {
-    getPostsList(state, action) {}
+    getPostsList: (state, action) => {
+      switch (action.type) {
+        case 'fulfilled':
+          state.value = action.payload;
+          break;
+        default:
+          state.value = state.value;
+      }
+      
+    }
   }
 });
 
-const { actions, reducer } = postsSlice;
+export const { getPostsList } = postsSlice.actions;
+export default postsSlice.reducer;
 
-export const {
-  getPostsList
-} = actions;
-export default reducer;
+// const { actions, reducer } = postsSlice;
+
+// export const {
+//   getPostsList
+// } = actions;
+// export default reducer;
