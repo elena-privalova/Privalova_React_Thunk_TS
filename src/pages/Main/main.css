@@ -1,0 +1,14 @@
+.main {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 70px 20fr;
+}
+
+.main__empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4F493F;
+  font-size: 24px;
+  font-family: 'Raleway';
+}
