@@ -22,24 +22,20 @@ const Main: FC = () => {
   return (
     <div className="main">
       <Header />
-      
       {isLoading && (
         <div className="main__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
           <Skeleton variant='rounded' width={300} height={600}/>
       </div>
       )}
-
       {postsList.length > 0 && !isError && !isLoading && (
         <PostsList array={postsList} />
       )}
-
       {postsList.length === 0 && !isError && (
         <div className="main__empty">
           <ErrorAlert text='Новых новостей нет' />
         </div>
       )}
-
       {isError && (
         <div className="main__empty">
           <ErrorAlert text='Ошибка' />
