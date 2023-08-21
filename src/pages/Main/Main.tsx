@@ -5,10 +5,10 @@ import { Skeleton } from '@mui/material';
 import Header from '../../components/Header/Header.tsx';
 import { getPostsSuccess } from '../../store/posts/slices.ts';
 import PostsList from '../../components/PostsList/PostsList.tsx';
+import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
 
 import { RootState } from './types';
 import './main.css';
-import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
 
 const Main: FC = () => {
   const { isLoading, postsList, isError } = useSelector((state: RootState) => state.posts);
