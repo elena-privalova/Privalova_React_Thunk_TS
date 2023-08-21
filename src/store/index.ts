@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import postsReducer from './posts/slices';
 
 const store = configureStore({

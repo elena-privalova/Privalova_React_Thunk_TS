@@ -12,3 +12,10 @@
   font-size: 24px;
   font-family: 'Raleway';
 }
+
+.main__skeletons-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
