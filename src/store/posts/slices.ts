@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { NewsInterface } from "../../components/PostCard/types";
 
-import { StateInterface } from "./types";
+import { PostState } from "./types";
 
 const arrayNews: NewsInterface[] = [ 
   {
@@ -71,7 +71,7 @@ const arrayNews: NewsInterface[] = [
   }
 ];
 
-const PostsState: StateInterface = {
+const PostsInitialState: PostState = {
   isLoading: false,
   postsList: [],
   isError: false
@@ -79,11 +79,11 @@ const PostsState: StateInterface = {
 
 export const postsSlice = createSlice({
   name: 'posts',
-  initialState: PostsState,
+  initialState: PostsInitialState,
   reducers: {
     getPostsRequest: state => {
       state.isLoading = true;
-      state.postsList = [];
+      state.postsList = arrayNews;
       state.isError = false;
     },
     getPostsSuccess: state => {
@@ -93,7 +93,7 @@ export const postsSlice = createSlice({
     },
     getPostsFail: state => {
       state.isLoading = false;
-      state.postsList = [];
+      state.postsList = arrayNews;
       state.isError = true;
     }   
   }

@@ -8,9 +8,10 @@ import PostsList from '../../components/PostsList/PostsList.tsx';
 
 import { RootState } from './types';
 import './main.css';
+import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
 
 const Main: FC = () => {
-  const currentState = useSelector((state: RootState) => state.posts);
+  const { isLoading, postsList, isError } = useSelector((state: RootState) => state.posts);
   
   const dispatch = useDispatch();
   
@@ -22,19 +23,27 @@ const Main: FC = () => {
     <div className="main">
       <Header />
       
-      {currentState.isLoading && (
+      {isLoading && (
         <div className="main__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
           <Skeleton variant='rounded' width={300} height={600}/>
       </div>
       )}
 
-      {currentState.postsList.length > 0 && (
-        <PostsList array={currentState.postsList} />
+      {postsList.length > 0 && !isError && !isLoading && (
+        <PostsList array={postsList} />
       )}
 
-      {currentState.isError && (
-        <div className="main__empty">Новых новостей нет</div>
+      {postsList.length === 0 && !isError && (
+        <div className="main__empty">
+          <ErrorAlert text='Новых новостей нет' />
+        </div>
+      )}
+
+      {isError && (
+        <div className="main__empty">
+          <ErrorAlert text='Ошибка' />
+        </div>
       )}
     </div>
   )
