@@ -1,8 +1,8 @@
 
 import { type FC } from 'react';
-import { Alert, AlertTitle } from "@mui/material";  
+import { Alert, AlertTitle } from '@mui/material';  
 
-import { ErrorProps } from "./types";
+import { ErrorProps } from './types';
 
 const ErrorAlert: FC<ErrorProps> = (props) => {
   return (

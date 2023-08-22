@@ -1,7 +1,18 @@
 .main {
   height: 100vh;
-  display: grid;
-  grid-template-rows: 70px 20fr;
+  display: flex;
+}
+
+.main__posts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  padding: 0 10px 70px 10px;
+  margin-top: 90px;
 }
 
 .main__empty {

@@ -29,7 +29,9 @@ const Main: FC = () => {
       </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
-        <PostsList array={postsList} />
+        <div className="main__posts">
+          <PostsList array={postsList} />
+        </div>
       )}
       {postsList.length === 0 && !isError && (
         <div className="main__empty">

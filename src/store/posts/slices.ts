@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-import { NewsInterface } from "../../components/PostCard/types";
+import { NewsInterface } from '../../components/PostCard/types';
 
-import { PostState } from "./types";
+import { PostState } from './types';
 
 const arrayNews: NewsInterface[] = [ 
   {

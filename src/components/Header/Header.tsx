@@ -1,8 +1,7 @@
 import { type FC } from 'react';
-import AppBar from '@mui/material/AppBar';
 
 import { 
-  StyledBox, 
+  StyledAppBar,
   StyledButton, 
   StyledToolbar, 
   StyledTypography 
@@ -11,20 +10,18 @@ import './header.css';
 
 const Header: FC = () => {
   return (
-    <StyledBox>
-      <AppBar>
-        <StyledToolbar>
-          <div className='logo-group'>
-            <StyledTypography>News</StyledTypography>
-            <img className='logo-group__logo' src='./src/images/newsIcon.svg' />
-          </div>
-          <div className="buttons-group">
-            <StyledButton variant="contained">Sign in</StyledButton>
-            <StyledButton variant="contained">Sign up</StyledButton>
-          </div>
-        </StyledToolbar>
-      </AppBar>
-    </StyledBox>
+    <StyledAppBar>
+      <StyledToolbar>
+        <div className='logo-group'>
+          <StyledTypography>News</StyledTypography>
+          <img className='logo-group__logo' src='./src/images/newsIcon.svg' />
+        </div>
+        <div className="buttons-group">
+          <StyledButton variant="contained">Sign in</StyledButton>
+          <StyledButton variant="contained">Sign up</StyledButton>
+        </div>
+      </StyledToolbar>
+    </StyledAppBar>
   )
 }
 

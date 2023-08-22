@@ -1,4 +1,4 @@
-import { NewsInterface } from "../../../components/PostCard/types";
+import { NewsInterface } from '../../../components/PostCard/types';
 
 interface PostState {
   isLoading: boolean,
