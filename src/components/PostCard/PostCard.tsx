@@ -5,6 +5,7 @@ import Rating from '@mui/material/Rating';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
 import { getFormattedDate } from '../../utils/getFormattedDate.ts';
+import defaultImage from '../../images/defaultPicture.jpg';
 
 import { NewsInterface } from './types';
 import { 
@@ -32,7 +33,7 @@ const PostCard: FC<NewsInterface> = (news) => {
         <CardMedia
           component="img"
           height="180px"
-          image={'./src/images/defaultPicture.jpg' ?? news.coverPath}
+          image={defaultImage ?? news.coverPath}
           alt="News image"
         />
       </div>

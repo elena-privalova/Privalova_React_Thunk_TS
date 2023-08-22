@@ -1,86 +1,46 @@
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 
 import Header from '../../components/Header/Header.tsx';
+import { getPostsSuccess } from '../../store/posts/slices.ts';
 import PostsList from '../../components/PostsList/PostsList.tsx';
-import { NewsInterface } from '../../components/PostCard/types';
+import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
 
+import { RootState } from './types';
 import './main.css';
 
-export const arrayNews: NewsInterface[] = [ 
-  {
-    id: 1,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like`,
-    coverPath: '',
-    author: {
-      id: 1,
-      email: 'privalov_ivan@mail.ru'
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#1',
-      },
-      {
-        id: 2,
-        value: '#2',
-      },
-      {
-        id: 3,
-        value: '#3',
-      },
-    ],
-    rating: 4,
-    commentsCount: 7,
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.`,
-    coverPath: '',
-    author: {
-      id: 2,
-      email: 'privalov_ivan@mail.ru'
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#1',
-      },
-      {
-        id: 2,
-        value: '#2',
-      },
-      {
-        id: 3,
-        value: '#3',
-      },
-    ],
-    rating: 5,
-    commentsCount: 15,
-    createdAt: new Date()
-  }
-];
-
 const Main: FC = () => {
+  const { isLoading, postsList, isError } = useSelector((state: RootState) => state.posts);
+  
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getPostsSuccess())
+  }, []);
+  
   return (
     <div className="main">
       <Header />
-      {arrayNews.length 
-        ? <PostsList array={arrayNews}/> 
-        : <div className="main__empty">Новых новостей нет</div>
-      }
+      {isLoading && (
+        <div className="main__skeletons-group">
+          <Skeleton variant='rounded' width={300} height={600}/>
+          <Skeleton variant='rounded' width={300} height={600}/>
+      </div>
+      )}
+      {postsList.length > 0 && !isError && !isLoading && (
+        <PostsList array={postsList} />
+      )}
+      {postsList.length === 0 && !isError && (
+        <div className="main__empty">
+          <ErrorAlert text='Новых новостей нет' />
+        </div>
+      )}
+      {isError && (
+        <div className="main__empty">
+          <ErrorAlert text='Ошибка' />
+        </div>
+      )}
     </div>
   )
 }

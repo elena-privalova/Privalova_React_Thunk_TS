@@ -4,9 +4,7 @@ import Main from './pages/Main/Main.tsx';
 
 const App: FC = () => {
   return (
-    <>
-      <Main />
-    </>
+    <Main />
   )
 }
 
