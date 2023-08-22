@@ -3,10 +3,13 @@ import { type FC } from 'react';
 import PostCard from '../PostCard/PostCard.tsx';
 
 import { NewsArrayInterface } from './types';
+import './postsList.css';
 
 const PostsList: FC<NewsArrayInterface> = (props) => {
   return (
-    props.array.map(news => <PostCard key={news.id} {...news}/>)
+    <div className='main__posts'>
+      {props.array.map(news => <PostCard key={news.id} {...news}/>)}
+    </div>
   )
 }
 

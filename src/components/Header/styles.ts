@@ -1,17 +1,18 @@
-import { AppBar } from '@mui/material';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
-export const StyledAppBar = styled(AppBar)({
-  height: '70px',
+export const StyledBox = styled(Box)({
   backgroundColor: '#C1B59F'
 })
 
 export const StyledToolbar = styled(Toolbar)({
   justifyContent: 'space-between',
-  gap: '10px'
+  gap: '10px',
+  height: '70px',
+  backgroundColor: '#C1B59F'
 });
 
 export const StyledTypography = styled(Typography)({
