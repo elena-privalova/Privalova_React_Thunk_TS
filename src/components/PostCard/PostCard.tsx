@@ -3,13 +3,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
+import { useNavigate } from 'react-router-dom';
 
 import { getFormattedDate } from '../../utils/getFormattedDate.ts';
 import defaultImage from '../../images/defaultPicture.jpg';
 
 import { NewsInterface } from './types';
 import { 
-  StyledCard, 
+  StyledPostCard, 
   StyledCardContent,
   StyledCardHeader,
   StyledCardHeaderBlock,
@@ -18,8 +19,9 @@ import {
 import './postCard.css';
 
 const PostCard: FC<NewsInterface> = (news) => {
+  const navigate = useNavigate();
   return (
-    <StyledCard className="card">
+    <StyledPostCard className="card" onClick={() => navigate(`news/${news.id}`)}>
       <div className="card__header header">
         <StyledCardHeader
           title={news.title}
@@ -50,7 +52,7 @@ const PostCard: FC<NewsInterface> = (news) => {
           </div>
         </div>
       </StyledCardContent>
-    </StyledCard>
+    </StyledPostCard>
   )
 }
 

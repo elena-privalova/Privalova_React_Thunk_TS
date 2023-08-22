@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 
 import './postCard.css';
 
-export const StyledCard = styled(Card)({
+export const StyledPostCard = styled(Card)({
   userSelect: 'none',
   display: 'flex',
   flexDirection: 'column',
@@ -40,7 +40,6 @@ export const StyledCardHeaderBlock = {
     fontWeight: 'bolder'
   },
   subheaderTypographyProps: {
-    marginLeft: '10px',
     fontFamily: 'Raleway',
     color: '#4F493F',
     fontSize: '16px',

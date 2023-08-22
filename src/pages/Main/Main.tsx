@@ -2,8 +2,7 @@ import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton } from '@mui/material';
 
-import Header from '../../components/Header/Header.tsx';
-import { getPostsSuccess } from '../../store/posts/slices.ts';
+import { getPostsSuccess } from '../../store/posts/slicesPosts.ts';
 import PostsList from '../../components/PostsList/PostsList.tsx';
 import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
 
@@ -20,28 +19,27 @@ const Main: FC = () => {
   }, []);
   
   return (
-    <div className="main">
-      <Header />
+    <>
       {isLoading && (
-        <div className="main__skeletons-group">
+        <div className="container__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
           <Skeleton variant='rounded' width={300} height={600}/>
-      </div>
+        </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
         <PostsList array={postsList} />
       )}
       {postsList.length === 0 && !isError && (
-        <div className="main__empty">
+        <div className="container__empty">
           <ErrorAlert text='Новых новостей нет' />
         </div>
       )}
       {isError && (
-        <div className="main__empty">
+        <div className="container__empty">
           <ErrorAlert text='Ошибка' />
         </div>
       )}
-    </div>
+    </>
   )
 }
 
