@@ -34,7 +34,7 @@ const News: FC = () => {
           <DetailCard {...detailCard} />
         </div>
       )}
-      {detailCard === null && (
+      {detailCard == null && (
         <div className="container__empty">
           <WarningAlert text="Такой новости не существует" type="error" />
         </div>
