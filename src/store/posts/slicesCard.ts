@@ -20,10 +20,14 @@ export const cardSlice = createSlice({
       state.isError = false;
     },
     getCardSuccess: (state, action: PayloadAction<number>) => {
-      const searchId: number = action.payload;
-      const news: NewsInterface = arrayNews.find((elem) => elem.id === searchId)!;
+      const news: NewsInterface | undefined = arrayNews.find((elem) => elem.id === action.payload);
       state.isLoading = false;
-      state.detailCard = news;
+      if (news !== undefined) {
+        state.detailCard = news;
+      }
+      else {
+        state.detailCard = cardInitialState.detailCard;
+      }
       state.isError = false;
     },
     getCardFail: state => {
