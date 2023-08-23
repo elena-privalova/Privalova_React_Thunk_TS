@@ -1,11 +1,10 @@
 import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
-import Header from '../../components/Header/Header.tsx';
-import { getPostsSuccess } from '../../store/posts/slices.ts';
-import PostsList from '../../components/PostsList/PostsList.tsx';
-import ErrorAlert from '../../components/Error/ErrorAlert.tsx';
+import { getPostsSuccess } from '../../store/posts/slicesPosts';
+import PostsList from '../../components/PostsList/PostsList';
+import WarningAlert from '../../components/Error/WarningAlert';
 
 import { RootState } from './types';
 import './main.css';
@@ -20,28 +19,27 @@ const Main: FC = () => {
   }, []);
   
   return (
-    <div className="main">
-      <Header />
+    <>
       {isLoading && (
-        <div className="main__skeletons-group">
+        <div className="container__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
           <Skeleton variant='rounded' width={300} height={600}/>
-      </div>
+        </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
         <PostsList array={postsList} />
       )}
       {postsList.length === 0 && !isError && (
-        <div className="main__empty">
-          <ErrorAlert text='Новых новостей нет' />
+        <div className="container__empty">
+          <WarningAlert text="Новых новостей нет" type="info" />
         </div>
       )}
       {isError && (
-        <div className="main__empty">
-          <ErrorAlert text='Ошибка' />
+        <div className="container__empty">
+          <WarningAlert text="Ошибка" type="error" />
         </div>
       )}
-    </div>
+    </>
   )
 }
 

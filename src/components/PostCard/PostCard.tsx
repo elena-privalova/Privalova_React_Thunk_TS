@@ -1,31 +1,40 @@
 import { type FC } from 'react';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
-import Rating from '@mui/material/Rating';
+import { useNavigate } from 'react-router-dom';
+import {
+  CardMedia,
+  Chip,
+  Rating
+} from '@mui/material';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
-import { getFormattedDate } from '../../utils/getFormattedDate.ts';
+import { getFormattedDate } from '../../utils/getFormattedDate';
 import defaultImage from '../../images/defaultPicture.jpg';
 
 import { NewsInterface } from './types';
 import { 
-  StyledCard, 
+  StyledPostCard, 
   StyledCardContent,
   StyledCardHeader,
   StyledCardHeaderBlock,
   StyledTypography 
-} from './styles.ts';
+} from './styles';
 import './postCard.css';
 
 const PostCard: FC<NewsInterface> = (news) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`news/${news.id}`);
+  }
+
   return (
-    <StyledCard className="card">
+    <StyledPostCard className="card" onClick={handleClick}>
       <div className="card__header header">
         <StyledCardHeader
           title={news.title}
-          titleTypographyProps = {StyledCardHeaderBlock.titleTypographyProps}
+          titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
           subheader={news.author.email}
-          subheaderTypographyProps = {StyledCardHeaderBlock.subheaderTypographyProps}
+          subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
         />
         <span className="header__date">{getFormattedDate(news.createdAt)}</span>
       </div>
@@ -33,14 +42,14 @@ const PostCard: FC<NewsInterface> = (news) => {
         <CardMedia
           component="img"
           height="180px"
-          image={defaultImage ?? news.coverPath}
+          image={news.coverPath ?? defaultImage}
           alt="News image"
         />
       </div>
       <StyledCardContent>
         <StyledTypography variant="body2" color="text.secondary">{news.text}</StyledTypography>
         <div className="card__tags">
-          {news.tags.map(tag => <Chip key={tag.id} label={tag.value} />)}
+          {news.tags.map((tag) => <Chip key={tag.id} label={tag.value} />)}
         </div>
         <div className="card__rating-group rating-group">
           <Rating name="Rating" readOnly value={news.rating} />
@@ -50,7 +59,7 @@ const PostCard: FC<NewsInterface> = (news) => {
           </div>
         </div>
       </StyledCardContent>
-    </StyledCard>
+    </StyledPostCard>
   )
 }
 

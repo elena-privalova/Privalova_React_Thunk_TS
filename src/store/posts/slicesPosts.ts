@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NewsInterface } from '../../components/PostCard/types';
 
-import { PostState } from './types';
+import { PostsState } from './types';
 
-const arrayNews: NewsInterface[] = [ 
+export const arrayNews: NewsInterface[] = [ 
   {
     id: 1,
     title: 'Shrimp and Chorizo Paella',
@@ -54,15 +54,15 @@ const arrayNews: NewsInterface[] = [
     tags: [
       {
         id: 1,
-        value: '#1',
+        value: '#4',
       },
       {
         id: 2,
-        value: '#2',
+        value: '#5',
       },
       {
         id: 3,
-        value: '#3',
+        value: '#6',
       },
     ],
     rating: 5,
@@ -71,7 +71,7 @@ const arrayNews: NewsInterface[] = [
   }
 ];
 
-const PostsInitialState: PostState = {
+const postsInitialState: PostsState = {
   isLoading: false,
   postsList: [],
   isError: false
@@ -79,7 +79,7 @@ const PostsInitialState: PostState = {
 
 export const postsSlice = createSlice({
   name: 'posts',
-  initialState: PostsInitialState,
+  initialState: postsInitialState,
   reducers: {
     getPostsRequest: state => {
       state.isLoading = true;

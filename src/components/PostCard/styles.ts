@@ -1,12 +1,14 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardHeader
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import './postCard.css';
 
-export const StyledCard = styled(Card)({
+export const StyledPostCard = styled(Card)({
   userSelect: 'none',
   display: 'flex',
   flexDirection: 'column',
@@ -40,7 +42,6 @@ export const StyledCardHeaderBlock = {
     fontWeight: 'bolder'
   },
   subheaderTypographyProps: {
-    marginLeft: '10px',
     fontFamily: 'Raleway',
     color: '#4F493F',
     fontSize: '16px',

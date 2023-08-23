@@ -1,7 +1,13 @@
 import { NewsInterface } from '../../../components/PostCard/types';
 
-interface PostState {
+interface PostsState {
   isLoading: boolean,
   postsList: NewsInterface[],
-  isError: boolean
+  isError: boolean,
+}
+
+interface CardState {
+  isLoading: boolean,
+  detailCard: NewsInterface | null
+  isError: boolean,
 }
