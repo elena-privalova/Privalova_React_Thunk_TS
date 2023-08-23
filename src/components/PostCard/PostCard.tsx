@@ -40,7 +40,7 @@ const PostCard: FC<NewsInterface> = (news) => {
         <CardMedia
           component="img"
           height="180px"
-          image={defaultImage ?? news.coverPath}
+          image={news.coverPath ?? defaultImage}
           alt="News image"
         />
       </div>

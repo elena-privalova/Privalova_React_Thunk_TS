@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 
 import { getFormattedDate } from '../../utils/getFormattedDate.ts';
-import defaultPicture from '../../images/defaultPicture.jpg';
+import defaultImage from '../../images/defaultPicture.jpg';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles.ts';
 import { NewsInterface } from '../PostCard/types';
 
@@ -30,7 +30,7 @@ const DetailCard: FC<NewsInterface> = (news) => {
         <CardMedia className="picture"
           component="img"
           height="380px"
-          image={defaultPicture ?? news.coverPath}
+          image={news.coverPath ?? defaultImage}
           alt="News image"
         />
       </div>
