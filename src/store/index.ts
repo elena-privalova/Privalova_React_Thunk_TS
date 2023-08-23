@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import postsReducer from './posts/slicesPosts';
-import postReducer from './posts/slicesPost';
+import postReducer from './posts/slicesCard';
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

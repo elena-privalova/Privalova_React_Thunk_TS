@@ -6,8 +6,8 @@ interface PostsState {
   isError: boolean,
 }
 
-interface PostState {
+interface CardState {
   isLoading: boolean,
-  detailCard: NewsInterface
+  detailCard: NewsInterface | null
   isError: boolean,
 }

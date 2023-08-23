@@ -1,3 +1,3 @@
-export interface ErrorProps {
+export interface WarningProps {
   text: string
 }

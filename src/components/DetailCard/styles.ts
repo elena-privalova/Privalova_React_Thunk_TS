@@ -9,7 +9,7 @@ export const StyledDetailCard = styled(Card)({
   flexDirection: 'column',
   justifyContent: 'space-around',
   gap: '10px',
-  padding: '10px 10px',
+  padding: '10px',
   marginBottom: '10px',
-  backgroundColor: '#C1B59F'
+  backgroundColor: '#E3DED1'
 });

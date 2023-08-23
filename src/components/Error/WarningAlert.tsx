@@ -2,9 +2,9 @@
 import { type FC } from 'react';
 import { Alert, AlertTitle } from '@mui/material';  
 
-import { ErrorProps } from './types';
+import { WarningProps } from './types';
 
-const ErrorAlert: FC<ErrorProps> = (props) => {
+const WarningAlert: FC<WarningProps> = (props) => {
   return (
     <Alert severity="error">
       <AlertTitle>Error</AlertTitle>
@@ -13,4 +13,4 @@ const ErrorAlert: FC<ErrorProps> = (props) => {
   )
 }
 
-export default ErrorAlert;
+export default WarningAlert;

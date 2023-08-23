@@ -71,7 +71,7 @@ export const arrayNews: NewsInterface[] = [
   }
 ];
 
-const PostsInitialState: PostsState = {
+const postsInitialState: PostsState = {
   isLoading: false,
   postsList: [],
   isError: false
@@ -79,7 +79,7 @@ const PostsInitialState: PostsState = {
 
 export const postsSlice = createSlice({
   name: 'posts',
-  initialState: PostsInitialState,
+  initialState: postsInitialState,
   reducers: {
     getPostsRequest: state => {
       state.isLoading = true;

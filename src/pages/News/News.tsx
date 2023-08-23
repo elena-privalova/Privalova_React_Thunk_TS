@@ -1,25 +1,25 @@
 import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import Skeleton from '@mui/material/Skeleton';
 
 import DetailCard from '../../components/DetailCard/DetailCard';
+import { getPostSuccess } from '../../store/posts/slicesCard';
+import WarningAlert from '../../components/Error/WarningAlert';
 import { RootState } from '../Main/types';
-import { getPostSuccess } from '../../store/posts/slicesPost';
-import ErrorAlert from '../../components/Error/ErrorAlert';
 
 import './news.css';
 
 const News: FC = () => {
-  const idNews = useParams().id;
+  const { id } = useParams();
 
   const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.post);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getPostSuccess(idNews));
-  }, []);
+    dispatch(getPostSuccess(id));
+  }, [id]);
 
   return (
     <>
@@ -35,7 +35,7 @@ const News: FC = () => {
       )}
       {isError && (
         <div className="container__empty">
-          <ErrorAlert text='Ошибка' />
+          <WarningAlert text='Ошибка' />
         </div>
       )}
     </>

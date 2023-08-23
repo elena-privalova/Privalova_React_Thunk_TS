@@ -2,35 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NewsInterface } from '../../components/PostCard/types';
 
-import { PostState } from './types';
+import { CardState } from './types';
 import { arrayNews } from './slicesPosts';
 
-const PostInitialState: PostState = {
+const cardInitialState: CardState = {
   isLoading: false,
-  detailCard: {
-    id: 0,
-    title: '',
-    text: '',
-    coverPath: '',
-    author: {
-      id: 0,
-      email: ''
-    },
-    tags: [],
-    rating: 0,
-    commentsCount: 0,
-    createdAt: new Date('0000-01-01')
-  },
+  detailCard: null,
   isError: false
 }
 
-export const postSlice = createSlice({
+export const cardSlice = createSlice({
   name: 'post',
-  initialState: PostInitialState,
+  initialState: cardInitialState,
   reducers: {
     getPostRequest: state => {
       state.isLoading = true;
-      state.detailCard = state.detailCard;
       state.isError = false;
     },
     getPostSuccess: (state, action) => {
@@ -42,11 +28,11 @@ export const postSlice = createSlice({
     },
     getPostFail: state => {
       state.isLoading = false;
-      state.detailCard = state.detailCard;
+      state.detailCard = cardInitialState.detailCard;
       state.isError = true;
     }   
   }
 });
 
-export const { getPostRequest, getPostSuccess, getPostFail } = postSlice.actions;
-export default postSlice.reducer;
+export const { getPostRequest, getPostSuccess, getPostFail } = cardSlice.actions;
+export default cardSlice.reducer;
