@@ -1,9 +1,9 @@
 import { type FC } from 'react';
 import { useRoutes } from 'react-router-dom';
 
-import Main from './pages/Main/Main.tsx';
-import News from './pages/News/News.tsx';
-import Layout from './components/Layout/Layout.tsx';
+import Main from './pages/Main/Main';
+import News from './pages/News/News';
+import Layout from './components/Layout/Layout';
 
 const App: FC = () => {
   return useRoutes([

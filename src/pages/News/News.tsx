@@ -12,14 +12,15 @@ import './news.css';
 
 const News: FC = () => {
   const { id } = useParams();
+  const formattedId = Number(id);
 
   const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.card);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getCardSuccess(id));
-  }, [id]);
+    dispatch(getCardSuccess(formattedId));
+  }, [formattedId]);
 
   return (
     <>

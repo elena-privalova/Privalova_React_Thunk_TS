@@ -23,11 +23,12 @@ p.detail-card__text {
   width: 100%;
 }
 
-div.detail-card__tags * {
+div.detail-card__tags span {
   display: flex;
   align-items: center;
-  height: 40px;
-  width: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100px;
   font-size: 16px;
   color: #4F493F;
   border-radius: 50%;

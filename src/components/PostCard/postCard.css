@@ -34,7 +34,7 @@ span.css-mpwysi-MuiTypography-root {
   height: 70px;
 }
 
-div.card__tags * {
+div.card__tags span {
   color: #4F493F
 }
 

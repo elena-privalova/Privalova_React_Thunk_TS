@@ -2,9 +2,9 @@ import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
-import { getPostsSuccess } from '../../store/posts/slicesPosts.ts';
-import PostsList from '../../components/PostsList/PostsList.tsx';
-import WarningAlert from '../../components/Error/WarningAlert.tsx';
+import { getPostsSuccess } from '../../store/posts/slicesPosts';
+import PostsList from '../../components/PostsList/PostsList';
+import WarningAlert from '../../components/Error/WarningAlert';
 
 import { RootState } from './types';
 import './main.css';

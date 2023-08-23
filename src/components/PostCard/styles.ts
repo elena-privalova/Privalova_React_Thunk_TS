@@ -1,7 +1,9 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardHeader
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import './postCard.css';

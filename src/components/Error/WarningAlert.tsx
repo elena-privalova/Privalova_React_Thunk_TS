@@ -1,6 +1,6 @@
 
 import { type FC } from 'react';
-import { Alert } from '@mui/material';  
+import Alert from '@mui/material/Alert';  
 
 import { WarningProps } from './types';
 

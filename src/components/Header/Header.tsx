@@ -8,7 +8,7 @@ import {
   StyledButton, 
   StyledToolbar, 
   StyledTypography 
-} from './styles.ts';
+} from './styles';
 import './header.css';
 
 const Header: FC = () => {

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { NewsInterface } from '../../components/PostCard/types';
 
@@ -19,9 +19,9 @@ export const cardSlice = createSlice({
       state.isLoading = true;
       state.isError = false;
     },
-    getCardSuccess: (state, action) => {
-      const searchId = Number(action.payload);
-      const news: NewsInterface = arrayNews.filter(elem => elem.id === searchId)[0];
+    getCardSuccess: (state, action: PayloadAction<number>) => {
+      const searchId: number = action.payload;
+      const news: NewsInterface = arrayNews.find((elem) => elem.id === searchId)!;
       state.isLoading = false;
       state.detailCard = news;
       state.isError = false;

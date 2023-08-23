@@ -1,17 +1,19 @@
 import { type FC } from 'react';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
+import { 
+  CardMedia,
+  Chip,
+  Rating,
+  Typography,
+  CardContent,
+  Avatar,
+} from '@mui/material';
 
-import { getFormattedDate } from '../../utils/getFormattedDate.ts';
+import { getFormattedDate } from '../../utils/getFormattedDate';
 import defaultImage from '../../images/defaultPicture.jpg';
-import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles.ts';
+import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
 import { NewsInterface } from '../PostCard/types';
 
-import { StyledDetailCard } from './styles.ts';
+import { StyledDetailCard } from './styles';
 import './detailCard.css';
 
 const DetailCard: FC<NewsInterface> = (news) => {
@@ -22,12 +24,13 @@ const DetailCard: FC<NewsInterface> = (news) => {
           <Avatar>{news.author.avatarPath}</Avatar>
         }
         title={news.title}
-        titleTypographyProps = {StyledCardHeaderBlock.titleTypographyProps}
+        titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
         subheader={news.author.email}
-        subheaderTypographyProps = {StyledCardHeaderBlock.subheaderTypographyProps}
+        subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
       />
       <div className="detail-card__picture picture">
-        <CardMedia className="picture"
+        <CardMedia 
+          className="picture"
           component="img"
           height="380px"
           image={news.coverPath ?? defaultImage}
@@ -35,9 +38,15 @@ const DetailCard: FC<NewsInterface> = (news) => {
         />
       </div>
       <CardContent>
-        <Typography className="detail-card__text" variant="body2" color="text.secondary">{news.text}</Typography>
+        <Typography 
+          className="detail-card__text" 
+          variant="body2" 
+          color="text.secondary"
+        >
+          {news.text}
+        </Typography>
         <div className="detail-card__tags">
-          {news.tags.map(tag => <Chip key={tag.id} label={tag.value} />)}
+          {news.tags.map((tag) => <Chip key={tag.id} label={tag.value} />)}
         </div>
         <Rating name="Rating" readOnly value={news.rating} />
       </CardContent>
