@@ -18,9 +18,9 @@ export const cardSlice = createSlice({
       state.isError = false;
     },
     getCardSuccess: (state, action: PayloadAction<number>) => {
-      const news = arrayNews.find((elem) => elem.id === action.payload);
+      const news = arrayNews.find((elem) => elem.id === action.payload) ?? null;
       state.isLoading = false;
-      if (news != undefined) {
+      if (news != null) {
         state.detailCard = news;
       }
       else {
