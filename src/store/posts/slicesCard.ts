@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { NewsInterface } from '../../components/PostCard/types';
-
 import { CardState } from './types';
 import { arrayNews } from './slicesPosts';
 
@@ -20,9 +18,9 @@ export const cardSlice = createSlice({
       state.isError = false;
     },
     getCardSuccess: (state, action: PayloadAction<number>) => {
-      const news: NewsInterface | undefined = arrayNews.find((elem) => elem.id === action.payload);
+      const news = arrayNews.find((elem) => elem.id === action.payload);
       state.isLoading = false;
-      if (news !== undefined) {
+      if (news != undefined) {
         state.detailCard = news;
       }
       else {
