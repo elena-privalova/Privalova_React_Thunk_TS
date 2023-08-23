@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 
 import DetailCard from '../../components/DetailCard/DetailCard';
-import { getPostSuccess } from '../../store/posts/slicesCard';
+import { getCardSuccess } from '../../store/posts/slicesCard';
 import WarningAlert from '../../components/Error/WarningAlert';
 import { RootState } from '../Main/types';
 
@@ -13,12 +13,12 @@ import './news.css';
 const News: FC = () => {
   const { id } = useParams();
 
-  const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.post);
+  const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.card);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getPostSuccess(id));
+    dispatch(getCardSuccess(id));
   }, [id]);
 
   return (
@@ -35,7 +35,7 @@ const News: FC = () => {
       )}
       {isError && (
         <div className="container__empty">
-          <WarningAlert text='Ошибка' />
+          <WarningAlert text="Ошибка" type="error" />
         </div>
       )}
     </>

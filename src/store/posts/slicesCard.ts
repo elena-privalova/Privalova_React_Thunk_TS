@@ -12,21 +12,21 @@ const cardInitialState: CardState = {
 }
 
 export const cardSlice = createSlice({
-  name: 'post',
+  name: 'card',
   initialState: cardInitialState,
   reducers: {
-    getPostRequest: state => {
+    getCardRequest: state => {
       state.isLoading = true;
       state.isError = false;
     },
-    getPostSuccess: (state, action) => {
+    getCardSuccess: (state, action) => {
       const searchId = Number(action.payload);
       const news: NewsInterface = arrayNews.filter(elem => elem.id === searchId)[0];
       state.isLoading = false;
       state.detailCard = news;
       state.isError = false;
     },
-    getPostFail: state => {
+    getCardFail: state => {
       state.isLoading = false;
       state.detailCard = cardInitialState.detailCard;
       state.isError = true;
@@ -34,5 +34,5 @@ export const cardSlice = createSlice({
   }
 });
 
-export const { getPostRequest, getPostSuccess, getPostFail } = cardSlice.actions;
+export const { getCardRequest, getCardSuccess, getCardFail } = cardSlice.actions;
 export default cardSlice.reducer;

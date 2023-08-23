@@ -31,12 +31,12 @@ const Main: FC = () => {
       )}
       {postsList.length === 0 && !isError && (
         <div className="container__empty">
-          <WarningAlert text='Новых новостей нет' />
+          <WarningAlert text="Новых новостей нет" type="info" />
         </div>
       )}
       {isError && (
         <div className="container__empty">
-          <WarningAlert text='Ошибка' />
+          <WarningAlert text="Ошибка" type="error" />
         </div>
       )}
     </>
