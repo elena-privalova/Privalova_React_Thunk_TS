@@ -1,12 +1,23 @@
 import { type FC } from 'react';
+import { Avatar } from '@mui/material';
 
 import { CommentsInterface } from '../../store/comments/types';
+import { getFormattedDate } from '../../utils/getFormattedDate';
 
-import { StyledItem } from './styles';
+import { StyledItem, StyledItemHeader } from './styles';
 
 const CommentItem: FC<CommentsInterface>  = (props) => {
   return (
-    <StyledItem>{props.text}</StyledItem>
+    <StyledItem>
+      <StyledItemHeader>
+        <Avatar>{props.author.avatarPath}</Avatar>
+        <span>{props.author.email}</span>
+      </StyledItemHeader>
+      <div>
+        {props.text}
+      </div>
+      <span>{getFormattedDate(props.createdAt)}</span>
+    </StyledItem>
   );
 }
 
