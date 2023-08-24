@@ -16,7 +16,6 @@ import { NewsInterface } from '../PostCard/types';
 import { StyledDetailCard } from './styles';
 import './detailCard.css';
 
-
 const DetailCard: FC<NewsInterface> = (news) => {
   return (
     <StyledDetailCard className="detail-card">
