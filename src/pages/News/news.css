@@ -1,7 +1,21 @@
 .container__post {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+}
+
+.post__comments-group {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 10px 0;
+  padding-top: 10px;
+  color: #4F493F;
+  font-size: 18px;
+}
+
+.post__comments-group span {
+  margin-bottom: 20px;
 }
