@@ -22,6 +22,10 @@
   gap: 10px;
 }
 
+li.search-group__item-1 {
+  border-top: 1px solid #908471
+}
+
 .buttons-group {
   display: flex;
   gap: 5px
