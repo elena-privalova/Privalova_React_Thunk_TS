@@ -13,7 +13,8 @@ export const StyledItem = styled(Paper)(({ theme }) => ({
   '& >span': {
     marginLeft: '87%',
     marginTop: '10px',
-    marginBottom: 0
+    marginBottom: 0,
+    fontFamily: 'Raleway'
   }
 }));
 

@@ -11,7 +11,7 @@ interface CommentsInterface {
 }
 
 interface CommentsListState {
-  isLoading: boolean,
+  isDownloaded: boolean,
   commentsList: CommentsInterface[],
-  isError: boolean
+  isFailed: boolean
 }

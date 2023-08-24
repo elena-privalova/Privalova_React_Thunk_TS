@@ -13,20 +13,6 @@ p.detail-card__text {
   font-size: 18px;
 }
 
-.detail-card__comments-group {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-  padding-top: 10px;
-  color: #4F493F;
-  font-size: 18px;
-  border-top: 1px solid #4F493F;
-}
-
-.detail-card__comments-group span {
-  margin-bottom: 20px;
-}
-
 .detail-card__tags {
   display: flex;
   gap: 5px;

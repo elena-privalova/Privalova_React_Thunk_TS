@@ -28,9 +28,9 @@ const commentsArray: CommentsInterface[] = [
 ]
 
 const commentsInitialState: CommentsListState = {
-  isLoading: false,
+  isDownloaded: false,
   commentsList: [],
-  isError: false
+  isFailed: false
 }
 
 const commentsSlice = createSlice({
@@ -38,19 +38,20 @@ const commentsSlice = createSlice({
   initialState: commentsInitialState,
   reducers: {
     getCommetsRequest: state => {
-      state.isLoading = true;
+      state.isDownloaded = true;
       state.commentsList = [];
-      state.isError = false;
+      state.isFailed = false;
     },
-    getCommetsSuccess: state => {
-      state.isLoading = false;
-      state.commentsList = commentsArray;
-      state.isError = false;
+    getCommetsSuccess: (state, action) => {
+      const comments = commentsArray.filter((element) => element.postId === action.payload);
+      state.isDownloaded = false;
+      state.commentsList = comments;
+      state.isFailed = false;
     },
     getCommetsFail: state => {
-      state.isLoading = false;
+      state.isDownloaded = false;
       state.commentsList = [];
-      state.isError = true;
+      state.isFailed = true;
     }
   }
 })
