@@ -12,7 +12,8 @@ const commentsArray: CommentsInterface[] = [
       id: 1,
       email: "v.petrov@test.com",
     },
-    createdAt: new Date()
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ const commentsArray: CommentsInterface[] = [
       id: 1,
       email: "v.petrov@test.com",
     },
-    createdAt: new Date()
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ]
 

@@ -7,7 +7,7 @@ interface CommentsInterface {
   postId: number,
   author: AuthorInterface,
   createdAt: Date,
-  updatedAt?: Date
+  updatedAt: Date
 }
 
 interface CommentsListState {
