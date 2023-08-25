@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NewsInterface } from '../../components/PostCard/types';
 
-import { PostsState } from './types';
+import { ActionSearchState, PostsState } from './types';
 
 export const arrayNews: NewsInterface[] = [ 
   {
@@ -90,10 +90,10 @@ export const postsSlice = createSlice({
       state.postsList = arrayNews;
       state.isError = true;
     },
-    setSearchText: (state, action) => {
+    setSearchText: (state, action: ActionSearchState) => {
       state.searchText = action.payload;
     },
-    setFilterType: (state, action) => {
+    setFilterType: (state, action: ActionSearchState) => {
       state.filterType = action.payload;
     }
   }

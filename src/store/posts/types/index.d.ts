@@ -13,3 +13,8 @@ interface CardState {
   detailCard: NewsInterface | null
   isError: boolean,
 }
+
+interface ActionSearchState {
+  payload: string,
+  type: string
+}

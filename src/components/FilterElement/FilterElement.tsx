@@ -21,7 +21,9 @@ const FilterElement: FC = () => {
   const dispatch = useDispatch();
 
   const handleChangeFilter = (event: SelectChangeEvent<unknown>) => {
-    dispatch(setFilterType(event.target.value));
+    if (typeof event.target.value === 'string') {
+      dispatch(setFilterType(event.target.value));
+    }
   }
   
   return (

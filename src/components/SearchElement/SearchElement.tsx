@@ -13,10 +13,8 @@ import {
 const SearchElement: FC = () => {
   const dispatch = useDispatch();
 
-  const handleChangeSearch = (event: ChangeEvent) => {
-    if (event.target instanceof HTMLInputElement) {
-      dispatch(setSearchText(event.target.value));
-    }
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchText(event.target.value));
   }
 
   return (

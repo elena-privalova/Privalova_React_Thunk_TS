@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { useEffect, type FC, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -24,6 +24,11 @@ const Main: FC = () => {
   useEffect(() => {
     dispatch(getPostsSuccess())
   }, []);
+
+  const memoizedGetFilterArray = useMemo(() =>
+    getFilterArray(postsList, searchText, filterType), 
+    [postsList, searchText, filterType]
+  );
   
   return (
     <>
@@ -34,7 +39,7 @@ const Main: FC = () => {
         </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
-        <PostsList array={getFilterArray(postsList, searchText, filterType)} />
+        <PostsList array={memoizedGetFilterArray} />
       )}
       {postsList.length === 0 && !isError && (
         <div className="container__empty">
