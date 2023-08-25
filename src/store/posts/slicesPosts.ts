@@ -2,25 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NewsInterface } from '../../components/PostCard/types';
 
-import { PostsState } from './types';
+import { ActionSearchState, PostsState } from './types';
 
 export const arrayNews: NewsInterface[] = [ 
   {
     id: 1,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like`,
+    title: 'Shrmp and Chorizo Paella',
+    text: ``,
     coverPath: '',
     author: {
       id: 1,
-      email: 'privalov_ivan@mail.ru'
+      email: 'prvalov_van@mal.ru'
     },
     tags: [
       {
@@ -74,7 +66,9 @@ export const arrayNews: NewsInterface[] = [
 const postsInitialState: PostsState = {
   isLoading: false,
   postsList: [],
-  isError: false
+  isError: false,
+  searchText: '',
+  filterType: 'all'
 }
 
 export const postsSlice = createSlice({
@@ -95,9 +89,21 @@ export const postsSlice = createSlice({
       state.isLoading = false;
       state.postsList = arrayNews;
       state.isError = true;
-    }   
+    },
+    setSearchText: (state, action: ActionSearchState) => {
+      state.searchText = action.payload;
+    },
+    setFilterType: (state, action: ActionSearchState) => {
+      state.filterType = action.payload;
+    }
   }
 });
 
-export const { getPostsRequest, getPostsSuccess, getPostsFail } = postsSlice.actions;
+export const { 
+  getPostsRequest, 
+  getPostsSuccess, 
+  getPostsFail, 
+  setSearchText, 
+  setFilterType 
+} = postsSlice.actions;
 export default postsSlice.reducer;

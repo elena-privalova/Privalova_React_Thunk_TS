@@ -24,4 +24,4 @@ export const StyledItemHeader = styled('div')({
   '& span': {
     marginTop: '8px'
   }
-})
+});

@@ -1,6 +1,8 @@
 import { type FC } from 'react';
 import AppBar from '@mui/material/AppBar';
 
+import SearchElement from '../SearchElement/SearchElement';
+import FilterElement from '../FilterElement/FilterElement';
 import newsIcon from '../../images/newsIcon.svg';
 
 import { 
@@ -19,6 +21,10 @@ const Header: FC = () => {
           <div className='logo-group'>
             <StyledTypography>News</StyledTypography>
             <img className='logo-group__logo' src={newsIcon} />
+          </div>
+          <div className="search-group">
+            <SearchElement />
+            <FilterElement />
           </div>
           <div className="buttons-group">
             <StyledButton variant="contained">Sign in</StyledButton>

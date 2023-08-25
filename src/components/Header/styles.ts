@@ -1,6 +1,8 @@
-import Button from '@mui/material/Button';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import {
+  Toolbar,
+  Typography,
+  Button
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
@@ -26,4 +28,4 @@ export const StyledButton = styled(Button)({
   '&:hover': {
     backgroundColor: '#4F493F'
   }
-})
+});

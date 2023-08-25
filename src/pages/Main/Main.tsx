@@ -1,22 +1,34 @@
-import { useEffect, type FC } from 'react';
+import { useEffect, type FC, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
 import { getPostsSuccess } from '../../store/posts/slicesPosts';
 import PostsList from '../../components/PostsList/PostsList';
 import WarningAlert from '../../components/Error/WarningAlert';
+import { getFilterArray } from '../../utils/getFilterArray';
 
 import { RootState } from './types';
 import './main.css';
 
 const Main: FC = () => {
-  const { isLoading, postsList, isError } = useSelector((state: RootState) => state.posts);
+  const { 
+    isLoading, 
+    postsList, 
+    isError, 
+    searchText, 
+    filterType 
+  } = useSelector((state: RootState) => state.posts);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(getPostsSuccess())
   }, []);
+
+  const memoizedFilterArray = useMemo(() =>
+    getFilterArray(postsList, searchText, filterType), 
+    [postsList, searchText, filterType]
+  );
   
   return (
     <>
@@ -27,11 +39,11 @@ const Main: FC = () => {
         </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
-        <PostsList array={postsList} />
+        <PostsList array={memoizedFilterArray} />
       )}
       {postsList.length === 0 && !isError && (
         <div className="container__empty">
-          <WarningAlert text="Новых новостей нет" type="info" />
+          <WarningAlert text="Новостей нет" type="info" />
         </div>
       )}
       {isError && (
