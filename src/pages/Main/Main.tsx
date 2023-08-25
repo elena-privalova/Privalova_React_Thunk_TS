@@ -25,7 +25,7 @@ const Main: FC = () => {
     dispatch(getPostsSuccess())
   }, []);
 
-  const memoizedGetFilterArray = useMemo(() =>
+  const memoizedFilterArray = useMemo(() =>
     getFilterArray(postsList, searchText, filterType), 
     [postsList, searchText, filterType]
   );
@@ -39,7 +39,7 @@ const Main: FC = () => {
         </div>
       )}
       {postsList.length > 0 && !isError && !isLoading && (
-        <PostsList array={memoizedGetFilterArray} />
+        <PostsList array={memoizedFilterArray} />
       )}
       {postsList.length === 0 && !isError && (
         <div className="container__empty">
