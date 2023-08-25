@@ -1,8 +1,13 @@
-import { useState, type FC } from 'react';
-import { useDispatch } from 'react-redux';
-import FormControl from '@mui/material/FormControl';
+import { type FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+  SelectChangeEvent,
+  FormControl
+} from '@mui/material';
+
 
 import { setFilterType } from '../../store/posts/slicesPosts';
+import { RootState } from '../../pages/Main/types';
 
 import {  
   StyledInput,
@@ -11,20 +16,19 @@ import {
 } from './styles';
 
 const FilterElement: FC = () => {
-  const [typeFilter, setTypeFilter] = useState('all');
+  const { filterType } = useSelector((state: RootState) => state.posts);
 
   const dispatch = useDispatch();
 
-  const handleChangeFilter = (event) => {
-    setTypeFilter(event.target.value);
+  const handleChangeFilter = (event: SelectChangeEvent<unknown>) => {
     dispatch(setFilterType(event.target.value));
   }
-
+  
   return (
     <FormControl>
       <StyledSelect
         input={ <StyledInput /> }
-        value={typeFilter}
+        value={filterType}
         onChange={handleChangeFilter}
       >
         <StyledMenuItem value="all" className="search-group__item-1">All</StyledMenuItem>

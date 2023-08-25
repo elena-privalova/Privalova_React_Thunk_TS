@@ -99,5 +99,11 @@ export const postsSlice = createSlice({
   }
 });
 
-export const { getPostsRequest, getPostsSuccess, getPostsFail, setSearchText, setFilterType } = postsSlice.actions;
+export const { 
+  getPostsRequest, 
+  getPostsSuccess, 
+  getPostsFail, 
+  setSearchText, 
+  setFilterType 
+} = postsSlice.actions;
 export default postsSlice.reducer;

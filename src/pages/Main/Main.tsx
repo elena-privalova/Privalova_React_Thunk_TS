@@ -11,7 +11,13 @@ import { RootState } from './types';
 import './main.css';
 
 const Main: FC = () => {
-  const { isLoading, postsList, isError, searchText, filterType } = useSelector((state: RootState) => state.posts);
+  const { 
+    isLoading, 
+    postsList, 
+    isError, 
+    searchText, 
+    filterType 
+  } = useSelector((state: RootState) => state.posts);
   
   const dispatch = useDispatch();
   
