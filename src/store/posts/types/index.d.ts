@@ -1,9 +1,11 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+
 import { NewsInterface } from '../../../components/PostCard/types';
 
 interface PostsState {
   isLoading: boolean,
   postsList: NewsInterface[],
-  isError: boolean,
+  isError: string,
   searchText: string,
   filterType: string,
 }
@@ -17,4 +19,9 @@ interface CardState {
 interface ActionSearchState {
   payload: string,
   type: string,
+}
+
+interface FetchDataInterface {
+  posts: NewsInterface[],
+  total: number
 }

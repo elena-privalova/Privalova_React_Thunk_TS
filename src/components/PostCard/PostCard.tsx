@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { BaseSyntheticEvent, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
@@ -27,6 +27,10 @@ const PostCard: FC<NewsInterface> = (news) => {
     navigate(`news/${news.id}`);
   }
 
+  const handleError = (e: BaseSyntheticEvent) => {
+    e.target.src = defaultImage;
+  }
+
   return (
     <StyledPostCard className="card" onClick={handleClick}>
       <div className="card__header header">
@@ -42,7 +46,8 @@ const PostCard: FC<NewsInterface> = (news) => {
         <CardMedia
           component="img"
           height="180px"
-          image={news.coverPath ?? defaultImage}
+          image={`${import.meta.env.VITE_APP_API_URL}${news.coverPath}`}
+          onError={handleError}
           alt="News image"
         />
       </div>

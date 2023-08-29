@@ -1,16 +1,18 @@
 interface AuthorInterface {
   id: number,
+  firstName: string,
+  lastName: string,
   email: string,
-  avatarPath?: string,
-  createdAt?: Date,
-  updatedAt?: Date
+  avatarPath: string | null,
+  createdAt: string,
+  updatedAt: string,
 }
 
 interface TagsInterface {
   id: number,
   value: string,
-  createdAt?: Date,
-  updatedAt?: Date
+  createdAt: string,
+  updatedAt: string
 }
 
 export interface NewsInterface {
@@ -18,10 +20,11 @@ export interface NewsInterface {
   title: string,
   text: string,
   coverPath: string,
-  author: AuthorInterface,
-  tags: TagsInterface[],
+  authorId: number,
+  createdAt: string,
+  updatedAt: string,
   rating: number,
   commentsCount: number,
-  createdAt: Date,
-  updatedAt?: Date
+  author: AuthorInterface,
+  tags: TagsInterface[],
 }
