@@ -1,8 +1,8 @@
-import { useEffect, type FC, useMemo } from 'react';
+import React, { useEffect, type FC, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
-import { getPosts } from '../../store/posts';
+import getPosts from '../../store/posts';
 import PostsList from '../../components/PostsList/PostsList';
 import WarningAlert from '../../components/Error/WarningAlert';
 import { getFilterArray } from '../../utils/getFilterArray';
@@ -29,6 +29,8 @@ const Main: FC = () => {
     getFilterArray(postsList, searchText, filterType), 
     [postsList, searchText, filterType]
   );
+
+  const PostsListMemo = React.memo(PostsList);
   
   return (
     <>
@@ -39,7 +41,7 @@ const Main: FC = () => {
         </div>
       )}
       {postsList.length > 0 && isError === '' && !isLoading && (
-        <PostsList array={memoizedFilterArray} />
+        <PostsListMemo array={memoizedFilterArray} />
       )}
       {postsList.length === 0 && isError === '' && !isLoading && (
         <div className="container__empty">
