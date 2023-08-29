@@ -2,7 +2,7 @@ import React, { useEffect, type FC, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
-import getPosts from '../../store/posts';
+import { getPosts } from '../../store/posts';
 import PostsList from '../../components/PostsList/PostsList';
 import WarningAlert from '../../components/Error/WarningAlert';
 import { getFilterArray } from '../../utils/getFilterArray';
