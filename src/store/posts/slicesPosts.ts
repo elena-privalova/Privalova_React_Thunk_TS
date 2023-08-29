@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NewsInterface } from '../../components/PostCard/types';
 
 import { ActionSearchState, PostsState } from './types';
+import { getPosts } from './thunks';
 
 export const arrayNews: NewsInterface[] = [ 
   {
@@ -10,63 +11,35 @@ export const arrayNews: NewsInterface[] = [
     title: 'Shrmp and Chorizo Paella',
     text: ``,
     coverPath: '',
+    authorId: 1,
+    createdAt: '',
+    updatedAt: '',
+    rating: 4,
+    commentsCount: 7,
     author: {
       id: 1,
-      email: 'prvalov_van@mal.ru'
+      firstName: '',
+      lastName: '',
+      email: 'prvalov_van@mal.ru',
+      avatarPath: '',
+      createdAt: '',
+      updatedAt: '',
     },
     tags: [
       {
         id: 1,
         value: '#1',
-      },
-      {
-        id: 2,
-        value: '#2',
-      },
-      {
-        id: 3,
-        value: '#3',
+        createdAt: '',
+        updatedAt: '',
       },
     ],
-    rating: 4,
-    commentsCount: 7,
-    createdAt: new Date()
   },
-  {
-    id: 2,
-    title: 'Shrimp and Chorizo Paella',
-    text: `This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.`,
-    coverPath: '',
-    author: {
-      id: 2,
-      email: 'privalov_ivan@mail.ru'
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#4',
-      },
-      {
-        id: 2,
-        value: '#5',
-      },
-      {
-        id: 3,
-        value: '#6',
-      },
-    ],
-    rating: 5,
-    commentsCount: 15,
-    createdAt: new Date()
-  }
 ];
 
 const postsInitialState: PostsState = {
   isLoading: false,
   postsList: [],
-  isError: false,
+  isError: '',
   searchText: '',
   filterType: 'all'
 }
@@ -75,35 +48,35 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState: postsInitialState,
   reducers: {
-    getPostsRequest: state => {
-      state.isLoading = true;
-      state.postsList = arrayNews;
-      state.isError = false;
-    },
-    getPostsSuccess: state => {
-      state.isLoading = false;
-      state.postsList = arrayNews;
-      state.isError = false;
-    },
-    getPostsFail: state => {
-      state.isLoading = false;
-      state.postsList = arrayNews;
-      state.isError = true;
-    },
     setSearchText: (state, action: ActionSearchState) => {
       state.searchText = action.payload;
     },
     setFilterType: (state, action: ActionSearchState) => {
       state.filterType = action.payload;
-    }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPosts.pending, (state) => {
+        state.isLoading = true;
+        state.postsList = [];
+        state.isError = '';
+      })
+      .addCase(getPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (Array.isArray(action.payload)) state.postsList = action.payload;
+        state.isError = '';
+      })
+      .addCase(getPosts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.postsList = [];
+        if (typeof action.payload === 'string') state.isError = action.payload;
+      })
   }
 });
 
 export const { 
-  getPostsRequest, 
-  getPostsSuccess, 
-  getPostsFail, 
   setSearchText, 
-  setFilterType 
+  setFilterType, 
 } = postsSlice.actions;
 export default postsSlice.reducer;
