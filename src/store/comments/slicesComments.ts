@@ -1,62 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { CommentsInterface, CommentsListState } from './types';
-
-const commentsArray: CommentsInterface[] = [
-  {
-    id: 1,
-    text: "Просто текст комментария",
-    authorId: 1,
-    postId: 1,
-    author: {
-      id: 1,
-      email: "v.petrov@test.com",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: 2,
-    text: "Просто текст комментария",
-    authorId: 1,
-    postId: 1,
-    author: {
-      id: 1,
-      email: "v.petrov@test.com",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
-]
+import { CommentsListState } from './types';
+import { getComments } from './thunks';
 
 const commentsInitialState: CommentsListState = {
   isDownloaded: false,
   commentsList: [],
-  isFailed: false
-}
+  isFailed: '',
+};
 
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: commentsInitialState,
-  reducers: {
-    getCommetsRequest: state => {
-      state.isDownloaded = true;
-      state.commentsList = [];
-      state.isFailed = false;
-    },
-    getCommetsSuccess: (state, action) => {
-      const comments = commentsArray.filter((element) => element.postId === action.payload);
-      state.isDownloaded = false;
-      state.commentsList = comments;
-      state.isFailed = false;
-    },
-    getCommetsFail: state => {
-      state.isDownloaded = false;
-      state.commentsList = [];
-      state.isFailed = true;
-    }
-  }
-})
+  reducers: {},
+  extraReducers: (builder) => {
+      builder
+        .addCase(getComments.pending, (state) => {
+          state.isDownloaded = true;
+          state.isFailed = '';
+        })
+        .addCase(getComments.fulfilled, (state, action) => {
+          state.isDownloaded = false;
+          if (Array.isArray(action.payload)) state.commentsList = action.payload;
+          state.isFailed = '';
+        })
+        .addCase(getComments.rejected, (state, action) => {
+          state.isDownloaded = false;
+          if (typeof action.payload === 'string') state.isFailed = action.payload;
+        })
+  },
+});
 
-export const { getCommetsRequest, getCommetsSuccess, getCommetsFail } = commentsSlice.actions;
 export default commentsSlice.reducer;

@@ -8,20 +8,20 @@ interface PostsState {
   isError: string,
   searchText: string,
   filterType: string,
-}
+};
 
 interface CardState {
   isLoading: boolean,
   detailCard: NewsInterface | null,
-  isError: boolean,
-}
+  isError: string,
+};
 
 interface ActionSearchState {
   payload: string,
   type: string,
-}
+};
 
-interface FetchDataInterface {
+interface FetchPostsInterface {
   posts: NewsInterface[],
-  total: number
-}
+  total: number,
+};

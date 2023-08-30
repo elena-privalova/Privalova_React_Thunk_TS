@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { BaseSyntheticEvent, type FC } from 'react';
 import { 
   CardMedia,
   Chip,
@@ -17,11 +17,15 @@ import { StyledDetailCard } from './styles';
 import './detailCard.css';
 
 const DetailCard: FC<NewsInterface> = (news) => {
+  const handleError = (e: BaseSyntheticEvent) => {
+    e.target.src = defaultImage;
+  }
+
   return (
     <StyledDetailCard className="detail-card">
       <StyledCardHeader
         avatar={
-          <Avatar>{news.author.avatarPath}</Avatar>
+          <Avatar alt="Author Image" src={`${import.meta.env.VITE_APP_API_URL}${news.author.avatarPath}`} />
         }
         title={news.title}
         titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
@@ -33,7 +37,8 @@ const DetailCard: FC<NewsInterface> = (news) => {
           className="picture"
           component="img"
           height="380px"
-          image={news.coverPath ?? defaultImage}
+          image={`${import.meta.env.VITE_APP_API_URL}${news.coverPath}`}
+          onError={handleError}
           alt="News image"
         />
       </div>

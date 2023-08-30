@@ -1,3 +1,3 @@
-import { getPosts } from './thunks';
+import { getCard, getPosts } from './thunks';
 
-export { getPosts };
+export { getCard, getPosts };

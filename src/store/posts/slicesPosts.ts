@@ -1,40 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { NewsInterface } from '../../components/PostCard/types';
-
 import { ActionSearchState, PostsState } from './types';
 import { getPosts } from './thunks';
-
-export const arrayNews: NewsInterface[] = [ 
-  {
-    id: 1,
-    title: 'Shrmp and Chorizo Paella',
-    text: ``,
-    coverPath: '',
-    authorId: 1,
-    createdAt: '',
-    updatedAt: '',
-    rating: 4,
-    commentsCount: 7,
-    author: {
-      id: 1,
-      firstName: '',
-      lastName: '',
-      email: 'prvalov_van@mal.ru',
-      avatarPath: '',
-      createdAt: '',
-      updatedAt: '',
-    },
-    tags: [
-      {
-        id: 1,
-        value: '#1',
-        createdAt: '',
-        updatedAt: '',
-      },
-    ],
-  },
-];
 
 const postsInitialState: PostsState = {
   isLoading: false,
@@ -42,7 +9,7 @@ const postsInitialState: PostsState = {
   isError: '',
   searchText: '',
   filterType: 'all'
-}
+};
 
 export const postsSlice = createSlice({
   name: 'posts',

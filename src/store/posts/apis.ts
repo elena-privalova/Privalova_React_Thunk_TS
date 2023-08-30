@@ -1,10 +1,15 @@
-import axios from 'axios';
+import { NewsInterface } from '../../components/PostCard/types';
 
-import { FetchDataInterface } from './types';
+import { api } from '../adapter';
 
-const postsApi = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL });
+import { FetchPostsInterface } from './types';
 
-export const fetchGetPosts = async (): Promise<FetchDataInterface> => {
-  const { data } = await postsApi.get('posts');
+export const fetchGetPosts = async (): Promise<FetchPostsInterface> => {
+  const { data } = await api.get('posts');
   return data;
-}
+};
+
+export const fetchGetCard = async (id: number): Promise<NewsInterface> => {
+  const { data } = await api.get(`posts/${id}`);
+  return data;
+};
