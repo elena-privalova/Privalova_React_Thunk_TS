@@ -10,7 +10,7 @@ const CommentItem: FC<CommentsInterface>  = (props) => {
   return (
     <StyledItem>
       <StyledItemHeader>
-        <Avatar>{props.author.avatarPath}</Avatar>
+        <Avatar alt="Avatar Image" src={`${import.meta.env.VITE_APP_API_URL}${props.author.avatarPath}`} />
         <span>{props.author.email}</span>
       </StyledItemHeader>
       <div>

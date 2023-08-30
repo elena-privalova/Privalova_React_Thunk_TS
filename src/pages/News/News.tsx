@@ -6,14 +6,14 @@ import {
   Stack
 } from '@mui/material';
 
+import { getCard } from '../../store/posts';
+import { getComments } from '../../store/comments';
 import DetailCard from '../../components/DetailCard/DetailCard';
-import { getCardSuccess } from '../../store/posts/slicesCard';
 import WarningAlert from '../../components/Error/WarningAlert';
-import { getCommetsSuccess } from '../../store/comments/slicesComments';
 import { StyledBox } from '../../components/DetailCard/styles';
 import { CommentsInterface } from '../../store/comments/types';
 import CommentItem from '../../components/CommentItem/CommentItem';
-import { RootState } from '../Main/types';
+import { AppDispatch, RootState } from '../Main/types';
 
 import './news.css';
 
@@ -24,11 +24,11 @@ const News: FC = () => {
   const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.card);
   const { isDownloaded, commentsList, isFailed } = useSelector((state: RootState) => state.comments);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {
-    dispatch(getCardSuccess(formattedId));
-    dispatch(getCommetsSuccess(formattedId));
+    dispatch(getCard(formattedId));
+    dispatch(getComments(formattedId));
   }, [formattedId]);
 
   return (
@@ -48,21 +48,21 @@ const News: FC = () => {
                 <Skeleton variant='rounded' width="100%" height={40}/>
               </div>
             )}
-            {commentsList.length > 0 && !isFailed && !isDownloaded && (
+            {commentsList.length > 0 && isFailed === '' && !isDownloaded && (
               <StyledBox>
                 <Stack spacing={2}>
                   {commentsList.map((comment: CommentsInterface) => <CommentItem key={comment.id} {...comment} />)}
                 </Stack>
               </StyledBox>
             )}
-            {commentsList.length === 0 && !isError && (
+            {commentsList.length === 0 && isFailed === '' && !isDownloaded && (
               <div className="container__empty">
                 <WarningAlert text="Комментариев еще нет" type="info" />
               </div>
             )}
             {isFailed && (
               <div className="container__empty">
-                <WarningAlert text="Ошибка" type="error" />
+                <WarningAlert text={isFailed} type="error" />
               </div>
             )}
           </div>
@@ -73,9 +73,9 @@ const News: FC = () => {
           <WarningAlert text="Такой новости не существует" type="error" />
         </div>
       )}
-      {isError && (
+      {isError !== '' && (
         <div className="container__empty">
-          <WarningAlert text="Ошибка" type="error" />
+          <WarningAlert text={isError} type="error" />
         </div>
       )}
     </>

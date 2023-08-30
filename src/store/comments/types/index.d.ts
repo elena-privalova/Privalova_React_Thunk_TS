@@ -6,12 +6,17 @@ interface CommentsInterface {
   authorId: number,
   postId: number,
   author: AuthorInterface,
-  createdAt: Date,
-  updatedAt: Date
-}
+  createdAt: string,
+  updatedAt: string
+};
 
 interface CommentsListState {
   isDownloaded: boolean,
   commentsList: CommentsInterface[],
-  isFailed: boolean
-}
+  isFailed: string
+};
+
+interface FetchCommentsInterface {
+  comments: CommentsInterface[],
+  total: number,
+};
