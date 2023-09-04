@@ -1,4 +1,10 @@
-import React, { useEffect, type FC, useMemo } from 'react';
+import
+  React,
+  {
+    useEffect,
+    type FC,
+    useMemo
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -31,7 +37,7 @@ const Main: FC = () => {
   );
 
   const PostsListMemo = React.memo(PostsList);
-  
+
   return (
     <>
       {isLoading && (

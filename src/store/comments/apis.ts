@@ -1,4 +1,4 @@
-import { api } from '../adapter';
+import api from '../adapter';
 
 import { FetchCommentsInterface } from './types';
 

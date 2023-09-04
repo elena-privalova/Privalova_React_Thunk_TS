@@ -38,7 +38,7 @@ const News: FC = () => {
           <Skeleton variant='rounded' width={300} height={600}/>
       </div>
       )}
-      {detailCard && !isError && !isLoading && (
+      {detailCard != null && isError === '' && !isLoading && (
         <div className="container__post post">
           <DetailCard {...detailCard} />
           <div className="post__comments-group">
@@ -68,14 +68,9 @@ const News: FC = () => {
           </div>
         </div>
       )}
-      {detailCard == null && (
-        <div className="container__empty">
-          <WarningAlert text="Такой новости не существует" type="error" />
-        </div>
-      )}
       {isError !== '' && (
         <div className="container__empty">
-          <WarningAlert text={isError} type="error" />
+          <WarningAlert text="Такой новости нет" type="error" />
         </div>
       )}
     </>

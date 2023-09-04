@@ -25,7 +25,11 @@ const DetailCard: FC<NewsInterface> = (news) => {
     <StyledDetailCard className="detail-card">
       <StyledCardHeader
         avatar={
-          <Avatar alt="Author Image" src={`${import.meta.env.VITE_APP_API_URL}${news.author.avatarPath}`} />
+          <Avatar alt="Author Image" src={
+            news.author.avatarPath ?
+            `${import.meta.env.VITE_APP_API_URL}${news.author.avatarPath}` :
+            ''
+          } />
         }
         title={news.title}
         titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}

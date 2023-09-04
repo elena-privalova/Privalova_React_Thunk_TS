@@ -1,0 +1,9 @@
+label.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #4F493F;
+}
+
+.modal__alert {
+  width: 350px;
+  position: absolute;
+  top: 95%
+}

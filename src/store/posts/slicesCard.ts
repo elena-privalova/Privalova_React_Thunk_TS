@@ -23,12 +23,13 @@ export const cardSlice = createSlice({
       })
       .addCase(getCard.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.detailCard = action.payload as NewsInterface;
-        state.isError = '';
-      })
-      .addCase(getCard.rejected, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.isError = action.payload;
+        if (typeof action.payload === 'string') {
+          state.isError = action.payload;
+        }
+        else {
+          state.detailCard = action.payload as NewsInterface;
+          state.isError = '';
+        }
       })
   }
 });

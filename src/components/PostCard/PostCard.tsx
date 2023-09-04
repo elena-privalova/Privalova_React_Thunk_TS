@@ -30,7 +30,7 @@ const PostCard: FC<NewsInterface> = (news) => {
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
   }
-
+  
   return (
     <StyledPostCard className="card" onClick={handleClick}>
       <div className="card__header header">

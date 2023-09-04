@@ -21,12 +21,13 @@ const commentsSlice = createSlice({
         })
         .addCase(getComments.fulfilled, (state, action) => {
           state.isDownloaded = false;
-          if (Array.isArray(action.payload)) state.commentsList = action.payload;
-          state.isFailed = '';
-        })
-        .addCase(getComments.rejected, (state, action) => {
-          state.isDownloaded = false;
-          if (typeof action.payload === 'string') state.isFailed = action.payload;
+          if (typeof action.payload === 'string') {
+            state.isFailed = action.payload;
+          }
+          else if (Array.isArray(action.payload)) {
+            state.commentsList = action.payload;
+            state.isFailed = '';
+          }
         })
   },
 });
