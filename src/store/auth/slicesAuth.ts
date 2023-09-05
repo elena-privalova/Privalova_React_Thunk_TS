@@ -40,10 +40,10 @@ export const authSlice = createSlice({
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (typeof action.payload === 'string') state.error = action.payload;
+        if (action.payload === 'string') state.error = action.payload;
         else {
           state.user = action.payload as AuthUser;
-          state.error = ''
+          state.error = '';
         };
       })
       .addCase(signUpUser.rejected, (state, action) => {
