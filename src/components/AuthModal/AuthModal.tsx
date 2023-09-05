@@ -11,12 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-import {
-  changeVisibilityAuthorization,
-  changeVisibilityRegistration
-} from '../../store/modals/slicesModals';
-import { clearLogIn } from '../../store/auth/slicesAuth';
-import { clearSignUp } from '../../store/auth/slicesSignUp';
+import { clearAuth } from '../../store/auth/slicesAuth';
+import { changeVisibility } from '../../store/modals/slicesModals';
 import { logInUser, signUpUser} from '../../store/auth';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { validateEmail } from '../../utils/validateEmail';
@@ -31,35 +27,37 @@ import {
   StyledTextField,
   StyledTypography
 } from './styles';
-import './modalWindow.css'
+import './authModal.css'
 
 const ModalWindow: FC = () => {
-  const { openRegistration, openAuthorization, currentType } = useSelector((state: RootState) => state.modals);
-  const { isLoading, user, isError } = useSelector((state: RootState) => {
-    return currentType === 'log in' ? state.auth : state.signup
-  });
+  const {
+    isLoading,
+    user,
+    error
+  } = useSelector((state: RootState) => state.auth);
+  const { isOpen, currentType } = useSelector((state: RootState) => state.modals); 
 
-  const open = currentType === 'log in' ? openAuthorization : openRegistration;
-  const handleShow = currentType === 'log in' ? changeVisibilityAuthorization : changeVisibilityRegistration;
   const authorizationType = currentType === 'log in' ? logInUser : signUpUser;
-  const clearType = currentType === 'log in' ? clearLogIn : clearSignUp;
 
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClose = () => {
-    dispatch(clearType());
-    dispatch(handleShow(!open));
+    dispatch(clearAuth(currentType));
+    dispatch(changeVisibility({
+      isOvertly: false,
+      kind: currentType,
+    }));
     setEmail('');
+    setPassword('');
     setCorrectEmail(true);
     setCorrectPassword(true);
-    setPassword('');
-  }
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShowPassword] = useState(false);
-  const [correctEmail, setCorrectEmail] = useState(true);
-  const [correctPassword, setCorrectPassword] = useState(true);
+  const [isCorrectEmail, setCorrectEmail] = useState(true);
+  const [isCorrectPassword, setCorrectPassword] = useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -69,21 +67,19 @@ const ModalWindow: FC = () => {
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    setCorrectEmail(validateEmail(event.target.value));
+  };
+
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   const handleBlurEmail = (event: FocusEvent<HTMLInputElement>) => {
     setCorrectEmail(validateEmail(event.target.value));
-  }
+  };
 
   const handleBlurPassword = (event: FocusEvent<HTMLInputElement>) => {
     setCorrectPassword(validatePassword(event.target.value));
-  }
-
-  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    setCorrectPassword(validatePassword(event.target.value));
-  }
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -91,15 +87,15 @@ const ModalWindow: FC = () => {
       email: email,
       password: password
     }));
-  }
+  };
 
   useEffect(() => {
     if (user != null) handleClose();
-  }, [user])
+  }, [user]);
 
   return (
     <Modal
-      open={open}
+      open={isOpen}
       onClose={handleClose}
     >
       <>
@@ -116,16 +112,16 @@ const ModalWindow: FC = () => {
                 value={email}
                 onBlur={handleBlurEmail}
                 onChange={handleChangeEmail}
-                error={correctEmail || isError ? false : true}
+                error={!isCorrectEmail || error !== ''}
               />
               <StyledTextField
                 variant="outlined"
                 label="Password"
                 InputProps={{ type: `${show ? 'text' : 'password'}` }}
                 value={password}
-                onBlur={handleBlurPassword}
                 onChange={handleChangePassword}
-                error={correctPassword || isError ? false : true}
+                onBlur={handleBlurPassword}
+                error={!isCorrectPassword || error !== ''}
               />
               <StyledIconButton
                 onClick={handleClickShowPassword}
@@ -137,8 +133,8 @@ const ModalWindow: FC = () => {
                 variant="contained"
                 type="submit"
                 disabled={
-                  !correctEmail || 
-                  !correctPassword || 
+                  !validateEmail(email) ||
+                  !validatePassword(password) ||
                   email === '' || 
                   password === ''
                 }
@@ -148,7 +144,7 @@ const ModalWindow: FC = () => {
             </>
           )}
         </StyledForm>
-        {isError !== '' && (
+        {error !== '' && (
           <div className="modal__alert">
             <WarningAlert text="Некорректно введенные данные" type="error" />
           </div>

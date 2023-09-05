@@ -25,11 +25,11 @@ const PostCard: FC<NewsInterface> = (news) => {
 
   const handleClick = () => {
     navigate(`news/${news.id}`);
-  }
+  };
 
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
-  }
+  };
   
   return (
     <StyledPostCard className="card" onClick={handleClick}>

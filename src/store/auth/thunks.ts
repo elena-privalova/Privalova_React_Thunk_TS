@@ -12,7 +12,7 @@ export const signUpUser = createAsyncThunk(
   'auth/signupUser',
   async (user: RequestUser) => {
     try {
-      return await fetchSignUpUser(user);
+      return fetchSignUpUser(user);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;
@@ -24,7 +24,7 @@ export const logInUser = createAsyncThunk(
   'auth/loginUser',
   async (user: RequestUser) => {
     try {
-      return await fetchLogInUser(user);
+      return fetchLogInUser(user);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;
@@ -36,7 +36,7 @@ export const getVerifyUser = createAsyncThunk(
   'auth/verifyUser',
   async () => {
     try {
-      return await fetchVerifyUser();
+      return fetchVerifyUser();
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

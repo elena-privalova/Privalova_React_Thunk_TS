@@ -1,23 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { removeToken, setToken } from '../../lib/local-storage';
 
-import { logInUser, getVerifyUser } from './thunks';
-import { AuthState, VerifyUser } from './types';
+import {
+  logInUser,
+  getVerifyUser,
+  signUpUser
+} from './thunks';
+import {
+  AuthState, 
+  AuthUser,
+  VerifyUser,
+} from './types';
 
 const authInitialState: AuthState = {
   isLoading: false,
   user: null,
-  isError: ''
-}
+  error: ''
+};
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: authInitialState,
   reducers: {
-    clearLogIn: (state) => {
+    clearAuth: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.isError = '';
+      state.error = '';
+      if (action.payload === 'sign up') state.user = null;
     },
     logoutUser: (state) => {
       if (typeof removeToken() !== 'string') state.user = null;
@@ -25,30 +34,55 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
       builder
+      .addCase(signUpUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(signUpUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (typeof action.payload === 'string') state.error = action.payload;
+        else {
+          state.user = action.payload as AuthUser;
+          state.error = ''
+        };
+      })
+      .addCase(signUpUser.rejected, (state, action) => {
+        state.isLoading = false;
+        if (typeof action.error.message === 'string') state.error = action.error.message;
+      })
       .addCase(logInUser.pending, (state) => {
         state.isLoading = true;
-        state.isError = '';
+        state.error = '';
       })
       .addCase(logInUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (typeof action.payload === 'string') state.isError = action.payload;
-        else if (action.payload != undefined && 'accessToken' in action.payload!) {
+        if (typeof action.payload === 'string') state.error = action.payload;
+        else if (action.payload != null && 'accessToken' in action.payload!) {
           if (typeof setToken(action.payload.accessToken) !== 'string') {
             state.user = action.payload;
-            state.isError = '';
+            state.error = '';
           }
         }
       })
+      .addCase(logInUser.rejected, (state, action) => {
+        state.isLoading = false;
+        if (typeof action.error.message === 'string') state.error = action.error.message;
+      })
       .addCase(getVerifyUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (typeof action.payload === 'string') state.isError = action.payload;
-        else {
+        if (typeof action.payload !== 'string') {
           state.user = action.payload as VerifyUser;
-          state.isError = '';
+          state.error = '';
+        }
+        else {
+          state.user = null;
         }
       })
   },
 });
 
-export const { clearLogIn, logoutUser } = authSlice.actions;
+export const {
+  clearAuth,
+  logoutUser
+} = authSlice.actions;
 export default authSlice.reducer;

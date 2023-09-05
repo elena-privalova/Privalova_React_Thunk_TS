@@ -3,8 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import postsReducer from './posts/slicesPosts';
 import cardReducer from './posts/slicesCard';
 import commentsReducer from './comments/slicesComments';
-import modalsReducer from './modals/slicesModals';
-import signUpReducer from './auth/slicesSignUp';
+import modalsReducer from './modals/slicesModals'
 import authReducer from './auth/slicesAuth';
 
 const store = configureStore({
@@ -17,7 +16,6 @@ const store = configureStore({
     card: cardReducer,
     comments: commentsReducer,
     modals: modalsReducer,
-    signup: signUpReducer,
     auth: authReducer,
   }
 });

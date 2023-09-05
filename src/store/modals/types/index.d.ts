@@ -1,5 +1,9 @@
 interface ModalState {
-  openRegistration: boolean,
-  openAuthorization: boolean,
+  isOpen: boolean,
   currentType: string,
+};
+
+interface VisibilityInterface {
+  isOvertly: boolean,
+  kind: string
 };

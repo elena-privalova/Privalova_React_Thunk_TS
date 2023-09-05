@@ -6,7 +6,7 @@ import { getComments } from './thunks';
 const commentsInitialState: CommentsListState = {
   isDownloaded: false,
   commentsList: [],
-  isFailed: '',
+  failed: '',
 };
 
 const commentsSlice = createSlice({
@@ -17,16 +17,16 @@ const commentsSlice = createSlice({
       builder
         .addCase(getComments.pending, (state) => {
           state.isDownloaded = true;
-          state.isFailed = '';
+          state.failed = '';
         })
         .addCase(getComments.fulfilled, (state, action) => {
           state.isDownloaded = false;
           if (typeof action.payload === 'string') {
-            state.isFailed = action.payload;
+            state.failed = action.payload;
           }
           else if (Array.isArray(action.payload)) {
             state.commentsList = action.payload;
-            state.isFailed = '';
+            state.failed = '';
           }
         })
   },

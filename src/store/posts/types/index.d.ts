@@ -5,7 +5,7 @@ import { NewsInterface } from '../../../components/PostCard/types';
 interface PostsState {
   isLoading: boolean,
   postsList: NewsInterface[],
-  isError: string,
+  error: string,
   searchText: string,
   filterType: string,
 };
@@ -13,7 +13,7 @@ interface PostsState {
 interface CardState {
   isLoading: boolean,
   detailCard: NewsInterface | null,
-  isError: string,
+  error: string,
 };
 
 interface ActionSearchState {

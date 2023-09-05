@@ -20,7 +20,7 @@ const Main: FC = () => {
   const { 
     isLoading, 
     postsList, 
-    isError, 
+    error, 
     searchText, 
     filterType 
   } = useSelector((state: RootState) => state.posts);
@@ -46,17 +46,17 @@ const Main: FC = () => {
           <Skeleton variant='rounded' width={300} height={600}/>
         </div>
       )}
-      {postsList.length > 0 && isError === '' && !isLoading && (
+      {postsList.length > 0 && error === '' && !isLoading && (
         <PostsListMemo array={memoizedFilterArray} />
       )}
-      {postsList.length === 0 && isError === '' && !isLoading && (
+      {postsList.length === 0 && error === '' && !isLoading && (
         <div className="container__empty">
           <WarningAlert text="Новостей нет" type="info" />
         </div>
       )}
-      {isError !== '' && (
+      {error !== '' && (
         <div className="container__empty">
-          <WarningAlert text={isError} type="error" />
+          <WarningAlert text={error} type="error" />
         </div>
       )}
     </>

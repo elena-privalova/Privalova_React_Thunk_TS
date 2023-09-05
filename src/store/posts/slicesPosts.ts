@@ -6,7 +6,7 @@ import { getPosts } from './thunks';
 const postsInitialState: PostsState = {
   isLoading: false,
   postsList: [],
-  isError: '',
+  error: '',
   searchText: '',
   filterType: 'all'
 };
@@ -27,16 +27,16 @@ export const postsSlice = createSlice({
       .addCase(getPosts.pending, (state) => {
         state.isLoading = true;
         state.postsList = [];
-        state.isError = '';
+        state.error = '';
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
         if (typeof action.payload === 'string') {
-          state.isError = action.payload;
+          state.error = action.payload;
         }
         else if (Array.isArray(action.payload)) {
           state.postsList = action.payload;
-          state.isError = '';
+          state.error = '';
         }
       })
   }

@@ -1,13 +1,13 @@
-export const getToken = () => {
+export const getToken = (): string | null | void => {
   try {
     return localStorage.getItem('token');
   } 
   catch (e) {
-    console.log(e);
+    if (e instanceof Error) return e.message;
   }
 };
   
-export const setToken = (token: string) => {
+export const setToken = (token: string): string | void => {
   try {
     localStorage.setItem('token', token);
   }
@@ -16,7 +16,7 @@ export const setToken = (token: string) => {
   }
 };
 
-export const removeToken = () => {
+export const removeToken = (): string | void => {
   try {
     localStorage.removeItem('token');
   } 

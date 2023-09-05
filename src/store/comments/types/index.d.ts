@@ -13,7 +13,7 @@ interface CommentsInterface {
 interface CommentsListState {
   isDownloaded: boolean,
   commentsList: CommentsInterface[],
-  isFailed: string
+  failed: string
 };
 
 interface FetchCommentsInterface {

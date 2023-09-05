@@ -16,6 +16,7 @@ module.exports = {
     'react-refresh/only-export-components': 'off',
     'object-curly-spacing': ['error', 'always'],
     'quotes': ['error', 'single'],
-    'indent': ['error', 2]
+    'indent': ['error', 2],
+    'eol-last': ["error", "always"]
   },
 }

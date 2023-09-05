@@ -5,7 +5,6 @@ import {
   FormControl
 } from '@mui/material';
 
-
 import { setFilterType } from '../../store/posts/slicesPosts';
 import { RootState } from '../../pages/Main/types';
 
@@ -24,7 +23,7 @@ const FilterElement: FC = () => {
     if (typeof event.target.value === 'string') {
       dispatch(setFilterType(event.target.value));
     }
-  }
+  };
   
   return (
     <FormControl>
