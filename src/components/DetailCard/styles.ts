@@ -19,4 +19,5 @@ export const StyledDetailCard = styled(Card)({
 
 export const StyledBox = styled(Box)({
   width: '100%'
-})
+});
+

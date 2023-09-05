@@ -21,8 +21,8 @@ const News: FC = () => {
   const { id } = useParams();
   const formattedId = Number(id);
 
-  const { isLoading, detailCard, isError } = useSelector((state: RootState) => state.card);
-  const { isDownloaded, commentsList, isFailed } = useSelector((state: RootState) => state.comments);
+  const { isLoading, detailCard, error } = useSelector((state: RootState) => state.card);
+  const { isDownloaded, commentsList, failed } = useSelector((state: RootState) => state.comments);
 
   const dispatch = useDispatch<AppDispatch>();
   
@@ -38,7 +38,7 @@ const News: FC = () => {
           <Skeleton variant='rounded' width={300} height={600}/>
       </div>
       )}
-      {detailCard && !isError && !isLoading && (
+      {detailCard != null && error === '' && !isLoading && (
         <div className="container__post post">
           <DetailCard {...detailCard} />
           <div className="post__comments-group">
@@ -48,34 +48,29 @@ const News: FC = () => {
                 <Skeleton variant='rounded' width="100%" height={40}/>
               </div>
             )}
-            {commentsList.length > 0 && isFailed === '' && !isDownloaded && (
+            {commentsList.length > 0 && failed === '' && !isDownloaded && (
               <StyledBox>
                 <Stack spacing={2}>
                   {commentsList.map((comment: CommentsInterface) => <CommentItem key={comment.id} {...comment} />)}
                 </Stack>
               </StyledBox>
             )}
-            {commentsList.length === 0 && isFailed === '' && !isDownloaded && (
+            {commentsList.length === 0 && failed === '' && !isDownloaded && (
               <div className="container__empty">
                 <WarningAlert text="Комментариев еще нет" type="info" />
               </div>
             )}
-            {isFailed && (
+            {failed !== '' && (
               <div className="container__empty">
-                <WarningAlert text={isFailed} type="error" />
+                <WarningAlert text={failed} type="error" />
               </div>
             )}
           </div>
         </div>
       )}
-      {detailCard == null && (
+      {error !== '' && (
         <div className="container__empty">
-          <WarningAlert text="Такой новости не существует" type="error" />
-        </div>
-      )}
-      {isError !== '' && (
-        <div className="container__empty">
-          <WarningAlert text={isError} type="error" />
+          <WarningAlert text="Такой новости нет" type="error" />
         </div>
       )}
     </>
@@ -83,3 +78,4 @@ const News: FC = () => {
 }
 
 export default News;
+

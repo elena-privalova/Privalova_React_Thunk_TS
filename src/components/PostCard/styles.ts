@@ -61,3 +61,4 @@ export const StyledTypography = styled(Typography)({
 export const StyledCardContent = styled(CardContent)({
   height: '350px'
 });
+

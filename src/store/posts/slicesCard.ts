@@ -8,7 +8,7 @@ import { getCard } from './thunks';
 const cardInitialState: CardState = {
   isLoading: false,
   detailCard: null,
-  isError: ''
+  error: ''
 };
 
 export const cardSlice = createSlice({
@@ -19,18 +19,20 @@ export const cardSlice = createSlice({
     builder
       .addCase(getCard.pending, (state) => {
         state.isLoading = true;
-        state.isError = '';
+        state.error = '';
       })
       .addCase(getCard.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.detailCard = action.payload as NewsInterface;
-        state.isError = '';
-      })
-      .addCase(getCard.rejected, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.isError = action.payload;
+        if (typeof action.payload === 'string') {
+          state.error = action.payload;
+        }
+        else {
+          state.detailCard = action.payload as NewsInterface;
+          state.error = '';
+        }
       })
   }
 });
 
 export default cardSlice.reducer;
+

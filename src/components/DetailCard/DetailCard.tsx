@@ -15,17 +15,21 @@ import { NewsInterface } from '../PostCard/types';
 
 import { StyledDetailCard } from './styles';
 import './detailCard.css';
+import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 
 const DetailCard: FC<NewsInterface> = (news) => {
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
-  }
+  };
 
   return (
     <StyledDetailCard className="detail-card">
       <StyledCardHeader
         avatar={
-          <Avatar alt="Author Image" src={`${import.meta.env.VITE_APP_API_URL}${news.author.avatarPath}`} />
+          <Avatar
+            alt="Author Image"
+            src={getFormattedAvatarPath(news.author.avatarPath)} 
+          />
         }
         title={news.title}
         titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
@@ -61,3 +65,4 @@ const DetailCard: FC<NewsInterface> = (news) => {
 }
 
 export default DetailCard;
+

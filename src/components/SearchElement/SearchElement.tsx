@@ -15,7 +15,7 @@ const SearchElement: FC = () => {
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchText(event.target.value));
-  }
+  };
 
   return (
     <Search>
@@ -31,3 +31,4 @@ const SearchElement: FC = () => {
 }
 
 export default SearchElement;
+

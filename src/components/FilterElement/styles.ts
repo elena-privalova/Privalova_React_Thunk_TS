@@ -18,6 +18,9 @@ export const StyledInput = styled(InputBase)({
   '& .MuiInputBase-input:focus': {
     color: '#4F493F',
     borderColor: '#4F493F'
+  },
+  '&.Mui-focused fieldset': {
+    borderColor: '#4F493F'
   }
 });
   
@@ -26,3 +29,4 @@ export const StyledMenuItem = styled(MenuItem)({
   letterSpacing: '1px',
   borderBottom: '1px solid #908471'
 });
+

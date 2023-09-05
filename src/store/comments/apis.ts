@@ -1,4 +1,4 @@
-import { api } from '../adapter';
+import api from '../adapter';
 
 import { FetchCommentsInterface } from './types';
 
@@ -6,3 +6,4 @@ export const fetchGetComments = async (id: number): Promise<FetchCommentsInterfa
   const { data } = await api.get(`comments?postId=${id}`);
   return data;
 };
+

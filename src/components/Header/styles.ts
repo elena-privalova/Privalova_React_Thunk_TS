@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 
 export const StyledBox = styled(Box)({
   backgroundColor: '#C1B59F'
-})
+});
 
 export const StyledToolbar = styled(Toolbar)({
   justifyContent: 'space-between',
@@ -29,3 +29,4 @@ export const StyledButton = styled(Button)({
     backgroundColor: '#4F493F'
   }
 });
+
