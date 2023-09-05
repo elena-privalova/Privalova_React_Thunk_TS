@@ -20,23 +20,24 @@ import {
 } from './styles';
 import './header.css';
 
+
 const Header: FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { isOpen } = useSelector((state: RootState) => state.modals);
 
   const dispatch = useDispatch<AppDispatch>();
-
+  
   const handleClickRegistration = () => {
     dispatch(changeVisibility({
       isOvertly: !isOpen,
-      kind: 'sign up',
+      kind: 'signup',
     }));
   };
 
   const handleClickAuthorization = () => {
     dispatch(changeVisibility({
       isOvertly: !isOpen,
-      kind: 'log in',
+      kind: 'login',
     }));
   };
 

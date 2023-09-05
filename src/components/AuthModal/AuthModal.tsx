@@ -14,6 +14,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { clearAuth } from '../../store/auth/slicesAuth';
 import { changeVisibility } from '../../store/modals/slicesModals';
 import { logInUser, signUpUser} from '../../store/auth';
+import { CURRENT_TYPE_VALUES } from '../../store/modals/types';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { validateEmail } from '../../utils/validateEmail';
 import { validatePassword } from '../../utils/validatePassword';
@@ -27,7 +28,7 @@ import {
   StyledTextField,
   StyledTypography
 } from './styles';
-import './authModal.css'
+import './authModal.css';
 
 const AuthModal: FC = () => {
   const {
@@ -37,7 +38,7 @@ const AuthModal: FC = () => {
   } = useSelector((state: RootState) => state.auth);
   const { isOpen, currentType } = useSelector((state: RootState) => state.modals); 
 
-  const authorizationType = currentType === 'log in' ? logInUser : signUpUser;
+  const authorizationType = currentType === CURRENT_TYPE_VALUES.login ? logInUser : signUpUser;
 
   const dispatch = useDispatch<AppDispatch>();
 

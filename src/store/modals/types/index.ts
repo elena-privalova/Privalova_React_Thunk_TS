@@ -1,14 +1,14 @@
-const CURRENT_TYPE_VALUES = {
+export const CURRENT_TYPE_VALUES = {
   signup: 'sign up',
   login: 'log in',
 };
 
-interface ModalState {
+export interface ModalState {
   isOpen: boolean,
   currentType: keyof typeof CURRENT_TYPE_VALUES,
 };
 
-interface VisibilityInterface {
+export interface VisibilityInterface {
   isOvertly: boolean,
   kind: keyof typeof CURRENT_TYPE_VALUES,
 };
