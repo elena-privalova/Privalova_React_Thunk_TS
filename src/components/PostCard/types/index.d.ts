@@ -28,3 +28,4 @@ export interface NewsInterface {
   author: AuthorInterface,
   tags: TagsInterface[],
 };
+

@@ -12,3 +12,4 @@ export const fetchGetCard = async (id: number): Promise<NewsInterface> => {
   const { data } = await api.get(`posts/${id}`);
   return data;
 };
+

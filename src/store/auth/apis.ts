@@ -20,3 +20,4 @@ export const fetchVerifyUser = async (): Promise<VerifyUser> => {
   const { data } = await api.get('auth/whoami');
   return data;
 };
+

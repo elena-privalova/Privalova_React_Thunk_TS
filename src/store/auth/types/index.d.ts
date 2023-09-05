@@ -19,3 +19,4 @@ interface AuthState {
   user: AuthUser | VerifyUser | null,
   error: string,
 };
+

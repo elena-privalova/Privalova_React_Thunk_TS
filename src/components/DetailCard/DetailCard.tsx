@@ -65,3 +65,4 @@ const DetailCard: FC<NewsInterface> = (news) => {
 }
 
 export default DetailCard;
+

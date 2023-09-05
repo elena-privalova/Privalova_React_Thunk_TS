@@ -35,3 +35,4 @@ export const cardSlice = createSlice({
 });
 
 export default cardSlice.reducer;
+

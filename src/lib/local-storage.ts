@@ -24,3 +24,4 @@ export const removeToken = (): string | void => {
     if (e instanceof Error) return e.message;
   }
 };
+

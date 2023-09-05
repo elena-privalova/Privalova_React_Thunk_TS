@@ -6,3 +6,4 @@ export const getFormattedAvatarPath = (avatarPath: string | null): string => {
     return '';
   }
 };
+

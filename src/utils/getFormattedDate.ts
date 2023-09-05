@@ -4,3 +4,4 @@ export const getFormattedDate = (data: string): string => {
   const month: string = String(formattedDate.getMonth() + 1).padStart(2, '0');
   return `${day}.${month}.${formattedDate.getFullYear()}`
 };
+

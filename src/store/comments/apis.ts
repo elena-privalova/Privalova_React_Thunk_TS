@@ -6,3 +6,4 @@ export const fetchGetComments = async (id: number): Promise<FetchCommentsInterfa
   const { data } = await api.get(`comments?postId=${id}`);
   return data;
 };
+

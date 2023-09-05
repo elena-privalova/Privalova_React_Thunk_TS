@@ -47,3 +47,4 @@ export const {
   setFilterType, 
 } = postsSlice.actions;
 export default postsSlice.reducer;
+

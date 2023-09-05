@@ -31,3 +31,4 @@ const SearchElement: FC = () => {
 }
 
 export default SearchElement;
+

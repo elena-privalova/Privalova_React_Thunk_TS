@@ -4,3 +4,4 @@ export interface WarningProps {
   text: string,
   type: AlertColor
 };
+

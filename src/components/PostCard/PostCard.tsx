@@ -69,3 +69,4 @@ const PostCard: FC<NewsInterface> = (news) => {
 }
 
 export default PostCard;
+

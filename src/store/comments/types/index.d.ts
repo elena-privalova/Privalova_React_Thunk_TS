@@ -20,3 +20,4 @@ interface FetchCommentsInterface {
   comments: CommentsInterface[],
   total: number,
 };
+

@@ -25,3 +25,4 @@ interface FetchPostsInterface {
   posts: NewsInterface[],
   total: number,
 };
+

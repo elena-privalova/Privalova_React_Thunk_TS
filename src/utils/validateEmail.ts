@@ -3,3 +3,4 @@ const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@((
 export const validateEmail = (email: string): boolean => {
   return EMAIL_REGEXP.test(email);
 };
+

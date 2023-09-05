@@ -8,7 +8,7 @@ import { logoutUser } from '../../store/auth/slicesAuth';
 import { changeVisibility } from '../../store/modals/slicesModals';
 import { getVerifyUser } from '../../store/auth/thunks';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
-import ModalWindow from '../AuthModal/AuthModal';
+import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
 
@@ -90,9 +90,10 @@ const Header: FC = () => {
           </StyledToolbar>
         </AppBar>
       </StyledBox>
-      <ModalWindow />
+      <AuthModal />
     </>
   )
 }
 
 export default Header;
+

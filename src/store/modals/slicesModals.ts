@@ -18,3 +18,4 @@ export const modalsSlice = createSlice({
 
 export const { changeVisibility } = modalsSlice.actions;
 export default modalsSlice.reducer;
+

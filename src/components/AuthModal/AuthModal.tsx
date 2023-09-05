@@ -29,7 +29,7 @@ import {
 } from './styles';
 import './authModal.css'
 
-const ModalWindow: FC = () => {
+const AuthModal: FC = () => {
   const {
     isLoading,
     user,
@@ -154,4 +154,5 @@ const ModalWindow: FC = () => {
   )
 }
 
-export default ModalWindow;
+export default AuthModal;
+

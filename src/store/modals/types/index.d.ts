@@ -7,3 +7,4 @@ interface VisibilityInterface {
   isOvertly: boolean,
   kind: string
 };
+

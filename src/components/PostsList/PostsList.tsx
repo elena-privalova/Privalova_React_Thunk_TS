@@ -14,3 +14,4 @@ const PostsList: FC<NewsArrayInterface> = (props) => {
 }
 
 export default PostsList;
+

@@ -26,3 +26,4 @@ const CommentItem: FC<CommentsInterface>  = (props) => {
 }
 
 export default CommentItem;
+
