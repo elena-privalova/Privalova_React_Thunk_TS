@@ -15,7 +15,7 @@ import {
 
 const authInitialState: AuthState = {
   isLoading: false,
-  user: null,
+  authUser: null,
   error: ''
 };
 
@@ -26,10 +26,10 @@ export const authSlice = createSlice({
     clearAuth: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = '';
-      if (action.payload === 'sign up') state.user = null;
+      if (action.payload === 'signup') state.authUser = null;
     },
     logoutUser: (state) => {
-      if (typeof removeToken() !== 'string') state.user = null;
+      if (typeof removeToken() !== 'string') state.authUser = null;
     }
   },
   extraReducers: (builder) => {
@@ -42,7 +42,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         if (typeof action.payload === 'string') state.error = action.payload;
         else {
-          state.user = action.payload as AuthUser;
+          state.authUser = action.payload as AuthUser;
           state.error = '';
         };
       })
@@ -59,7 +59,7 @@ export const authSlice = createSlice({
         if (typeof action.payload === 'string') state.error = action.payload;
         else if (action.payload != null && 'accessToken' in action.payload!) {
           if (typeof setToken(action.payload.accessToken) !== 'string') {
-            state.user = action.payload;
+            state.authUser = action.payload;
             state.error = '';
           }
         }
@@ -71,11 +71,11 @@ export const authSlice = createSlice({
       .addCase(getVerifyUser.fulfilled, (state, action) => {
         state.isLoading = false;
         if (typeof action.payload !== 'string') {
-          state.user = action.payload as VerifyUser;
+          state.authUser = action.payload as VerifyUser;
           state.error = '';
         }
         else {
-          state.user = null;
+          state.authUser = null;
         }
       })
   },

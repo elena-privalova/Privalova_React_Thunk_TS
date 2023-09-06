@@ -1,9 +1,6 @@
 import { type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  SelectChangeEvent,
-  FormControl
-} from '@mui/material';
+import { SelectChangeEvent, FormControl } from '@mui/material';
 
 import { setFilterType } from '../../store/posts/slicesPosts';
 import { RootState } from '../../pages/Main/types';

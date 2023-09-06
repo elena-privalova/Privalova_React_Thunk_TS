@@ -1,6 +1,7 @@
 import NewsInterface from '../../PostCard/types';
 
-interface NewsArrayInterface {
+interface PostsListProps {
   array: NewsInterface[];
+  typeClass: string
 };
 

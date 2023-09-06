@@ -47,7 +47,7 @@ const Main: FC = () => {
         </div>
       )}
       {postsList.length > 0 && error === '' && !isLoading && (
-        <PostsListMemo array={memoizedFilterArray} />
+        <PostsListMemo array={memoizedFilterArray} typeClass="container__posts" />
       )}
       {postsList.length === 0 && error === '' && !isLoading && (
         <div className="container__empty">

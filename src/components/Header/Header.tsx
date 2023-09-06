@@ -1,5 +1,6 @@
 import { type FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AppBar, Avatar } from '@mui/material';
 
 import newsIcon from '../../images/newsIcon.svg';
@@ -20,12 +21,13 @@ import {
 } from './styles';
 import './header.css';
 
-
 const Header: FC = () => {
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { authUser } = useSelector((state: RootState) => state.auth);
   const { isOpen } = useSelector((state: RootState) => state.modals);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
   
   const handleClickRegistration = () => {
     dispatch(changeVisibility({
@@ -43,6 +45,10 @@ const Header: FC = () => {
 
   const handleClickLogout = () => {
     dispatch(logoutUser());
+  };
+
+  const handleClickAvatar = () => {
+    navigate(`users/${authUser.id}`);
   };
 
   useEffect(() => {
@@ -63,11 +69,13 @@ const Header: FC = () => {
               <FilterElement />
             </div>
             <div className="buttons-group">
-              {user != null ?
+              {authUser != null ?
                 <>
                   <Avatar
-                    src={getFormattedAvatarPath(user.avatarPath)}
+                    className="buttons-group__avatar"
+                    src={getFormattedAvatarPath(authUser.avatarPath)}
                     alt="User avatar"
+                    onClick={handleClickAvatar}
                   />
                   <StyledButton variant="contained" onClick={handleClickLogout}>Logout</StyledButton>
                 </>

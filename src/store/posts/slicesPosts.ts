@@ -31,9 +31,7 @@ export const postsSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (typeof action.payload === 'string') {
-          state.error = action.payload;
-        }
+        if (typeof action.payload === 'string') state.error = action.payload;
         else if (Array.isArray(action.payload)) {
           state.postsList = action.payload;
           state.error = '';

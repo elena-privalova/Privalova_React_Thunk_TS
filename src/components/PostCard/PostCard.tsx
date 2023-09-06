@@ -1,4 +1,8 @@
-import { BaseSyntheticEvent, type FC } from 'react';
+import {
+  BaseSyntheticEvent,
+  type FC,
+  MouseEvent
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
@@ -23,8 +27,14 @@ import './postCard.css';
 const PostCard: FC<NewsInterface> = (news) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`news/${news.id}`);
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target instanceof HTMLSpanElement &&
+      event.target.outerText === news.author.email) {
+        navigate(`users/${news.authorId}`);
+    }
+    else {
+      navigate(`news/${news.id}`);
+    }
   };
 
   const handleError = (e: BaseSyntheticEvent) => {

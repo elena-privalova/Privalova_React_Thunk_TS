@@ -1,10 +1,7 @@
 import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {
-  Skeleton,
-  Stack
-} from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 
 import { getCard } from '../../store/posts';
 import { getComments } from '../../store/comments';
@@ -36,7 +33,7 @@ const News: FC = () => {
       {isLoading && (
         <div className="container__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
-      </div>
+        </div>
       )}
       {detailCard != null && error === '' && !isLoading && (
         <div className="container__post post">
@@ -51,7 +48,9 @@ const News: FC = () => {
             {commentsList.length > 0 && failed === '' && !isDownloaded && (
               <StyledBox>
                 <Stack spacing={2}>
-                  {commentsList.map((comment: CommentsInterface) => <CommentItem key={comment.id} {...comment} />)}
+                  {commentsList.map((comment: CommentsInterface) => {
+                    return <CommentItem key={comment.id} {...comment} />
+                  })}
                 </Stack>
               </StyledBox>
             )}

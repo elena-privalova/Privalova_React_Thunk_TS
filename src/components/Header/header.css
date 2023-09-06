@@ -35,3 +35,7 @@ li.search-group__item-1 {
   gap: 10px
 }
 
+.buttons-group__avatar {
+  cursor: pointer;
+}
+

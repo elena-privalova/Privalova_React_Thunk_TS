@@ -1,14 +1,15 @@
 import { type FC } from 'react';
 
 import PostCard from '../PostCard/PostCard';
+import { NewsInterface } from '../PostCard/types';
 
-import { NewsArrayInterface } from './types';
+import { PostsListProps } from './types';
 import './postsList.css';
 
-const PostsList: FC<NewsArrayInterface> = (props) => {
+const PostsList: FC<PostsListProps> = (props) => {
   return (
-    <div className='container__posts'>
-      {props.array.map(news => <PostCard key={news.id} {...news}/>)}
+    <div className={props.typeClass}>
+      {props.array.map((news: NewsInterface) => <PostCard key={news.id} {...news}/>)}
     </div>
   )
 }
