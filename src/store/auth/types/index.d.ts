@@ -16,7 +16,7 @@ interface VerifyUser extends AuthorInterface {
 
 interface AuthState {
   isLoading: boolean,
-  user: AuthUser | VerifyUser | null,
+  authUser: AuthUser | VerifyUser | null,
   error: string,
 };
 

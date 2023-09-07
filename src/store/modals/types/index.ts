@@ -1,6 +1,6 @@
 export const CURRENT_TYPE_VALUES = {
-  signup: 'sign up',
-  login: 'log in',
+  signup: 'signup',
+  login: 'login',
 };
 
 export interface ModalState {

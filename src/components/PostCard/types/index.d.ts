@@ -29,3 +29,7 @@ export interface NewsInterface {
   tags: TagsInterface[],
 };
 
+interface PostCardProps {
+  post: NewsInterface;
+}
+

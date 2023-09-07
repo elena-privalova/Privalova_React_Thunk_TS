@@ -5,6 +5,7 @@ import cardReducer from './posts/slicesCard';
 import commentsReducer from './comments/slicesComments';
 import modalsReducer from './modals/slicesModals'
 import authReducer from './auth/slicesAuth';
+import userReducer from './user/slicesUser';
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -17,6 +18,7 @@ const store = configureStore({
     comments: commentsReducer,
     modals: modalsReducer,
     auth: authReducer,
+    user: userReducer,
   }
 });
 

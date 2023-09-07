@@ -33,7 +33,7 @@ import './authModal.css';
 const AuthModal: FC = () => {
   const {
     isLoading,
-    user,
+    authUser,
     error
   } = useSelector((state: RootState) => state.auth);
   const { isOpen, currentType } = useSelector((state: RootState) => state.modals); 
@@ -91,8 +91,8 @@ const AuthModal: FC = () => {
   };
 
   useEffect(() => {
-    if (user != null) handleClose();
-  }, [user]);
+    if (authUser != null) handleClose();
+  }, [authUser]);
 
   return (
     <Modal

@@ -1,4 +1,8 @@
-import { BaseSyntheticEvent, type FC } from 'react';
+import {
+  BaseSyntheticEvent,
+  type FC,
+  MouseEvent
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
@@ -10,7 +14,7 @@ import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import defaultImage from '../../images/defaultPicture.jpg';
 
-import { NewsInterface } from './types';
+import { PostCardProps } from './types';
 import { 
   StyledPostCard, 
   StyledCardContent,
@@ -20,11 +24,16 @@ import {
 } from './styles';
 import './postCard.css';
 
-const PostCard: FC<NewsInterface> = (news) => {
+const PostCard: FC<PostCardProps> = ({ post }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`news/${news.id}`);
+  const handleClickCard = () => {
+    navigate(`news/${post.id}`);
+  };
+
+  const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    navigate(`users/${post.authorId}`);
   };
 
   const handleError = (e: BaseSyntheticEvent) => {
@@ -32,35 +41,36 @@ const PostCard: FC<NewsInterface> = (news) => {
   };
   
   return (
-    <StyledPostCard className="card" onClick={handleClick}>
+    <StyledPostCard className="card" onClick={handleClickCard}>
       <div className="card__header header">
         <StyledCardHeader
-          title={news.title}
+          title={post.title}
           titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
-          subheader={news.author.email}
+          subheader={post.author.email}
           subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
+          onClick={handleClickAuthor}
         />
-        <span className="header__date">{getFormattedDate(news.createdAt)}</span>
+        <span className="header__date">{getFormattedDate(post.createdAt)}</span>
       </div>
       <div className="card__picture">
         <CardMedia
           component="img"
           height="180px"
-          image={`${import.meta.env.VITE_APP_API_URL}${news.coverPath}`}
+          image={`${import.meta.env.VITE_APP_API_URL}${post.coverPath}`}
           onError={handleError}
           alt="News image"
         />
       </div>
       <StyledCardContent>
-        <StyledTypography variant="body2" color="text.secondary">{news.text}</StyledTypography>
+        <StyledTypography variant="body2" color="text.secondary">{post.text}</StyledTypography>
         <div className="card__tags">
-          {news.tags.map((tag) => <Chip key={tag.id} label={tag.value} />)}
+          {post.tags.map((post) => <Chip key={post.id} label={post.value} />)}
         </div>
         <div className="card__rating-group rating-group">
-          <Rating name="Rating" readOnly value={news.rating} />
+          <Rating name="Rating" readOnly value={post.rating} />
           <div className="rating-group__comments">
             <ModeCommentOutlined fontSize="medium" color="action" />
-            <span>{news.commentsCount}</span>
+            <span>{post.commentsCount}</span>
           </div>
         </div>
       </StyledCardContent>

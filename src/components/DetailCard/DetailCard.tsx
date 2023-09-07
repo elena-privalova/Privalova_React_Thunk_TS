@@ -9,13 +9,13 @@ import {
 } from '@mui/material';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
+import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import defaultImage from '../../images/defaultPicture.jpg';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
 import { NewsInterface } from '../PostCard/types';
 
-import { StyledDetailCard } from './styles';
+import { StyledInfoCard } from './styles';
 import './detailCard.css';
-import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 
 const DetailCard: FC<NewsInterface> = (news) => {
   const handleError = (e: BaseSyntheticEvent) => {
@@ -23,7 +23,7 @@ const DetailCard: FC<NewsInterface> = (news) => {
   };
 
   return (
-    <StyledDetailCard className="detail-card">
+    <StyledInfoCard className="detail-card">
       <StyledCardHeader
         avatar={
           <Avatar
@@ -60,7 +60,7 @@ const DetailCard: FC<NewsInterface> = (news) => {
         <Rating name="Rating" readOnly value={news.rating} />
       </CardContent>
       <span className="detail-card__date">{getFormattedDate(news.createdAt)}</span>
-    </StyledDetailCard>
+    </StyledInfoCard>
   )
 }
 

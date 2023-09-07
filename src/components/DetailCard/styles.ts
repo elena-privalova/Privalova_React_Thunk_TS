@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyledDetailCard = styled(Card)({
+export const StyledInfoCard = styled(Card)({
   userSelect: 'none',
   width: '95%',
   height: 'auto',

@@ -9,3 +9,8 @@
   padding: 20px 10px;
 }
 
+.user-posts {
+  justify-content: space-around;
+  padding: 20px 0;
+}
+

@@ -1,11 +1,16 @@
 import { type FC } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 
 import Main from './pages/Main/Main';
 import News from './pages/News/News';
+import User from './pages/User/User';
 import Layout from './components/Layout/Layout';
+import { useSelector } from 'react-redux';
+import { RootState } from './pages/Main/types';
 
 const App: FC = () => {
+  const { authUser } = useSelector((state: RootState) => state.auth);
+
   return useRoutes([
     {
       path: '/',
@@ -17,7 +22,11 @@ const App: FC = () => {
         },
         {
           path: 'news/:id',
-          element: <News />
+          element: authUser && <News /> || <Navigate to="/" />
+        },
+        {
+          path: 'users/:id',
+          element: authUser && <User /> || <Navigate to="/" />
         }
       ]
     }

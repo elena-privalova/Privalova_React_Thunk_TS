@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { ModalState, VisibilityInterface } from './types';
 
 const modalsInitialState: ModalState = {
   isOpen: false,
-  currentType: 'signup'
+  currentType: 'login'
 };
 
 export const modalsSlice = createSlice({
