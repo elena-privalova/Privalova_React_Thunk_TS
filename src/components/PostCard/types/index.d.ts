@@ -32,3 +32,4 @@ export interface NewsInterface {
 interface PostCardProps {
   post: NewsInterface;
 }
+
