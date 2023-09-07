@@ -5,16 +5,16 @@ import {
   Rating
 } from '@mui/material';
 
-import { VerifyUser } from '../../store/auth/types';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import { getFormattedFullName } from '../../utils/getFormattedFullName';
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import { StyledInfoCard } from '../DetailCard/styles';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
 
+import { UserCardProps } from './types';
 import './userCard.css';
 
-const UserCard: FC<VerifyUser> = (user) => {
+const UserCard: FC<UserCardProps> = ({ user }) => {
   return (
     <StyledInfoCard className="user-card">
       <StyledCardHeader

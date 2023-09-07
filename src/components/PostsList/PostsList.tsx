@@ -1,18 +1,23 @@
-import { type FC } from 'react';
+import { memo, type FC } from 'react';
 
 import PostCard from '../PostCard/PostCard';
-import { NewsInterface } from '../PostCard/types';
 
 import { PostsListProps } from './types';
 import './postsList.css';
+import classNames from 'classnames';
 
-const PostsList: FC<PostsListProps> = (props) => {
+const PostsList: FC<PostsListProps> = memo(({ postsArray, userPosts }) => {
+  const postsListClass = classNames({
+    container__posts: true,
+    'user-posts': userPosts,
+  });
+  
   return (
-    <div className={props.typeClass}>
-      {props.array.map((news: NewsInterface) => <PostCard key={news.id} {...news}/>)}
+    <div className={postsListClass}>
+      {postsArray.map((news) => <PostCard key={news.id} post={news}/>)}
     </div>
   )
-}
+})
 
 export default PostsList;
 

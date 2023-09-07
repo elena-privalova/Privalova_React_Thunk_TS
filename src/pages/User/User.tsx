@@ -34,7 +34,7 @@ const User = () => {
       )}
       {currentUser != null && !isLoading && error === '' && (
         <div className="container__user user">
-          <UserCard {...currentUser} />
+          <UserCard user={currentUser} />
           <div className="user__posts-group">
             <span className="posts-group__title">Posts</span>
             {isLoading && (
@@ -43,7 +43,7 @@ const User = () => {
               </div>
             )}
             {usersPosts.length > 0 && !isLoading && error === '' && (
-              <PostsList array={usersPosts} typeClass="container__user-posts" />
+              <PostsList postsArray={usersPosts} userPosts={true} />
             )}
             {usersPosts.length === 0 && !isLoading && error === '' && (
               <div className="posts-group container__empty">
