@@ -7,11 +7,13 @@ import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { logoutUser } from '../../store/auth/slicesAuth';
 import { changeOpeness } from '../../store/modals/slicesAuthModals';
+import { changeVisibility } from '../../store/modals/slicesNewsModal';
 import { getVerifyUser } from '../../store/auth/thunks';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
+import NewsModal from '../NewsModal/NewsModal';
 
 import {
   StyledAddButton,
@@ -20,10 +22,7 @@ import {
   StyledToolbar,
   StyledTypography
 } from './styles';
-
 import './header.css';
-import { changeVisibility } from '../../store/modals/slicesNewsModal';
-import NewsModal from '../NewsModal/NewsModal';
 
 const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
