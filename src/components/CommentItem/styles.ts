@@ -21,8 +21,6 @@ export const StyledItem = styled(Paper)(({ theme }) => ({
 export const StyledItemHeader = styled('div')({
   display: 'flex',
   gap: '10px',
-  '& span': {
-    marginTop: '8px'
-  }
+  '& span': { marginTop: '8px' }
 });
 

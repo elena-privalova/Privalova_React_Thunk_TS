@@ -23,7 +23,7 @@ const CommentItem: FC<CommentsInterface>  = (props) => {
       <span>{getFormattedDate(props.createdAt)}</span>
     </StyledItem>
   );
-}
+};
 
 export default CommentItem;
 

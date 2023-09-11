@@ -9,7 +9,7 @@ const userInitialState: UserState = {
   isLoading: false,
   currentUser: null,
   usersPosts: [],
-  error: '',
+  error: ''
 };
 
 export const userSlice = createSlice({
@@ -17,33 +17,33 @@ export const userSlice = createSlice({
   initialState: userInitialState,
   reducers: {},
   extraReducers(builder) {
-      builder
-        .addCase(getUser.pending, (state) => {
-          state.isLoading = true;
+    builder
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (typeof action.payload === 'string') state.error = action.payload;
+        else {
+          state.currentUser = action.payload as VerifyUser;
           state.error = '';
-        })
-        .addCase(getUser.fulfilled, (state, action) => {
-          state.isLoading = false;
-          if (typeof action.payload === 'string') state.error = action.payload;
-          else {
-            state.currentUser = action.payload as VerifyUser;
-            state.error = '';
-          }
-        })
-        .addCase(getUsersPosts.pending, (state) => {
-          state.isLoading = true;
+        }
+      })
+      .addCase(getUsersPosts.pending, (state) => {
+        state.isLoading = true;
+        state.error = '';
+      })
+      .addCase(getUsersPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (typeof action.payload === 'string') state.error = action.payload;
+        else if (Array.isArray(action.payload)) {
+          state.usersPosts = action.payload;
           state.error = '';
-        })
-        .addCase(getUsersPosts.fulfilled, (state, action) => {
-          state.isLoading = false;
-          if (typeof action.payload === 'string') state.error = action.payload;
-          else if (Array.isArray(action.payload)) {
-            state.usersPosts = action.payload;
-            state.error = '';
-          }
-        })
-  },
-})
+        }
+      });
+  }
+});
 
 export default userSlice.reducer;
 

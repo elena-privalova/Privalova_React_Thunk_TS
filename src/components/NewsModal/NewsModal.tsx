@@ -1,0 +1,148 @@
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Modal } from '@mui/material';
+
+import { AppDispatch, RootState } from '../../pages/Main/types';
+import { changeVisibility } from '../../store/modals/slicesNewsModal';
+import { clearNews } from '../../store/news/slicesNews';
+import { addNews } from '../../store/news';
+import { getPosts } from '../../store/posts';
+import { getUsersPosts } from '../../store/user';
+import WarningAlert from '../Error/WarningAlert';
+import {
+  StyledButton,
+  StyledForm,
+  StyledLoader,
+  StyledTextField,
+  StyledTypography
+} from '../AuthModal/styles';
+
+import './newsModal.css';
+
+const NewsModal = () => {
+  const { isVisible } = useSelector((state: RootState) => state.newsModal);
+  const { isLoading, news, error } = useSelector((state: RootState) => state.news);
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { authUser } = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { id } = useParams();
+
+  const handleClose = () => {
+    dispatch(clearNews());
+    dispatch(changeVisibility({ isOvertly: !isVisible }));
+    setTitle('');
+    setText('');
+    setTags('');
+    setFile(null);
+    if (id != null && currentUser.id === authUser.id) dispatch(getUsersPosts(Number(id)));
+    else dispatch(getPosts());
+  };
+
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [tags, setTags] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const handleChangeText = (event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  const handleChangeTags = (event: ChangeEvent<HTMLInputElement>) => {
+    setTags(event.target.value);
+  };
+
+  const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files != null) setFile(event.target.files[0]);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formattedTags = tags.split(', ');
+    dispatch(addNews({
+      title: title,
+      text: text,
+      file: file!,
+      tags: formattedTags
+    }));
+  };
+
+  useEffect(() => {
+    if (news != null) handleClose();
+  }, [news]);
+
+  return (
+    <Modal
+      open={isVisible}
+      onClose={handleClose}
+    >
+      <>
+        <StyledForm className="news-form" onSubmit={handleSubmit}>
+          {isLoading && (
+            <StyledLoader color="inherit" />
+          )}
+          {!isLoading && (
+            <>
+              <StyledTypography>NEWS</StyledTypography>
+              <StyledTextField
+                variant="outlined"
+                label="Title"
+                value={title}
+                onChange={handleChangeTitle}
+              />
+              <StyledTextField
+                variant="outlined"
+                label="Text"
+                value={text}
+                onChange={handleChangeText}
+              />
+              <StyledTextField
+                variant="outlined"
+                label="Tags"
+                value={tags}
+                onChange={handleChangeTags}
+              />
+              <label className="news-form__file-group">
+                <input
+                  name="Picture"
+                  type="file"
+                  onChange={handleChangeFile}
+                />
+                <span className="file-group__text">Choose file</span>
+                { file != null && (
+                  <span className="file-group__file-name">{file.name}</span>
+                )}
+              </label>
+              <StyledButton
+                variant="contained"
+                disabled={title === '' || text === '' || tags.length === 0 || file == null}
+                type="submit"
+              >
+                ADD
+              </StyledButton>
+            </>
+          )}
+        </StyledForm>
+        {error !== '' && (
+          <div className="modal__alert">
+            <WarningAlert text="Некорректно введенные данные" type="error" />
+          </div>
+        )}
+      </>
+    </Modal>
+  );
+};
+
+export default NewsModal;
+

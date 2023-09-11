@@ -20,7 +20,7 @@ export const postsSlice = createSlice({
     },
     setFilterType: (state, action: ActionSearchState) => {
       state.filterType = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -36,13 +36,13 @@ export const postsSlice = createSlice({
           state.postsList = action.payload;
           state.error = '';
         }
-      })
+      });
   }
 });
 
-export const { 
-  setSearchText, 
-  setFilterType, 
+export const {
+  setSearchText,
+  setFilterType
 } = postsSlice.actions;
 export default postsSlice.reducer;
 

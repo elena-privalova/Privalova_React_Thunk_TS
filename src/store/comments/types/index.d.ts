@@ -8,16 +8,16 @@ interface CommentsInterface {
   author: AuthorInterface,
   createdAt: string,
   updatedAt: string
-};
+}
 
 interface CommentsListState {
   isDownloaded: boolean,
   commentsList: CommentsInterface[],
   failed: string
-};
+}
 
 interface FetchCommentsInterface {
   comments: CommentsInterface[],
   total: number,
-};
+}
 

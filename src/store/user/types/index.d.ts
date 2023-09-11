@@ -6,5 +6,5 @@ interface UserState {
   currentUser: VerifyUser | null,
   usersPosts: NewsInterface[],
   error: string,
-};
+}
 

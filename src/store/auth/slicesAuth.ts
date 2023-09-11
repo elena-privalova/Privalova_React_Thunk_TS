@@ -8,9 +8,9 @@ import {
   signUpUser
 } from './thunks';
 import {
-  AuthState, 
+  AuthState,
   AuthUser,
-  VerifyUser,
+  VerifyUser
 } from './types';
 
 const authInitialState: AuthState = {
@@ -33,7 +33,7 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-      builder
+    builder
       .addCase(signUpUser.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -44,7 +44,7 @@ export const authSlice = createSlice({
         else {
           state.authUser = action.payload as AuthUser;
           state.error = '';
-        };
+        }
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -77,8 +77,8 @@ export const authSlice = createSlice({
         else {
           state.authUser = null;
         }
-      })
-  },
+      });
+  }
 });
 
 export const {

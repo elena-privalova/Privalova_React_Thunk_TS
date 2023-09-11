@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../Header/Header';
 
-import './layout.css'
+import './layout.css';
 
 const Layout: FC = () => {
   return (
@@ -11,8 +11,8 @@ const Layout: FC = () => {
       <Header />
       <Outlet />
     </div>
-  )
-}
+  );
+};
 
 export default Layout;
 

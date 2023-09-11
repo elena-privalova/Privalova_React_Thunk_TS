@@ -22,7 +22,7 @@ const News: FC = () => {
   const { isDownloaded, commentsList, failed } = useSelector((state: RootState) => state.comments);
 
   const dispatch = useDispatch<AppDispatch>();
-  
+
   useEffect(() => {
     dispatch(getCard(formattedId));
     dispatch(getComments(formattedId));
@@ -49,7 +49,7 @@ const News: FC = () => {
               <StyledBox>
                 <Stack spacing={2}>
                   {commentsList.map((comment: CommentsInterface) => {
-                    return <CommentItem key={comment.id} {...comment} />
+                    return <CommentItem key={comment.id} {...comment} />;
                   })}
                 </Stack>
               </StyledBox>
@@ -73,8 +73,8 @@ const News: FC = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default News;
 

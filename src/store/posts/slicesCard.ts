@@ -30,7 +30,7 @@ export const cardSlice = createSlice({
           state.detailCard = action.payload as NewsInterface;
           state.error = '';
         }
-      })
+      });
   }
 });
 

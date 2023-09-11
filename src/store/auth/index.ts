@@ -5,7 +5,7 @@ import {
 } from './thunks';
 
 export {
-  signUpUser, 
+  signUpUser,
   logInUser,
   getVerifyUser
 };

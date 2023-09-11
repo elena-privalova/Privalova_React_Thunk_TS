@@ -34,8 +34,8 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
       </CardContent>
       <span className="user-card__date">{getFormattedDate(user.createdAt)}</span>
     </StyledInfoCard>
-  )
-}
+  );
+};
 
 export default UserCard;
 

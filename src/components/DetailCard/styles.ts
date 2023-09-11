@@ -1,6 +1,6 @@
-import { 
+import {
   Box,
-  Card 
+  Card
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -17,7 +17,5 @@ export const StyledInfoCard = styled(Card)({
   backgroundColor: '#E3DED1'
 });
 
-export const StyledBox = styled(Box)({
-  width: '100%'
-});
+export const StyledBox = styled(Box)({ width: '100%' });
 

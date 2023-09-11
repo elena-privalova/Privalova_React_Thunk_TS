@@ -6,41 +6,50 @@ import { AppBar, Avatar } from '@mui/material';
 import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { logoutUser } from '../../store/auth/slicesAuth';
-import { changeVisibility } from '../../store/modals/slicesModals';
+import { changeOpeness } from '../../store/modals/slicesAuthModals';
 import { getVerifyUser } from '../../store/auth/thunks';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
 
-import { 
-  StyledBox, 
-  StyledButton, 
-  StyledToolbar, 
-  StyledTypography 
+import {
+  StyledAddButton,
+  StyledBox,
+  StyledButton,
+  StyledToolbar,
+  StyledTypography
 } from './styles';
+
 import './header.css';
+import { changeVisibility } from '../../store/modals/slicesNewsModal';
+import NewsModal from '../NewsModal/NewsModal';
 
 const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const { isOpen } = useSelector((state: RootState) => state.modals);
+  const { isOpen } = useSelector((state: RootState) => state.authModals);
+  const { isVisible } = useSelector((state: RootState) => state.newsModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  
+
   const handleClickRegistration = () => {
-    dispatch(changeVisibility({
+    dispatch(changeOpeness({
       isOvertly: !isOpen,
-      kind: 'signup',
+      kind: 'signup'
     }));
   };
 
   const handleClickAuthorization = () => {
-    dispatch(changeVisibility({
+    dispatch(changeOpeness({
       isOvertly: !isOpen,
-      kind: 'login',
+      kind: 'login'
     }));
+  };
+
+  const handleClickAddNews = () => {
+    dispatch(changeVisibility({ isOvertly: !isVisible }));
   };
 
   const handleClickLogout = () => {
@@ -54,7 +63,7 @@ const Header: FC = () => {
   useEffect(() => {
     dispatch(getVerifyUser());
   }, []);
-  
+
   return (
     <>
       <StyledBox>
@@ -71,17 +80,20 @@ const Header: FC = () => {
             <div className="buttons-group">
               {authUser != null ?
                 <>
-                  <Avatar
-                    className="buttons-group__avatar"
-                    src={getFormattedAvatarPath(authUser.avatarPath)}
-                    alt="User avatar"
-                    onClick={handleClickAvatar}
-                  />
-                  <StyledButton variant="contained" onClick={handleClickLogout}>Logout</StyledButton>
+                  <StyledAddButton variant="contained" onClick={handleClickAddNews}>+</StyledAddButton>
+                  <div className="buttons-group user-group">
+                    <Avatar
+                      className="buttons-group__avatar"
+                      src={getFormattedAvatarPath(authUser.avatarPath)}
+                      alt="User avatar"
+                      onClick={handleClickAvatar}
+                    />
+                    <StyledButton variant="contained" onClick={handleClickLogout}>Logout</StyledButton>
+                  </div>
                 </>
                 :
                 <>
-                <StyledButton
+                  <StyledButton
                     variant="contained"
                     onClick={handleClickRegistration}
                   >
@@ -100,9 +112,10 @@ const Header: FC = () => {
         </AppBar>
       </StyledBox>
       <AuthModal />
+      <NewsModal />
     </>
-  )
-}
+  );
+};
 
 export default Header;
 

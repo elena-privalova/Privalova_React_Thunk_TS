@@ -1,7 +1,7 @@
 import {
   useEffect,
   type FC,
-  useMemo,
+  useMemo
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
@@ -15,23 +15,23 @@ import { AppDispatch, RootState } from './types';
 import './main.css';
 
 const Main: FC = () => {
-  const { 
-    isLoading, 
-    postsList, 
-    error, 
-    searchText, 
-    filterType 
+  const {
+    isLoading,
+    postsList,
+    error,
+    searchText,
+    filterType
   } = useSelector((state: RootState) => state.posts);
-  
+
   const dispatch = useDispatch<AppDispatch>();
-  
+
   useEffect(() => {
     dispatch(getPosts());
   }, []);
 
   const memoizedFilterArray = useMemo(() =>
-    getFilterArray(postsList, searchText, filterType), 
-    [postsList, searchText, filterType]
+    getFilterArray(postsList, searchText, filterType),
+  [postsList, searchText, filterType]
   );
 
   return (
@@ -56,8 +56,8 @@ const Main: FC = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default Main;
 

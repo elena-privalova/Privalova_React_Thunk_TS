@@ -6,14 +6,14 @@ interface AuthorInterface {
   avatarPath: string | null,
   createdAt: string,
   updatedAt: string,
-};
+}
 
 interface TagsInterface {
   id: number,
   value: string,
   createdAt: string,
   updatedAt: string
-};
+}
 
 export interface NewsInterface {
   id: number,
@@ -27,7 +27,7 @@ export interface NewsInterface {
   commentsCount: number,
   author: AuthorInterface,
   tags: TagsInterface[],
-};
+}
 
 interface PostCardProps {
   post: NewsInterface;

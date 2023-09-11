@@ -5,9 +5,9 @@ import { SelectChangeEvent, FormControl } from '@mui/material';
 import { setFilterType } from '../../store/posts/slicesPosts';
 import { RootState } from '../../pages/Main/types';
 
-import {  
+import {
   StyledInput,
-  StyledMenuItem, 
+  StyledMenuItem,
   StyledSelect
 } from './styles';
 
@@ -21,11 +21,11 @@ const FilterElement: FC = () => {
       dispatch(setFilterType(event.target.value));
     }
   };
-  
+
   return (
     <FormControl>
       <StyledSelect
-        input={ <StyledInput /> }
+        input={<StyledInput />}
         value={filterType}
         onChange={handleChangeFilter}
       >
@@ -35,9 +35,9 @@ const FilterElement: FC = () => {
         <StyledMenuItem value="text">Text</StyledMenuItem>
         <StyledMenuItem value="tags">Tags</StyledMenuItem>
       </StyledSelect>
-  </FormControl>
-  )
-}
+    </FormControl>
+  );
+};
 
 export default FilterElement;
 

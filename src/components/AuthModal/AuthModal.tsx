@@ -5,15 +5,15 @@ import {
   ChangeEvent,
   FormEvent,
   FocusEvent,
-  useEffect,
+  useEffect
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { clearAuth } from '../../store/auth/slicesAuth';
-import { changeVisibility } from '../../store/modals/slicesModals';
-import { logInUser, signUpUser} from '../../store/auth';
+import { changeOpeness } from '../../store/modals/slicesAuthModals';
+import { logInUser, signUpUser } from '../../store/auth';
 import { CURRENT_TYPE_VALUES } from '../../store/modals/types';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { validateEmail } from '../../utils/validateEmail';
@@ -36,7 +36,7 @@ const AuthModal: FC = () => {
     authUser,
     error
   } = useSelector((state: RootState) => state.auth);
-  const { isOpen, currentType } = useSelector((state: RootState) => state.modals); 
+  const { isOpen, currentType } = useSelector((state: RootState) => state.authModals);
 
   const authorizationType = currentType === CURRENT_TYPE_VALUES.login ? logInUser : signUpUser;
 
@@ -44,9 +44,9 @@ const AuthModal: FC = () => {
 
   const handleClose = () => {
     dispatch(clearAuth(currentType));
-    dispatch(changeVisibility({
+    dispatch(changeOpeness({
       isOvertly: false,
-      kind: currentType,
+      kind: currentType
     }));
     setEmail('');
     setPassword('');
@@ -127,7 +127,7 @@ const AuthModal: FC = () => {
               <StyledIconButton
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}
-                >
+              >
                 {show ? <Visibility /> : <VisibilityOff />}
               </StyledIconButton>
               <StyledButton
@@ -136,7 +136,7 @@ const AuthModal: FC = () => {
                 disabled={
                   !validateEmail(email) ||
                   !validatePassword(password) ||
-                  email === '' || 
+                  email === '' ||
                   password === ''
                 }
               >
@@ -152,8 +152,8 @@ const AuthModal: FC = () => {
         )}
       </>
     </Modal>
-  )
-}
+  );
+};
 
 export default AuthModal;
 
