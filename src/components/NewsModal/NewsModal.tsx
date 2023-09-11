@@ -42,7 +42,7 @@ const NewsModal = () => {
     setText('');
     setTags('');
     setFile(null);
-    if (id != null && currentUser.id === authUser) dispatch(getUsersPosts(Number(id)));
+    if (id != null && currentUser.id === authUser.id) dispatch(getUsersPosts(Number(id)));
     else if (news != null) dispatch(getPosts());
   };
 
