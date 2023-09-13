@@ -10,7 +10,7 @@ export const StyledSelect = styled(Select)({
   paddingLeft: '5px',
   height: '40px'
 });
-  
+
 export const StyledInput = styled(InputBase)({
   height: '40px',
   border: '1px solid #4F493F',
@@ -19,11 +19,9 @@ export const StyledInput = styled(InputBase)({
     color: '#4F493F',
     borderColor: '#4F493F'
   },
-  '&.Mui-focused fieldset': {
-    borderColor: '#4F493F'
-  }
+  '&.Mui-focused fieldset': { borderColor: '#4F493F' }
 });
-  
+
 export const StyledMenuItem = styled(MenuItem)({
   color: '#908471',
   letterSpacing: '1px',

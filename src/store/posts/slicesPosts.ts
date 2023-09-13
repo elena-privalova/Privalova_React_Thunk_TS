@@ -4,9 +4,9 @@ import { ActionSearchState, PostsState } from './types';
 import { getPosts } from './thunks';
 
 const postsInitialState: PostsState = {
-  isLoading: false,
+  isPostsLoading: false,
   postsList: [],
-  error: '',
+  postsError: '',
   searchText: '',
   filterType: 'all'
 };
@@ -20,29 +20,32 @@ export const postsSlice = createSlice({
     },
     setFilterType: (state, action: ActionSearchState) => {
       state.filterType = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state) => {
-        state.isLoading = true;
+        state.isPostsLoading = true;
         state.postsList = [];
-        state.error = '';
+        state.postsError = '';
       })
+
       .addCase(getPosts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.error = action.payload;
+        state.isPostsLoading = false;
+        if (typeof action.payload === 'string') {
+          state.postsError = action.payload;
+        }
         else if (Array.isArray(action.payload)) {
           state.postsList = action.payload;
-          state.error = '';
+          state.postsError = '';
         }
-      })
+      });
   }
 });
 
-export const { 
-  setSearchText, 
-  setFilterType, 
+export const {
+  setSearchText,
+  setFilterType
 } = postsSlice.actions;
 export default postsSlice.reducer;
 

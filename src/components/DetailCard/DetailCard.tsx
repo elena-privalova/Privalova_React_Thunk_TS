@@ -1,23 +1,23 @@
 import { BaseSyntheticEvent, type FC } from 'react';
-import { 
+import {
   CardMedia,
   Chip,
   Rating,
   Typography,
   CardContent,
-  Avatar,
+  Avatar
 } from '@mui/material';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
-import defaultImage from '../../images/defaultPicture.jpg';
+import defaultImage from '../../images/defaultPicture.jpeg';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
-import { NewsInterface } from '../PostCard/types';
+import { NewsData } from '../PostCard/types';
 
 import { StyledInfoCard } from './styles';
 import './detailCard.css';
 
-const DetailCard: FC<NewsInterface> = (news) => {
+const DetailCard: FC<NewsData> = (news) => {
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
   };
@@ -28,7 +28,7 @@ const DetailCard: FC<NewsInterface> = (news) => {
         avatar={
           <Avatar
             alt="Author Image"
-            src={getFormattedAvatarPath(news.author.avatarPath)} 
+            src={getFormattedAvatarPath(news.author.avatarPath)}
           />
         }
         title={news.title}
@@ -37,7 +37,7 @@ const DetailCard: FC<NewsInterface> = (news) => {
         subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
       />
       <div className="detail-card__picture picture">
-        <CardMedia 
+        <CardMedia
           className="picture"
           component="img"
           height="380px"
@@ -47,9 +47,9 @@ const DetailCard: FC<NewsInterface> = (news) => {
         />
       </div>
       <CardContent>
-        <Typography 
-          className="detail-card__text" 
-          variant="body2" 
+        <Typography
+          className="detail-card__text"
+          variant="body2"
           color="text.secondary"
         >
           {news.text}
@@ -61,8 +61,8 @@ const DetailCard: FC<NewsInterface> = (news) => {
       </CardContent>
       <span className="detail-card__date">{getFormattedDate(news.createdAt)}</span>
     </StyledInfoCard>
-  )
-}
+  );
+};
 
 export default DetailCard;
 

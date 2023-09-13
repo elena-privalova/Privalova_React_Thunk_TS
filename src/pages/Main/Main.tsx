@@ -1,7 +1,7 @@
 import {
   useEffect,
   type FC,
-  useMemo,
+  useMemo
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
@@ -15,49 +15,49 @@ import { AppDispatch, RootState } from './types';
 import './main.css';
 
 const Main: FC = () => {
-  const { 
-    isLoading, 
-    postsList, 
-    error, 
-    searchText, 
-    filterType 
+  const {
+    isPostsLoading,
+    postsList,
+    postsError,
+    searchText,
+    filterType
   } = useSelector((state: RootState) => state.posts);
-  
+
   const dispatch = useDispatch<AppDispatch>();
-  
+
   useEffect(() => {
     dispatch(getPosts());
   }, []);
 
   const memoizedFilterArray = useMemo(() =>
-    getFilterArray(postsList, searchText, filterType), 
-    [postsList, searchText, filterType]
+    getFilterArray(postsList, searchText, filterType),
+  [postsList, searchText, filterType]
   );
 
   return (
     <>
-      {isLoading && (
+      {isPostsLoading && (
         <div className="container__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
           <Skeleton variant='rounded' width={300} height={600}/>
         </div>
       )}
-      {postsList.length > 0 && error === '' && !isLoading && (
+      {postsList.length > 0 && postsError === '' && !isPostsLoading && (
         <PostsList postsArray={memoizedFilterArray} />
       )}
-      {postsList.length === 0 && error === '' && !isLoading && (
+      {postsList.length === 0 && postsError === '' && !isPostsLoading && (
         <div className="container__empty">
           <WarningAlert text="Новостей нет" type="info" />
         </div>
       )}
-      {error !== '' && (
+      {postsError !== '' && (
         <div className="container__empty">
-          <WarningAlert text={error} type="error" />
+          <WarningAlert text={postsError} type="error" />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default Main;
 

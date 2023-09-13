@@ -1,15 +1,23 @@
-export const CURRENT_TYPE_VALUES = {
+export const CURRENT_AUTH_TYPE_VALUES = {
   signup: 'signup',
-  login: 'login',
+  login: 'login'
 };
 
-export interface ModalState {
-  isOpen: boolean,
-  currentType: keyof typeof CURRENT_TYPE_VALUES,
-};
+export interface AuthModalState {
+  isAuthVisible: boolean,
+  currentType: keyof typeof CURRENT_AUTH_TYPE_VALUES,
+}
 
-export interface VisibilityInterface {
-  isOvertly: boolean,
-  kind: keyof typeof CURRENT_TYPE_VALUES,
-};
+export interface AuthVisibilityState {
+  isVisible: boolean,
+  kind: keyof typeof CURRENT_AUTH_TYPE_VALUES,
+}
+
+export interface NewsModalState {
+  isNewsVisible: boolean,
+}
+
+export interface NewsVisibilityState {
+  isVisible: boolean
+}
 

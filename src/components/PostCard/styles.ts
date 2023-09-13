@@ -26,12 +26,10 @@ export const StyledPostCard = styled(Card)({
   borderRadius: '20px',
   background: '#E3DED1',
   border: '2px solid #c3c6ce',
-  transition: '0.5s ease-out',
+  transition: '0.5s ease-out'
 });
 
-export const StyledCardHeader = styled(CardHeader)({
-  paddingBottom: 0
-});
+export const StyledCardHeader = styled(CardHeader)({ paddingBottom: 0 });
 
 export const StyledCardHeaderBlock = {
   titleTypographyProps: {
@@ -44,7 +42,7 @@ export const StyledCardHeaderBlock = {
   subheaderTypographyProps: {
     fontFamily: 'Raleway',
     color: '#4F493F',
-    fontSize: '16px',
+    fontSize: '16px'
   }
 };
 
@@ -58,7 +56,5 @@ export const StyledTypography = styled(Typography)({
   wordWrap: 'break-word'
 });
 
-export const StyledCardContent = styled(CardContent)({
-  height: '350px'
-});
+export const StyledCardContent = styled(CardContent)({ height: '350px' });
 

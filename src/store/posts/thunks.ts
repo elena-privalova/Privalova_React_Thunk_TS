@@ -20,7 +20,7 @@ export const getCard = createAsyncThunk(
   'posts/getNews',
   async (id: number) => {
     try {
-      return await fetchGetCard(id);
+      return fetchGetCard(id);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

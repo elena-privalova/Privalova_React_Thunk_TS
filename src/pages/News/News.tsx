@@ -8,7 +8,7 @@ import { getComments } from '../../store/comments';
 import DetailCard from '../../components/DetailCard/DetailCard';
 import WarningAlert from '../../components/Error/WarningAlert';
 import { StyledBox } from '../../components/DetailCard/styles';
-import { CommentsInterface } from '../../store/comments/types';
+import { CommentsList } from '../../store/comments/types';
 import CommentItem from '../../components/CommentItem/CommentItem';
 import { AppDispatch, RootState } from '../Main/types';
 
@@ -18,11 +18,11 @@ const News: FC = () => {
   const { id } = useParams();
   const formattedId = Number(id);
 
-  const { isLoading, detailCard, error } = useSelector((state: RootState) => state.card);
-  const { isDownloaded, commentsList, failed } = useSelector((state: RootState) => state.comments);
+  const { isCardLoading, detailCard, cardError } = useSelector((state: RootState) => state.card);
+  const { isCommentsLoading, commentsList, commentsError } = useSelector((state: RootState) => state.comments);
 
   const dispatch = useDispatch<AppDispatch>();
-  
+
   useEffect(() => {
     dispatch(getCard(formattedId));
     dispatch(getComments(formattedId));
@@ -30,51 +30,51 @@ const News: FC = () => {
 
   return (
     <>
-      {isLoading && (
+      {isCardLoading && (
         <div className="container__skeletons-group">
           <Skeleton variant='rounded' width={300} height={600}/>
         </div>
       )}
-      {detailCard != null && error === '' && !isLoading && (
+      {detailCard != null && cardError === '' && !isCardLoading && (
         <div className="container__post post">
           <DetailCard {...detailCard} />
           <div className="post__comments-group">
             <span>Comments</span>
-            {isDownloaded && (
+            {isCommentsLoading && (
               <div className="container__skeletons-group">
                 <Skeleton variant='rounded' width="100%" height={40}/>
               </div>
             )}
-            {commentsList.length > 0 && failed === '' && !isDownloaded && (
+            {commentsList.length > 0 && commentsError === '' && !isCommentsLoading && (
               <StyledBox>
                 <Stack spacing={2}>
-                  {commentsList.map((comment: CommentsInterface) => {
-                    return <CommentItem key={comment.id} {...comment} />
+                  {commentsList.map((comment: CommentsList) => {
+                    return <CommentItem key={comment.id} {...comment} />;
                   })}
                 </Stack>
               </StyledBox>
             )}
-            {commentsList.length === 0 && failed === '' && !isDownloaded && (
+            {commentsList.length === 0 && commentsError === '' && !isCommentsLoading && (
               <div className="container__empty">
                 <WarningAlert text="Комментариев еще нет" type="info" />
               </div>
             )}
-            {failed !== '' && (
+            {commentsError !== '' && (
               <div className="container__empty">
-                <WarningAlert text={failed} type="error" />
+                <WarningAlert text={commentsError} type="error" />
               </div>
             )}
           </div>
         </div>
       )}
-      {error !== '' && (
+      {cardError !== '' && (
         <div className="container__empty">
           <WarningAlert text="Такой новости нет" type="error" />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default News;
 

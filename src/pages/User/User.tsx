@@ -16,7 +16,7 @@ const User = () => {
   const { id } = useParams();
   const formattedId = Number(id);
 
-  const { isLoading, currentUser, usersPosts, error } = useSelector((state: RootState) => state.user);
+  const { isUserLoading, currentUser, usersPosts, userError } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,25 +27,25 @@ const User = () => {
 
   return (
     <>
-      {isLoading && (
+      {isUserLoading && (
         <div className="container__loader">
           <CircularProgress color="inherit" />
         </div>
       )}
-      {currentUser != null && !isLoading && error === '' && (
+      {currentUser != null && !isUserLoading && userError === '' && (
         <div className="container__user user">
           <UserCard user={currentUser} />
           <div className="user__posts-group">
             <span className="posts-group__title">Posts</span>
-            {isLoading && (
+            {isUserLoading && (
               <div className="container__loader">
                 <CircularProgress color="inherit" />
               </div>
             )}
-            {usersPosts.length > 0 && !isLoading && error === '' && (
+            {usersPosts.length > 0 && !isUserLoading && userError === '' && (
               <PostsList postsArray={usersPosts} userPosts={true} />
             )}
-            {usersPosts.length === 0 && !isLoading && error === '' && (
+            {usersPosts.length === 0 && !isUserLoading && userError === '' && (
               <div className="posts-group container__empty">
                 <WarningAlert text="Постов еще нет" type="info" />
               </div>
@@ -53,14 +53,14 @@ const User = () => {
           </div>
         </div>
       )}
-      {error !== '' && (
+      {userError !== '' && (
         <div className="container__empty">
-          <WarningAlert text={error} type="error" />
+          <WarningAlert text={userError} type="error" />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default User;
 

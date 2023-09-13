@@ -12,15 +12,15 @@ import {
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
-import defaultImage from '../../images/defaultPicture.jpg';
+import defaultImage from '../../images/defaultPicture.jpeg';
 
 import { PostCardProps } from './types';
-import { 
-  StyledPostCard, 
+import {
+  StyledPostCard,
   StyledCardContent,
   StyledCardHeader,
   StyledCardHeaderBlock,
-  StyledTypography 
+  StyledTypography
 } from './styles';
 import './postCard.css';
 
@@ -39,7 +39,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
   };
-  
+
   return (
     <StyledPostCard className="card" onClick={handleClickCard}>
       <div className="card__header header">
@@ -75,8 +75,8 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         </div>
       </StyledCardContent>
     </StyledPostCard>
-  )
-}
+  );
+};
 
 export default PostCard;
 

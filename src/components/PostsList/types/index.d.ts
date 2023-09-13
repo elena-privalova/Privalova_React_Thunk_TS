@@ -1,7 +1,7 @@
-import NewsInterface from '../../PostCard/types';
+import NewsData from '../../PostCard/types';
 
 interface PostsListProps {
-  postsArray: NewsInterface[];
+  postsArray: NewsData[];
   userPosts?: boolean
-};
+}
 

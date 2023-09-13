@@ -5,16 +5,16 @@ import {
   ChangeEvent,
   FormEvent,
   FocusEvent,
-  useEffect,
+  useEffect
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { clearAuth } from '../../store/auth/slicesAuth';
-import { changeVisibility } from '../../store/modals/slicesModals';
-import { logInUser, signUpUser} from '../../store/auth';
-import { CURRENT_TYPE_VALUES } from '../../store/modals/types';
+import { changeAuthVisibility } from '../../store/modals/slicesAuthModals';
+import { logInUser, signUpUser } from '../../store/auth';
+import { CURRENT_AUTH_TYPE_VALUES } from '../../store/modals/types';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { validateEmail } from '../../utils/validateEmail';
 import { validatePassword } from '../../utils/validatePassword';
@@ -32,21 +32,21 @@ import './authModal.css';
 
 const AuthModal: FC = () => {
   const {
-    isLoading,
+    isAuthLoading,
     authUser,
-    error
+    authError
   } = useSelector((state: RootState) => state.auth);
-  const { isOpen, currentType } = useSelector((state: RootState) => state.modals); 
+  const { isAuthVisible, currentType } = useSelector((state: RootState) => state.authModals);
 
-  const authorizationType = currentType === CURRENT_TYPE_VALUES.login ? logInUser : signUpUser;
+  const authorizationType = currentType === CURRENT_AUTH_TYPE_VALUES.login ? logInUser : signUpUser;
 
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClose = () => {
     dispatch(clearAuth(currentType));
-    dispatch(changeVisibility({
-      isOvertly: false,
-      kind: currentType,
+    dispatch(changeAuthVisibility({
+      isVisible: false,
+      kind: currentType
     }));
     setEmail('');
     setPassword('');
@@ -96,15 +96,15 @@ const AuthModal: FC = () => {
 
   return (
     <Modal
-      open={isOpen}
+      open={isAuthVisible}
       onClose={handleClose}
     >
       <>
         <StyledForm onSubmit={handleSubmit}>
-          {isLoading && (
+          {isAuthLoading && (
             <StyledLoader color="inherit" />
           )}
-          {!isLoading && (
+          {!isAuthLoading && (
             <>
               <StyledTypography>{currentType.toUpperCase()}</StyledTypography>
               <StyledTextField
@@ -113,7 +113,7 @@ const AuthModal: FC = () => {
                 value={email}
                 onBlur={handleBlurEmail}
                 onChange={handleChangeEmail}
-                error={!isCorrectEmail || error !== ''}
+                error={!isCorrectEmail || authError !== ''}
               />
               <StyledTextField
                 variant="outlined"
@@ -122,12 +122,12 @@ const AuthModal: FC = () => {
                 value={password}
                 onChange={handleChangePassword}
                 onBlur={handleBlurPassword}
-                error={!isCorrectPassword || error !== ''}
+                error={!isCorrectPassword || authError !== ''}
               />
               <StyledIconButton
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}
-                >
+              >
                 {show ? <Visibility /> : <VisibilityOff />}
               </StyledIconButton>
               <StyledButton
@@ -136,7 +136,7 @@ const AuthModal: FC = () => {
                 disabled={
                   !validateEmail(email) ||
                   !validatePassword(password) ||
-                  email === '' || 
+                  email === '' ||
                   password === ''
                 }
               >
@@ -145,15 +145,15 @@ const AuthModal: FC = () => {
             </>
           )}
         </StyledForm>
-        {error !== '' && (
+        {authError !== '' && (
           <div className="modal__alert">
             <WarningAlert text="Некорректно введенные данные" type="error" />
           </div>
         )}
       </>
     </Modal>
-  )
-}
+  );
+};
 
 export default AuthModal;
 

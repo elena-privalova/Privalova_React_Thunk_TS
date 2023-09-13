@@ -1,0 +1,41 @@
+form.news-form {
+  height: 400px;
+}
+
+.news-form__file-group {
+  display: flex;
+	width: 75%;
+}
+
+.file-group__text {
+	margin-right: 5px;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	white-space: nowrap;
+  color: black;
+}
+
+.file-group__text:hover {
+	text-decoration: underline;
+}
+
+.news-form__file-group input[type=file] {
+	display: none;
+}
+
+.file-group__file-name {
+	margin-top: 2px;
+	white-space: nowrap;
+	width: 170px;
+	color: #47493F;
+	font-size: 10px;
+	display: inline-block;
+  overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+}
+

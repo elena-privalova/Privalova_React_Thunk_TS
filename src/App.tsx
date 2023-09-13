@@ -1,11 +1,11 @@
 import { type FC } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Main from './pages/Main/Main';
 import News from './pages/News/News';
 import User from './pages/User/User';
 import Layout from './components/Layout/Layout';
-import { useSelector } from 'react-redux';
 import { RootState } from './pages/Main/types';
 
 const App: FC = () => {
@@ -30,8 +30,8 @@ const App: FC = () => {
         }
       ]
     }
-  ])
-}
+  ]);
+};
 
 export default App;
 

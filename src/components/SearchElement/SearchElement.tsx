@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { setSearchText } from '../../store/posts/slicesPosts';
 
-import { 
+import {
   Search,
   SearchIconWrapper,
   StyledInputBase
@@ -27,8 +27,8 @@ const SearchElement: FC = () => {
         onChange={handleChangeSearch}
       />
     </Search>
-  )
-}
+  );
+};
 
 export default SearchElement;
 

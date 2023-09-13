@@ -6,10 +6,10 @@ import { UserState } from './types';
 import { getUser, getUsersPosts } from './thunks';
 
 const userInitialState: UserState = {
-  isLoading: false,
+  isUserLoading: false,
   currentUser: null,
   usersPosts: [],
-  error: '',
+  userError: ''
 };
 
 export const userSlice = createSlice({
@@ -17,33 +17,41 @@ export const userSlice = createSlice({
   initialState: userInitialState,
   reducers: {},
   extraReducers(builder) {
-      builder
-        .addCase(getUser.pending, (state) => {
-          state.isLoading = true;
-          state.error = '';
-        })
-        .addCase(getUser.fulfilled, (state, action) => {
-          state.isLoading = false;
-          if (typeof action.payload === 'string') state.error = action.payload;
-          else {
-            state.currentUser = action.payload as VerifyUser;
-            state.error = '';
-          }
-        })
-        .addCase(getUsersPosts.pending, (state) => {
-          state.isLoading = true;
-          state.error = '';
-        })
-        .addCase(getUsersPosts.fulfilled, (state, action) => {
-          state.isLoading = false;
-          if (typeof action.payload === 'string') state.error = action.payload;
-          else if (Array.isArray(action.payload)) {
-            state.usersPosts = action.payload;
-            state.error = '';
-          }
-        })
-  },
-})
+    builder
+      .addCase(getUser.pending, (state) => {
+        state.isUserLoading = true;
+        state.userError = '';
+      })
+
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isUserLoading = false;
+        if (typeof action.payload === 'string') state.userError = action.payload;
+        else {
+          state.currentUser = action.payload as VerifyUser;
+          state.userError = '';
+        }
+      })
+
+      .addCase(getUser.rejected, (state, action) => {
+        state.isUserLoading = false;
+        if (typeof action.error.message === 'string') state.userError = action.error.message;
+      })
+
+      .addCase(getUsersPosts.pending, (state) => {
+        state.isUserLoading = true;
+        state.userError = '';
+      })
+
+      .addCase(getUsersPosts.fulfilled, (state, action) => {
+        state.isUserLoading = false;
+        if (typeof action.payload === 'string') state.userError = action.payload;
+        else if (Array.isArray(action.payload)) {
+          state.usersPosts = action.payload;
+          state.userError = '';
+        }
+      });
+  }
+});
 
 export default userSlice.reducer;
 

@@ -1,28 +1,26 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-
-import { NewsInterface } from '../../../components/PostCard/types';
+import { NewsData } from '../../../components/PostCard/types';
 
 interface PostsState {
-  isLoading: boolean,
-  postsList: NewsInterface[],
-  error: string,
+  isPostsLoading: boolean,
+  postsList: NewsData[],
+  postsError: string,
   searchText: string,
   filterType: string,
-};
+}
 
 interface CardState {
-  isLoading: boolean,
-  detailCard: NewsInterface | null,
-  error: string,
-};
+  isCardLoading: boolean,
+  detailCard: NewsData | null,
+  cardError: string,
+}
 
 interface ActionSearchState {
   payload: string,
   type: string,
-};
+}
 
-interface FetchPostsInterface {
-  posts: NewsInterface[],
+interface ResponsePostsList {
+  posts: NewsData[],
   total: number,
-};
+}
 

@@ -1,22 +1,22 @@
-import { AuthorInterface } from '../../../components/PostCard/types';
+import { AuthorData } from '../../../components/PostCard/types';
 
 interface RequestUser {
   email: string,
   password: string,
-};
+}
 
 interface AuthUser {
   accessToken: string,
   user: AuthorInterface,
-};
+}
 
-interface VerifyUser extends AuthorInterface {
+interface VerifyUser extends AuthorData {
   rating: number;
-};
+}
 
 interface AuthState {
-  isLoading: boolean,
+  isAuthLoading: boolean,
   authUser: AuthUser | VerifyUser | null,
-  error: string,
-};
+  authError: string,
+}
 
