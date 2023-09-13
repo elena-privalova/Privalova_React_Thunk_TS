@@ -4,9 +4,9 @@ import { CommentsListState } from './types';
 import { getComments } from './thunks';
 
 const commentsInitialState: CommentsListState = {
-  isDownloaded: false,
+  isCommentsLoading: false,
   commentsList: [],
-  failed: ''
+  commentsError: ''
 };
 
 const commentsSlice = createSlice({
@@ -16,17 +16,18 @@ const commentsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getComments.pending, (state) => {
-        state.isDownloaded = true;
-        state.failed = '';
+        state.isCommentsLoading = true;
+        state.commentsError = '';
       })
+
       .addCase(getComments.fulfilled, (state, action) => {
-        state.isDownloaded = false;
+        state.isCommentsLoading = false;
         if (typeof action.payload === 'string') {
-          state.failed = action.payload;
+          state.commentsError = action.payload;
         }
         else if (Array.isArray(action.payload)) {
           state.commentsList = action.payload;
-          state.failed = '';
+          state.commentsError = '';
         }
       });
   }

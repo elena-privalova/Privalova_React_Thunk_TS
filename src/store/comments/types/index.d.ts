@@ -1,23 +1,23 @@
-import { AuthorInterface } from '../../../components/PostCard/types';
+import { AuthorData } from '../../../components/PostCard/types';
 
-interface CommentsInterface {
+interface CommentsList {
   id: number,
   text: string,
   authorId: number,
   postId: number,
-  author: AuthorInterface,
+  author: AuthorData,
   createdAt: string,
   updatedAt: string
 }
 
 interface CommentsListState {
-  isDownloaded: boolean,
-  commentsList: CommentsInterface[],
-  failed: string
+  isCommentsLoading: boolean,
+  commentsList: CommentsList[],
+  commentsError: string
 }
 
-interface FetchCommentsInterface {
-  comments: CommentsInterface[],
+interface ResponseCommentsList {
+  comments: CommentsList[],
   total: number,
 }
 

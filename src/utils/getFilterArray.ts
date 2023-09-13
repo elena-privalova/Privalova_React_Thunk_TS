@@ -1,10 +1,10 @@
-import { NewsInterface } from '../components/PostCard/types';
+import { NewsData } from '../components/PostCard/types';
 
 export const getFilterArray = (
-  arrayNews: NewsInterface[],
+  arrayNews: NewsData[],
   searchText: string,
   filterType: string
-): NewsInterface[] => {
+): NewsData[] => {
   const formattedSearchText = searchText.toLowerCase();
   const searchArray = arrayNews.filter((element) => {
     switch (filterType) {

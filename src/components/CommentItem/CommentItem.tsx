@@ -1,13 +1,13 @@
 import { type FC } from 'react';
 import { Avatar } from '@mui/material';
 
-import { CommentsInterface } from '../../store/comments/types';
+import { CommentsList } from '../../store/comments/types';
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 
 import { StyledItem, StyledItemHeader } from './styles';
 
-const CommentItem: FC<CommentsInterface>  = (props) => {
+const CommentItem: FC<CommentsList>  = (props) => {
   return (
     <StyledItem>
       <StyledItemHeader>

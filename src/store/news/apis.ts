@@ -1,6 +1,6 @@
 import api from '../adapter';
 
-export const fetchAddNews = async (news: AddNewsInterface) => {
+export const fetchAddNews = async (news: AddNewsData) => {
   const { data } = await api.post(
     'posts',
     news,

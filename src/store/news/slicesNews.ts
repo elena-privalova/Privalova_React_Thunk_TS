@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { addNews } from './thunks';
 
-const newsInitialState: NewsState = {
-  isLoading: false,
+const newsInitialState: AddNewsState = {
+  isAddNewsLoading: false,
   news: null,
-  error: ''
+  addNewsError: ''
 };
 
 export const newsSlice = createSlice({
@@ -13,24 +13,32 @@ export const newsSlice = createSlice({
   initialState: newsInitialState,
   reducers: {
     clearNews: state => {
-      state.isLoading = false;
+      state.isAddNewsLoading = false;
       state.news = null;
-      state.error = '';
+      state.addNewsError = '';
     }
   },
   extraReducers(builder) {
     builder
       .addCase(addNews.pending, state => {
-        state.isLoading = true;
-        state.error = '';
+        state.isAddNewsLoading = true;
+        state.addNewsError = '';
       })
+
       .addCase(addNews.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.error = action.payload;
+        state.isAddNewsLoading = false;
+        if (typeof action.payload === 'string') {
+          state.addNewsError = action.payload;
+        }
         else {
           state.news = action.payload;
-          state.error = '';
+          state.addNewsError = '';
         }
+      })
+
+      .addCase(addNews.rejected, (state, action) => {
+        state.isAddNewsLoading = false;
+        if (typeof action.error.message === 'string') state.addNewsError = action.error.message;
       });
   }
 });

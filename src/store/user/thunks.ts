@@ -7,7 +7,7 @@ export const getUser = createAsyncThunk(
   'users/getUser',
   async (id: number) => {
     try {
-      return await fetchGetUser(id);
+      return fetchGetUser(id);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AuthModalState, OpenessInterface } from './types';
+import { AuthModalState, AuthVisibilityState } from './types';
 
 const authModalsInitialState: AuthModalState = {
-  isOpen: false,
+  isAuthVisible: false,
   currentType: 'login'
 };
 
@@ -11,13 +11,13 @@ export const authModalsSlice = createSlice({
   name: 'authModals',
   initialState: authModalsInitialState,
   reducers: {
-    changeOpeness: (state, action: PayloadAction<OpenessInterface>) => {
-      state.isOpen = action.payload.isOvertly;
+    changeAuthVisibility: (state, action: PayloadAction<AuthVisibilityState>) => {
+      state.isAuthVisible = action.payload.isVisible;
       state.currentType = action.payload.kind;
     }
   }
 });
 
-export const { changeOpeness } = authModalsSlice.actions;
+export const { changeAuthVisibility } = authModalsSlice.actions;
 export default authModalsSlice.reducer;
 

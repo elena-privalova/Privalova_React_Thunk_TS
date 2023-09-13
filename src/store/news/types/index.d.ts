@@ -1,13 +1,13 @@
-interface AddNewsInterface {
+interface AddNewsData {
   title: string,
   text: string,
   file: File,
   tags: string[]
 }
 
-interface NewsState {
-  isLoading: boolean,
-  news: AddNewsInterface | null,
-  error: string,
+interface AddNewsState {
+  isAddNewsLoading: boolean,
+  news: AddNewsData | null,
+  addNewsError: string,
 }
 

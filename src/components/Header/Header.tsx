@@ -6,8 +6,8 @@ import { AppBar, Avatar } from '@mui/material';
 import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { logoutUser } from '../../store/auth/slicesAuth';
-import { changeOpeness } from '../../store/modals/slicesAuthModals';
-import { changeVisibility } from '../../store/modals/slicesNewsModal';
+import { changeAuthVisibility } from '../../store/modals/slicesAuthModals';
+import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { getVerifyUser } from '../../store/auth/thunks';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import AuthModal from '../AuthModal/AuthModal';
@@ -26,29 +26,29 @@ import './header.css';
 
 const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const { isOpen } = useSelector((state: RootState) => state.authModals);
-  const { isVisible } = useSelector((state: RootState) => state.newsModal);
+  const { isAuthVisible } = useSelector((state: RootState) => state.authModals);
+  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
 
   const handleClickRegistration = () => {
-    dispatch(changeOpeness({
-      isOvertly: !isOpen,
+    dispatch(changeAuthVisibility({
+      isVisible: !isAuthVisible,
       kind: 'signup'
     }));
   };
 
   const handleClickAuthorization = () => {
-    dispatch(changeOpeness({
-      isOvertly: !isOpen,
+    dispatch(changeAuthVisibility({
+      isVisible: !isAuthVisible,
       kind: 'login'
     }));
   };
 
   const handleClickAddNews = () => {
-    dispatch(changeVisibility({ isOvertly: !isVisible }));
+    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
   };
 
   const handleClickLogout = () => {

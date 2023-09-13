@@ -5,9 +5,9 @@ import { fetchAddNews } from './apis';
 
 export const addNews = createAsyncThunk(
   'post/addNews',
-  async (news: AddNewsInterface) => {
+  async (news: AddNewsData) => {
     try {
-      return await fetchAddNews(news);
+      return fetchAddNews(news);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

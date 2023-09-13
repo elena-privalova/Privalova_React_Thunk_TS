@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { Modal } from '@mui/material';
 
 import { AppDispatch, RootState } from '../../pages/Main/types';
-import { changeVisibility } from '../../store/modals/slicesNewsModal';
+import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { clearNews } from '../../store/news/slicesNews';
 import { addNews } from '../../store/news';
 import { getPosts } from '../../store/posts';
@@ -26,8 +26,8 @@ import {
 import './newsModal.css';
 
 const NewsModal = () => {
-  const { isVisible } = useSelector((state: RootState) => state.newsModal);
-  const { isLoading, news, error } = useSelector((state: RootState) => state.news);
+  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
+  const { isAddNewsLoading, news, addNewsError } = useSelector((state: RootState) => state.news);
   const { currentUser } = useSelector((state: RootState) => state.user);
   const { authUser } = useSelector((state: RootState) => state.auth);
 
@@ -37,7 +37,7 @@ const NewsModal = () => {
 
   const handleClose = () => {
     dispatch(clearNews());
-    dispatch(changeVisibility({ isOvertly: !isVisible }));
+    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
     setTitle('');
     setText('');
     setTags('');
@@ -70,13 +70,17 @@ const NewsModal = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formattedTags = tags.split(', ');
-    dispatch(addNews({
-      title: title,
-      text: text,
-      file: file!,
-      tags: formattedTags
-    }));
+    if (file != null) {
+      dispatch(addNews({
+        title: title,
+        text: text,
+        file: file,
+        tags: formattedTags
+      }));
+    }
   };
+
+  const isDisable = title === '' || text === '' || tags.length === 0 || file == null;
 
   useEffect(() => {
     if (news != null) handleClose();
@@ -84,15 +88,15 @@ const NewsModal = () => {
 
   return (
     <Modal
-      open={isVisible}
+      open={isNewsVisible}
       onClose={handleClose}
     >
       <>
         <StyledForm className="news-form" onSubmit={handleSubmit}>
-          {isLoading && (
+          {isAddNewsLoading && (
             <StyledLoader color="inherit" />
           )}
-          {!isLoading && (
+          {!isAddNewsLoading && (
             <>
               <StyledTypography>NEWS</StyledTypography>
               <StyledTextField
@@ -126,7 +130,7 @@ const NewsModal = () => {
               </label>
               <StyledButton
                 variant="contained"
-                disabled={title === '' || text === '' || tags.length === 0 || file == null}
+                disabled={isDisable}
                 type="submit"
               >
                 ADD
@@ -134,7 +138,7 @@ const NewsModal = () => {
             </>
           )}
         </StyledForm>
-        {error !== '' && (
+        {addNewsError !== '' && (
           <div className="modal__alert">
             <WarningAlert text="Некорректно введенные данные" type="error" />
           </div>

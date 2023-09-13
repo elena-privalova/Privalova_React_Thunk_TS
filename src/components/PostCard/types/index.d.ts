@@ -1,4 +1,4 @@
-interface AuthorInterface {
+interface AuthorData {
   id: number,
   firstName: string,
   lastName: string,
@@ -8,14 +8,14 @@ interface AuthorInterface {
   updatedAt: string,
 }
 
-interface TagsInterface {
+interface TagsData {
   id: number,
   value: string,
   createdAt: string,
   updatedAt: string
 }
 
-export interface NewsInterface {
+export interface NewsData {
   id: number,
   title: string,
   text: string,
@@ -25,11 +25,11 @@ export interface NewsInterface {
   updatedAt: string,
   rating: number,
   commentsCount: number,
-  author: AuthorInterface,
-  tags: TagsInterface[],
+  author: AuthorData,
+  tags: TagsData[],
 }
 
 interface PostCardProps {
-  post: NewsInterface;
+  post: NewsData;
 }
 

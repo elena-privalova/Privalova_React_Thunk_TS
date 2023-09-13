@@ -1,10 +1,10 @@
-import { NewsInterface } from '../../../components/PostCard/types';
+import { NewsData } from '../../../components/PostCard/types';
 import { VerifyUser } from '../../auth/types';
 
 interface UserState {
-  isLoading: boolean,
+  isUserLoading: boolean,
   currentUser: VerifyUser | null,
-  usersPosts: NewsInterface[],
-  error: string,
+  usersPosts: NewsData[],
+  userError: string,
 }
 

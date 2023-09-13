@@ -14,9 +14,9 @@ import {
 } from './types';
 
 const authInitialState: AuthState = {
-  isLoading: false,
+  isAuthLoading: false,
   authUser: null,
-  error: ''
+  authError: ''
 };
 
 export const authSlice = createSlice({
@@ -24,8 +24,8 @@ export const authSlice = createSlice({
   initialState: authInitialState,
   reducers: {
     clearAuth: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = '';
+      state.isAuthLoading = false;
+      state.authError = '';
       if (action.payload === 'signup') state.authUser = null;
     },
     logoutUser: (state) => {
@@ -35,44 +35,54 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signUpUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = '';
+        state.isAuthLoading = true;
+        state.authError = '';
       })
+
       .addCase(signUpUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.error = action.payload;
+        state.isAuthLoading = false;
+        if (typeof action.payload === 'string') {
+          state.authError = action.payload;
+        }
         else {
           state.authUser = action.payload as AuthUser;
-          state.error = '';
+          state.authError = '';
         }
       })
+
       .addCase(signUpUser.rejected, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.error.message === 'string') state.error = action.error.message;
+        state.isAuthLoading = false;
+        if (typeof action.error.message === 'string') state.authError = action.error.message;
       })
+
       .addCase(logInUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = '';
+        state.isAuthLoading = true;
+        state.authError = '';
       })
+
       .addCase(logInUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.payload === 'string') state.error = action.payload;
-        else if (action.payload != null && 'accessToken' in action.payload!) {
+        state.isAuthLoading = false;
+        if (typeof action.payload === 'string') {
+          state.authError = action.payload;
+        }
+        else if (action.payload != null && 'accessToken' in action.payload) {
           if (typeof setToken(action.payload.accessToken) !== 'string') {
             state.authUser = action.payload;
-            state.error = '';
+            state.authError = '';
           }
         }
       })
+
       .addCase(logInUser.rejected, (state, action) => {
-        state.isLoading = false;
-        if (typeof action.error.message === 'string') state.error = action.error.message;
+        state.isAuthLoading = false;
+        if (typeof action.error.message === 'string') state.authError = action.error.message;
       })
+
       .addCase(getVerifyUser.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isAuthLoading = false;
         if (typeof action.payload !== 'string') {
           state.authUser = action.payload as VerifyUser;
-          state.error = '';
+          state.authError = '';
         }
         else {
           state.authUser = null;

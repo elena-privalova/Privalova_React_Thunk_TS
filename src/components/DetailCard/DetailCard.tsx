@@ -12,12 +12,12 @@ import { getFormattedDate } from '../../utils/getFormattedDate';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import defaultImage from '../../images/defaultPicture.jpeg';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
-import { NewsInterface } from '../PostCard/types';
+import { NewsData } from '../PostCard/types';
 
 import { StyledInfoCard } from './styles';
 import './detailCard.css';
 
-const DetailCard: FC<NewsInterface> = (news) => {
+const DetailCard: FC<NewsData> = (news) => {
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
   };
