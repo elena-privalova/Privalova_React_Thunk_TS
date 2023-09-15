@@ -5,7 +5,8 @@ import { removeToken, setToken } from '../../lib/local-storage';
 import {
   logInUser,
   getVerifyUser,
-  signUpUser
+  signUpUser,
+  refreshAuthUser
 } from './thunks';
 import {
   AuthState,
@@ -16,7 +17,8 @@ import {
 const authInitialState: AuthState = {
   isAuthLoading: false,
   authUser: null,
-  authError: ''
+  authError: '',
+  isSuccessRefresh: false
 };
 
 export const authSlice = createSlice({
@@ -26,6 +28,7 @@ export const authSlice = createSlice({
     clearAuth: (state, action: PayloadAction<string>) => {
       state.isAuthLoading = false;
       state.authError = '';
+      state.isSuccessRefresh = false;
       if (action.payload === 'signup') state.authUser = null;
     },
     logoutUser: (state) => {
@@ -87,6 +90,29 @@ export const authSlice = createSlice({
         else {
           state.authUser = null;
         }
+      })
+
+      .addCase(refreshAuthUser.pending, state => {
+        state.isAuthLoading = true;
+        state.authError = '';
+        state.isSuccessRefresh = false;
+      })
+
+      .addCase(refreshAuthUser.fulfilled, (state, action) => {
+        state.isAuthLoading = false;
+        if (typeof action.payload === 'string') {
+          state.authError = action.payload;
+        }
+        else {
+          state.isSuccessRefresh = true;
+          state.authUser = action.payload as VerifyUser;
+          state.authError = '';
+        }
+      })
+
+      .addCase(refreshAuthUser.rejected, (state, action) => {
+        state.isAuthLoading = false;
+        if (typeof action.error.message === 'string') state.authError = action.error.message;
       });
   }
 });

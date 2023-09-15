@@ -1,7 +1,12 @@
-import { type FC, useEffect } from 'react';
+import {
+  type FC,
+  useEffect,
+  useState,
+  MouseEvent
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { AppBar, Avatar } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
@@ -14,6 +19,7 @@ import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
 import NewsModal from '../NewsModal/NewsModal';
+import UserPopover from '../UserPopover/UserPopover';
 
 import {
   StyledAddButton,
@@ -31,37 +37,43 @@ const Header: FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleClickRegistration = () => {
     dispatch(changeAuthVisibility({
-      isVisible: !isAuthVisible,
-      kind: 'signup'
+      isAuthVisible: !isAuthVisible,
+      currentType: 'signup'
     }));
   };
 
   const handleClickAuthorization = () => {
     dispatch(changeAuthVisibility({
-      isVisible: !isAuthVisible,
-      kind: 'login'
+      isAuthVisible: !isAuthVisible,
+      currentType: 'login'
     }));
   };
 
   const handleClickAddNews = () => {
-    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
+    dispatch(changeNewsVisibility({ isNewsVisible: !isNewsVisible }));
   };
 
   const handleClickLogout = () => {
     dispatch(logoutUser());
   };
 
-  const handleClickAvatar = () => {
-    navigate(`users/${authUser.id}`);
+  const handleClickAvatar = (event: MouseEvent<HTMLDivElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   useEffect(() => {
     dispatch(getVerifyUser());
   }, []);
+
+  const location = useLocation();
 
   return (
     <>
@@ -72,10 +84,12 @@ const Header: FC = () => {
               <StyledTypography>News</StyledTypography>
               <img className='logo-group__logo' src={newsIcon} />
             </div>
-            <div className="search-group">
-              <SearchElement />
-              <FilterElement />
-            </div>
+            {!location.pathname.includes('news') && (
+              <div className="search-group">
+                <SearchElement />
+                <FilterElement />
+              </div>
+            )}
             <div className="buttons-group">
               {authUser != null ?
                 <>
@@ -110,8 +124,13 @@ const Header: FC = () => {
           </StyledToolbar>
         </AppBar>
       </StyledBox>
-      <AuthModal />
-      <NewsModal />
+      {authUser != null && (
+        <>
+          <AuthModal />
+          <NewsModal />
+          <UserPopover anchorEl={anchorEl} handleClose={handleClose} />
+        </>
+      )}
     </>
   );
 };

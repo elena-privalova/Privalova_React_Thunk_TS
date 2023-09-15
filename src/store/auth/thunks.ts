@@ -3,10 +3,11 @@ import { AxiosError } from 'axios';
 
 import {
   fetchLogInUser,
+  fetchRefreshAuthUser,
   fetchSignUpUser,
   fetchVerifyUser
 } from './apis';
-import { RequestUser } from './types';
+import { RequestRefreshUser, RequestUser } from './types';
 
 export const signUpUser = createAsyncThunk(
   'auth/signupUser',
@@ -37,6 +38,18 @@ export const getVerifyUser = createAsyncThunk(
   async () => {
     try {
       return fetchVerifyUser();
+    }
+    catch(e) {
+      if (e instanceof AxiosError) return e.message;
+    }
+  }
+);
+
+export const refreshAuthUser = createAsyncThunk(
+  'users/refreshAuthUser',
+  async (user: RequestRefreshUser) => {
+    try {
+      return fetchRefreshAuthUser(user);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

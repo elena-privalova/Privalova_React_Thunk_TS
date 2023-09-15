@@ -37,7 +37,7 @@ const NewsModal = () => {
 
   const handleClose = () => {
     dispatch(clearNews());
-    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
+    dispatch(changeNewsVisibility({ isNewsVisible: !isNewsVisible }));
     setTitle('');
     setText('');
     setTags('');

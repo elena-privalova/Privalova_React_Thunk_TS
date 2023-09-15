@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AuthModalState, AuthVisibilityState } from './types';
+import { AuthModalVisibility } from './types';
 
-const authModalsInitialState: AuthModalState = {
+const authModalsInitialState: AuthModalVisibility = {
   isAuthVisible: false,
   currentType: 'login'
 };
@@ -11,9 +11,9 @@ export const authModalsSlice = createSlice({
   name: 'authModals',
   initialState: authModalsInitialState,
   reducers: {
-    changeAuthVisibility: (state, action: PayloadAction<AuthVisibilityState>) => {
-      state.isAuthVisible = action.payload.isVisible;
-      state.currentType = action.payload.kind;
+    changeAuthVisibility: (state, action: PayloadAction<AuthModalVisibility>) => {
+      state.isAuthVisible = action.payload.isAuthVisible;
+      state.currentType = action.payload.currentType;
     }
   }
 });

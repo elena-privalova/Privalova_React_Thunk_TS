@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { NewsModalState, NewsVisibilityState } from './types';
+import { NewsModalVisibility } from './types';
 
-const newsModalInitialState: NewsModalState = { isNewsVisible: false };
+const newsModalInitialState: NewsModalVisibility = { isNewsVisible: false };
 
 export const newsModalSlice = createSlice({
   name: 'newsModal',
   initialState: newsModalInitialState,
   reducers: {
-    changeNewsVisibility: (state, action: PayloadAction<NewsVisibilityState>) => {
-      state.isNewsVisible = action.payload.isVisible;
+    changeNewsVisibility: (state, action: PayloadAction<NewsModalVisibility>) => {
+      state.isNewsVisible = action.payload.isNewsVisible;
     }
   }
 });
