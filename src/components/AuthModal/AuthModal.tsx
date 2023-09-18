@@ -46,7 +46,7 @@ const AuthModal: FC = () => {
     dispatch(clearAuth(currentType));
     dispatch(changeAuthVisibility({
       isAuthVisible: false,
-      currentType: currentType
+      currentType
     }));
     setEmail('');
     setPassword('');
@@ -104,7 +104,7 @@ const AuthModal: FC = () => {
           {isAuthLoading && (
             <StyledLoader color="inherit" />
           )}
-          {!isAuthLoading && authError === '' && (
+          {!isAuthLoading && (
             <>
               <StyledTypography>{currentType.toUpperCase()}</StyledTypography>
               <StyledTextField

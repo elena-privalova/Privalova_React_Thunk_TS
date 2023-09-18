@@ -1,76 +1,60 @@
 import {
   type FC,
-  useEffect,
-  useState,
-  MouseEvent
+  useEffect
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Avatar } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { logoutUser } from '../../store/auth/slicesAuth';
 import { changeAuthVisibility } from '../../store/modals/slicesAuthModals';
-import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { getVerifyUser } from '../../store/auth/thunks';
+import { CURRENT_AUTH_TYPE_VALUES } from '../../store/modals/types';
+import { getToken } from '../../lib/local-storage';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
+import RefreshUserModal from '../RefreshUserModal/RefreshUserModal';
 import NewsModal from '../NewsModal/NewsModal';
-import UserPopover from '../UserPopover/UserPopover';
 
 import {
-  StyledAddButton,
   StyledBox,
   StyledButton,
   StyledToolbar,
   StyledTypography
 } from './styles';
+
 import './header.css';
 
 const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser } = useSelector((state: RootState) => state.user);
   const { isAuthVisible } = useSelector((state: RootState) => state.authModals);
-  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+  const navigate = useNavigate();
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClickRegistration = () => {
+  const handleClickAuthModal = (type: keyof typeof CURRENT_AUTH_TYPE_VALUES) => {
     dispatch(changeAuthVisibility({
       isAuthVisible: !isAuthVisible,
-      currentType: 'signup'
+      currentType: type
     }));
-  };
-
-  const handleClickAuthorization = () => {
-    dispatch(changeAuthVisibility({
-      isAuthVisible: !isAuthVisible,
-      currentType: 'login'
-    }));
-  };
-
-  const handleClickAddNews = () => {
-    dispatch(changeNewsVisibility({ isNewsVisible: !isNewsVisible }));
   };
 
   const handleClickLogout = () => {
     dispatch(logoutUser());
   };
 
-  const handleClickAvatar = (event: MouseEvent<HTMLDivElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickAvatar = () => {
+    navigate(`users/${authUser.id}`);
   };
 
   useEffect(() => {
-    dispatch(getVerifyUser());
+    if (getToken() != null) dispatch(getVerifyUser());
   }, []);
 
   const location = useLocation();
@@ -93,8 +77,7 @@ const Header: FC = () => {
             <div className="buttons-group">
               {authUser != null ?
                 <>
-                  <StyledAddButton variant="contained" onClick={handleClickAddNews}>+</StyledAddButton>
-                  <div className="buttons-group user-group">
+                  <div className="buttons-group">
                     <Avatar
                       className="buttons-group__avatar"
                       src={getFormattedAvatarPath(authUser.avatarPath)}
@@ -108,13 +91,13 @@ const Header: FC = () => {
                 <>
                   <StyledButton
                     variant="contained"
-                    onClick={handleClickRegistration}
+                    onClick={() => handleClickAuthModal('signup')}
                   >
                     sign up
                   </StyledButton>
                   <StyledButton
                     variant="contained"
-                    onClick={handleClickAuthorization}
+                    onClick={() => handleClickAuthModal('login')}
                   >
                     log in
                   </StyledButton>
@@ -124,11 +107,11 @@ const Header: FC = () => {
           </StyledToolbar>
         </AppBar>
       </StyledBox>
-      {authUser != null && (
+      <AuthModal />
+      {authUser != null && currentUser != null && (
         <>
-          <AuthModal />
           <NewsModal />
-          <UserPopover anchorEl={anchorEl} handleClose={handleClose} />
+          <RefreshUserModal />
         </>
       )}
     </>

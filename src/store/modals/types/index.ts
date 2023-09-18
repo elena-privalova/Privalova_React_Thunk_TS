@@ -1,7 +1,6 @@
 export const CURRENT_AUTH_TYPE_VALUES = {
   signup: 'signup',
-  login: 'login',
-  refresh: 'refresh'
+  login: 'login'
 };
 
 export interface AuthModalVisibility {

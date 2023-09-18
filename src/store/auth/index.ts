@@ -1,14 +1,12 @@
 import {
   signUpUser,
   logInUser,
-  getVerifyUser,
-  refreshAuthUser
+  getVerifyUser
 } from './thunks';
 
 export {
   signUpUser,
   logInUser,
-  getVerifyUser,
-  refreshAuthUser
+  getVerifyUser
 };
 

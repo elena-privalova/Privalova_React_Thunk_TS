@@ -3,7 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { VerifyUser } from '../auth/types';
 
 import { UserState } from './types';
-import { getUser, getUsersPosts } from './thunks';
+import {
+  getUser,
+  getUsersPosts,
+  refreshUser
+} from './thunks';
 
 const userInitialState: UserState = {
   isUserLoading: false,
@@ -15,7 +19,12 @@ const userInitialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState: userInitialState,
-  reducers: {},
+  reducers: {
+    clearUser: state => {
+      state.isUserLoading = false;
+      state.userError = '';
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getUser.pending, (state) => {
@@ -49,9 +58,31 @@ export const userSlice = createSlice({
           state.usersPosts = action.payload;
           state.userError = '';
         }
+      })
+
+      .addCase(refreshUser.pending, state => {
+        state.isUserLoading = true;
+        state.userError = '';
+      })
+
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.isUserLoading = false;
+        if (typeof action.payload === 'string') {
+          state.userError = action.payload;
+        }
+        else {
+          state.currentUser = action.payload as VerifyUser;
+          state.userError = '';
+        }
+      })
+
+      .addCase(refreshUser.rejected, (state, action) => {
+        state.isUserLoading = false;
+        if (typeof action.error.message === 'string') state.userError = action.error.message;
       });
   }
 });
 
+export const { clearUser } = userSlice.actions;
 export default userSlice.reducer;
 

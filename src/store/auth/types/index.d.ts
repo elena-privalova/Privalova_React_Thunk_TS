@@ -1,4 +1,5 @@
 import { AuthorData } from '../../../components/PostCard/types';
+import { RefreshUser } from '../../user/types';
 
 interface RequestUser {
   email: string,
@@ -16,21 +17,7 @@ interface VerifyUser extends AuthorData {
 
 interface AuthState {
   isAuthLoading: boolean,
-  authUser: AuthUser | VerifyUser | RefreshUser | null,
-  authError: string,
-  isSuccessRefresh: boolean
-}
-
-interface RefreshUser {
-  email?: string,
-  password?: string,
-  firstName?: string,
-  lastName?: string,
-  file?: File | null
-}
-
-interface RequestRefreshUser {
-  id: number,
-  refreshUser: RefreshUser
+  authUser: AuthUser | VerifyUser | RefreshUser| null,
+  authError: string
 }
 

@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { removeToken, setToken } from '../../lib/local-storage';
+import { refreshUser } from '../user';
 
 import {
   logInUser,
   getVerifyUser,
-  signUpUser,
-  refreshAuthUser
+  signUpUser
 } from './thunks';
 import {
   AuthState,
@@ -17,8 +17,7 @@ import {
 const authInitialState: AuthState = {
   isAuthLoading: false,
   authUser: null,
-  authError: '',
-  isSuccessRefresh: false
+  authError: ''
 };
 
 export const authSlice = createSlice({
@@ -28,7 +27,6 @@ export const authSlice = createSlice({
     clearAuth: (state, action: PayloadAction<string>) => {
       state.isAuthLoading = false;
       state.authError = '';
-      state.isSuccessRefresh = false;
       if (action.payload === 'signup') state.authUser = null;
     },
     logoutUser: (state) => {
@@ -70,7 +68,7 @@ export const authSlice = createSlice({
         }
         else if (action.payload != null && 'accessToken' in action.payload) {
           if (typeof setToken(action.payload.accessToken) !== 'string') {
-            state.authUser = action.payload;
+            state.authUser = action.payload.user;
             state.authError = '';
           }
         }
@@ -92,34 +90,14 @@ export const authSlice = createSlice({
         }
       })
 
-      .addCase(refreshAuthUser.pending, state => {
-        state.isAuthLoading = true;
-        state.authError = '';
-        state.isSuccessRefresh = false;
-      })
-
-      .addCase(refreshAuthUser.fulfilled, (state, action) => {
-        state.isAuthLoading = false;
-        if (typeof action.payload === 'string') {
-          state.authError = action.payload;
-        }
-        else {
-          state.isSuccessRefresh = true;
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        if (typeof action.payload !== 'string') {
           state.authUser = action.payload as VerifyUser;
-          state.authError = '';
         }
-      })
-
-      .addCase(refreshAuthUser.rejected, (state, action) => {
-        state.isAuthLoading = false;
-        if (typeof action.error.message === 'string') state.authError = action.error.message;
       });
   }
 });
 
-export const {
-  clearAuth,
-  logoutUser
-} = authSlice.actions;
+export const { clearAuth, logoutUser } = authSlice.actions;
 export default authSlice.reducer;
 

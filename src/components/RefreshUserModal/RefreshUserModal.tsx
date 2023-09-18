@@ -1,5 +1,10 @@
 import {
-  ChangeEvent, FocusEvent, FormEvent, MouseEvent, useEffect, useState
+  ChangeEvent,
+  FocusEvent,
+  FormEvent,
+  MouseEvent,
+  useEffect,
+  useState
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '@mui/material';
@@ -7,8 +12,9 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { changeRefreshVisibility } from '../../store/modals/slicesRefreshModal';
-import { refreshAuthUser } from '../../store/auth';
-import { clearAuth } from '../../store/auth/slicesAuth';
+import { refreshUser } from '../../store/user';
+import { clearUser } from '../../store/user/slicesUser';
+import { RefreshUser } from '../../store/user/types';
 import { validateEmail } from '../../utils/validateEmail';
 import { validatePassword } from '../../utils/validatePassword';
 import WarningAlert from '../Error/WarningAlert';
@@ -25,55 +31,50 @@ import './refreshUser.css';
 
 const RefreshUserModal = () => {
   const { isRefreshVisible } = useSelector((state: RootState) => state.refreshModal);
-  const { isAuthLoading, authUser, authError, isSuccessRefresh } = useSelector((state: RootState) => state.auth);
+  const {
+    isUserLoading,
+    currentUser,
+    userError
+  } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClose = () => {
     dispatch(changeRefreshVisibility({ isRefreshVisible: false }));
-    dispatch(clearAuth('refresh'));
-    setFirstName(authUser.firstName);
-    setLastName(authUser.lastName);
-    setEmail(authUser.email);
-    setPassword('');
-    setFile(null);
-    setCorrectEmail(true);
-    setCorrectPassword(true);
+    dispatch(clearUser());
   };
 
-  const [firstName, setFirstName] = useState(authUser.firstName);
-  const [lastName, setLastName] = useState(authUser.lastName);
-  const [email, setEmail] = useState(authUser.email);
-  const [password, setPassword] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+  const initialRefreshUser: RefreshUser = {
+    email: currentUser.email,
+    password: '',
+    firstName: currentUser.firstName,
+    lastName: currentUser.lastName,
+    file: null
+  };
+
+  const [newUser, setRefreshUser] = useState(initialRefreshUser);
+
   const [show, setShowPassword] = useState(false);
   const [isCorrectEmail, setCorrectEmail] = useState(true);
   const [isCorrectPassword, setCorrectPassword] = useState(true);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+    console.log(show);
+  };
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
-  const handleChangeFirstName = (event: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleChangeLastName = (event: ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-
-  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handleChangeUserInfo = (event: ChangeEvent<HTMLInputElement>) => {
+    setRefreshUser({ ...newUser, [event.target.name]: event.target.value });
   };
 
   const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files != null) setFile(event.target.files[0]);
+    if (event.target.files != null) {
+      setRefreshUser({ ...newUser, [event.target.name]: event.target.files[0] });
+    }
   };
 
   const handleBlurEmail = (event: FocusEvent<HTMLInputElement>) => {
@@ -86,25 +87,23 @@ const RefreshUserModal = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(refreshAuthUser({
-      id: authUser.id,
-      refreshUser: {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        file: file
-      }
+    dispatch(refreshUser({
+      id: currentUser.id,
+      refreshUser: newUser
     }));
   };
 
   useEffect(() => {
-    if (isSuccessRefresh) handleClose();
-  }, [isSuccessRefresh]);
+    if (!isRefreshVisible) {
+      setRefreshUser(initialRefreshUser);
+      setCorrectEmail(true);
+      setCorrectPassword(true);
+    }
+  }, [isRefreshVisible]);
 
-  const isDisable = !isCorrectEmail ||
-    !isCorrectPassword ||
-    password === '';
+  const isDisable = !isCorrectEmail
+  || !isCorrectPassword
+  || newUser.password === '';
 
   return (
     <Modal
@@ -113,38 +112,45 @@ const RefreshUserModal = () => {
     >
       <>
         <StyledForm className="refresh-form" onSubmit={handleSubmit}>
-          {isAuthLoading && (
+          {isUserLoading && (
             <StyledLoader className="refresh-form__loader" color="inherit" />
           )}
-          {!isAuthLoading && authError === '' && (
+          {!isUserLoading && userError === '' && (
             <>
               <StyledTypography>ABOUT ME</StyledTypography>
               <StyledTextField
+                name="firstName"
                 variant="outlined"
                 label="First name"
-                value={firstName}
-                onChange={handleChangeFirstName}
+                value={newUser.firstName}
+                onChange={handleChangeUserInfo}
               />
               <StyledTextField
+                name="lastName"
                 variant="outlined"
                 label="Last name"
-                value={lastName}
-                onChange={handleChangeLastName}
+                value={newUser.lastName}
+                onChange={handleChangeUserInfo}
               />
               <StyledTextField
+                name="email"
                 variant="outlined"
                 label="Email"
-                value={email}
+                value={newUser.email}
+                required
                 onBlur={handleBlurEmail}
-                onChange={handleChangeEmail}
+                onChange={handleChangeUserInfo}
                 error={!isCorrectEmail}
               />
               <StyledTextField
+                name="password"
                 variant="outlined"
                 label="Password"
-                value={password}
-                onChange={handleChangePassword}
+                InputProps={{ type: `${show ? 'text' : 'password'}` }}
+                value={newUser.password}
+                required
                 onBlur={handleBlurPassword}
+                onChange={handleChangeUserInfo}
                 error={!isCorrectPassword}
               />
               <StyledIconButton
@@ -155,13 +161,13 @@ const RefreshUserModal = () => {
               </StyledIconButton>
               <label className="news-form__file-group">
                 <input
-                  name="Picture"
+                  name="file"
                   type="file"
                   onChange={handleChangeFile}
                 />
                 <span className="file-group__text">Change avatar</span>
-                { file != null && (
-                  <span className="file-group__file-name">{file.name}</span>
+                {newUser.file != null && (
+                  <span className="file-group__file-name">{newUser.file.name}</span>
                 )}
               </label>
               <StyledButton
@@ -174,7 +180,7 @@ const RefreshUserModal = () => {
             </>
           )}
         </StyledForm>
-        {authError !== '' && (
+        {userError !== '' && (
           <div className="modal__alert">
             <WarningAlert text="Некорректно введенные данные" type="error" />
           </div>

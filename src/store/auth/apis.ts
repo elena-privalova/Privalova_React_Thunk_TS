@@ -2,8 +2,6 @@ import api from '../adapter';
 
 import {
   AuthUser,
-  RefreshUser,
-  RequestRefreshUser,
   RequestUser,
   VerifyUser
 } from './types';
@@ -20,15 +18,6 @@ export const fetchLogInUser = async (user: RequestUser): Promise<AuthUser> => {
 
 export const fetchVerifyUser = async (): Promise<VerifyUser> => {
   const { data } = await api.get('auth/whoami');
-  return data;
-};
-
-export const fetchRefreshAuthUser = async (user: RequestRefreshUser): Promise<RefreshUser> => {
-  const { data } = await api.patch(
-    `users/${user.id}`,
-    user.refreshUser,
-    { headers: { 'Content-Type': 'multipart/form-data' } }
-  );
   return data;
 };
 
