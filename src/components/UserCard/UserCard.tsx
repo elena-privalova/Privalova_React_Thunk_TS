@@ -33,7 +33,10 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
   };
 
   const handleClickAddNews = () => {
-    dispatch(changeNewsVisibility({ isNewsVisible: !isNewsVisible }));
+    dispatch(changeNewsVisibility({
+      isNewsVisible: !isNewsVisible,
+      kind: 'add'
+    }));
   };
 
   return (

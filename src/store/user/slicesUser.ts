@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { VerifyUser } from '../auth/types';
+import { addNews, editNews } from '../news';
 
 import { UserState } from './types';
 import {
@@ -13,7 +14,8 @@ const userInitialState: UserState = {
   isUserLoading: false,
   currentUser: null,
   usersPosts: [],
-  userError: ''
+  userError: '',
+  isSuccessUserNews: false
 };
 
 export const userSlice = createSlice({
@@ -23,6 +25,7 @@ export const userSlice = createSlice({
     clearUser: state => {
       state.isUserLoading = false;
       state.userError = '';
+      state.isSuccessUserNews = false;
     }
   },
   extraReducers(builder) {
@@ -49,10 +52,12 @@ export const userSlice = createSlice({
       .addCase(getUsersPosts.pending, (state) => {
         state.isUserLoading = true;
         state.userError = '';
+        state.isSuccessUserNews = false;
       })
 
       .addCase(getUsersPosts.fulfilled, (state, action) => {
         state.isUserLoading = false;
+        state.isSuccessUserNews = false;
         if (typeof action.payload === 'string') state.userError = action.payload;
         else if (Array.isArray(action.payload)) {
           state.usersPosts = action.payload;
@@ -79,6 +84,14 @@ export const userSlice = createSlice({
       .addCase(refreshUser.rejected, (state, action) => {
         state.isUserLoading = false;
         if (typeof action.error.message === 'string') state.userError = action.error.message;
+      })
+
+      .addCase(addNews.fulfilled, (state) => {
+        state.isSuccessUserNews = true;
+      })
+
+      .addCase(editNews.fulfilled, (state) => {
+        state.isSuccessUserNews = true;
       });
   }
 });

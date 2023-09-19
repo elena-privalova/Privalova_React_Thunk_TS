@@ -1,8 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { addNews, editNews } from '../news';
+
 import { NewsModalVisibility } from './types';
 
-const newsModalInitialState: NewsModalVisibility = { isNewsVisible: false };
+const newsModalInitialState: NewsModalVisibility = {
+  isNewsVisible: false,
+  kind: 'add'
+};
 
 export const newsModalSlice = createSlice({
   name: 'newsModal',
@@ -10,7 +15,19 @@ export const newsModalSlice = createSlice({
   reducers: {
     changeNewsVisibility: (state, action: PayloadAction<NewsModalVisibility>) => {
       state.isNewsVisible = action.payload.isNewsVisible;
+      state.kind = action.payload.kind;
+      if ('userNewsId' in action.payload) state.userNewsId = action.payload.userNewsId;
     }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(addNews.fulfilled, state => {
+        state.isNewsVisible = false;
+      })
+
+      .addCase(editNews.fulfilled, state => {
+        state.isNewsVisible = false;
+      });
   }
 });
 

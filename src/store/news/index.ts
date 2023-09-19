@@ -1,4 +1,4 @@
-import { addNews } from './thunks';
+import { addNews, editNews } from './thunks';
 
-export { addNews };
+export { addNews, editNews };
 

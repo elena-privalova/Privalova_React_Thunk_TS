@@ -6,6 +6,7 @@ interface UserState {
   currentUser: VerifyUser | null,
   usersPosts: NewsData[],
   userError: string,
+  isSuccessUserNews: boolean
 }
 
 interface RefreshUser {

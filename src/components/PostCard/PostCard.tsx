@@ -3,7 +3,8 @@ import {
   type FC,
   MouseEvent
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   CardMedia,
   Chip,
@@ -11,8 +12,11 @@ import {
 } from '@mui/material';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 
+import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import defaultImage from '../../images/defaultPicture.jpeg';
+import { RootState } from '../../pages/Main/types';
+import editNewsIcon from '../../images/editNewsIcon.svg';
 
 import { PostCardProps } from './types';
 import {
@@ -25,15 +29,31 @@ import {
 import './postCard.css';
 
 const PostCard: FC<PostCardProps> = ({ post }) => {
+  const { authUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
+
+  const dispatch = useDispatch();
+
+  const location = useLocation().pathname;
+
   const navigate = useNavigate();
 
   const handleClickCard = () => {
-    navigate(`news/${post.id}`);
+    if (!location.includes('users')) navigate(`news/${post.id}`);
   };
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
     navigate(`users/${post.authorId}`);
+  };
+
+  const handleClickEditNews = () => {
+    dispatch(changeNewsVisibility({
+      isNewsVisible: !isNewsVisible,
+      kind: 'edit',
+      userNewsId: post.id
+    }));
   };
 
   const handleError = (e: BaseSyntheticEvent) => {
@@ -43,14 +63,26 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   return (
     <StyledPostCard className="card" onClick={handleClickCard}>
       <div className="card__header header">
-        <StyledCardHeader
-          title={post.title}
-          titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
-          subheader={post.author.email}
-          subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
-          onClick={handleClickAuthor}
-        />
-        <span className="header__date">{getFormattedDate(post.createdAt)}</span>
+        <div className="header__title-group title-group">
+          <StyledCardHeader
+            title={post.title}
+            titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
+            subheader={post.author.email}
+            subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
+            onClick={handleClickAuthor}
+          />
+          <span className="title-group__date">{getFormattedDate(post.createdAt)}</span>
+        </div>
+        {location.includes('users') && authUser.id === currentUser.id && (
+          <div className="header__icon-container icon-container">
+            <img
+              className="icon-container__edit-icon"
+              src={editNewsIcon}
+              alt='Edit News Icon'
+              onClick={handleClickEditNews}
+            />
+          </div>
+        )}
       </div>
       <div className="card__picture">
         <CardMedia
