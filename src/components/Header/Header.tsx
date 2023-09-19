@@ -1,54 +1,48 @@
-import { type FC, useEffect } from 'react';
+import {
+  type FC,
+  useEffect
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { AppBar, Avatar } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import newsIcon from '../../images/newsIcon.svg';
 import { AppDispatch, RootState } from '../../pages/Main/types';
 import { logoutUser } from '../../store/auth/slicesAuth';
 import { changeAuthVisibility } from '../../store/modals/slicesAuthModals';
-import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { getVerifyUser } from '../../store/auth/thunks';
+import { CURRENT_AUTH_TYPE_VALUES } from '../../store/modals/types';
+import { getToken } from '../../lib/local-storage';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import AuthModal from '../AuthModal/AuthModal';
 import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
+import RefreshUserModal from '../RefreshUserModal/RefreshUserModal';
 import NewsModal from '../NewsModal/NewsModal';
 
 import {
-  StyledAddButton,
   StyledBox,
   StyledButton,
   StyledToolbar,
   StyledTypography
 } from './styles';
+
 import './header.css';
 
 const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser } = useSelector((state: RootState) => state.user);
   const { isAuthVisible } = useSelector((state: RootState) => state.authModals);
-  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
 
-  const handleClickRegistration = () => {
+  const handleClickAuthModal = (type: keyof typeof CURRENT_AUTH_TYPE_VALUES) => {
     dispatch(changeAuthVisibility({
-      isVisible: !isAuthVisible,
-      kind: 'signup'
+      isAuthVisible: !isAuthVisible,
+      currentType: type
     }));
-  };
-
-  const handleClickAuthorization = () => {
-    dispatch(changeAuthVisibility({
-      isVisible: !isAuthVisible,
-      kind: 'login'
-    }));
-  };
-
-  const handleClickAddNews = () => {
-    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
   };
 
   const handleClickLogout = () => {
@@ -60,8 +54,10 @@ const Header: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getVerifyUser());
+    if (getToken() != null) dispatch(getVerifyUser());
   }, []);
+
+  const location = useLocation();
 
   return (
     <>
@@ -72,15 +68,16 @@ const Header: FC = () => {
               <StyledTypography>News</StyledTypography>
               <img className='logo-group__logo' src={newsIcon} />
             </div>
-            <div className="search-group">
-              <SearchElement />
-              <FilterElement />
-            </div>
+            {!location.pathname.includes('news') && (
+              <div className="search-group">
+                <SearchElement />
+                <FilterElement />
+              </div>
+            )}
             <div className="buttons-group">
               {authUser != null ?
                 <>
-                  <StyledAddButton variant="contained" onClick={handleClickAddNews}>+</StyledAddButton>
-                  <div className="buttons-group user-group">
+                  <div className="buttons-group">
                     <Avatar
                       className="buttons-group__avatar"
                       src={getFormattedAvatarPath(authUser.avatarPath)}
@@ -94,13 +91,13 @@ const Header: FC = () => {
                 <>
                   <StyledButton
                     variant="contained"
-                    onClick={handleClickRegistration}
+                    onClick={() => handleClickAuthModal('signup')}
                   >
                     sign up
                   </StyledButton>
                   <StyledButton
                     variant="contained"
-                    onClick={handleClickAuthorization}
+                    onClick={() => handleClickAuthModal('login')}
                   >
                     log in
                   </StyledButton>
@@ -111,7 +108,12 @@ const Header: FC = () => {
         </AppBar>
       </StyledBox>
       <AuthModal />
-      <NewsModal />
+      {authUser != null && currentUser != null && (
+        <>
+          <NewsModal />
+          <RefreshUserModal />
+        </>
+      )}
     </>
   );
 };

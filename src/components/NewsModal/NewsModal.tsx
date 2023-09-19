@@ -12,7 +12,6 @@ import { AppDispatch, RootState } from '../../pages/Main/types';
 import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { clearNews } from '../../store/news/slicesNews';
 import { addNews } from '../../store/news';
-import { getPosts } from '../../store/posts';
 import { getUsersPosts } from '../../store/user';
 import WarningAlert from '../Error/WarningAlert';
 import {
@@ -28,8 +27,6 @@ import './newsModal.css';
 const NewsModal = () => {
   const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
   const { isAddNewsLoading, news, addNewsError } = useSelector((state: RootState) => state.news);
-  const { currentUser } = useSelector((state: RootState) => state.user);
-  const { authUser } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,13 +34,12 @@ const NewsModal = () => {
 
   const handleClose = () => {
     dispatch(clearNews());
-    dispatch(changeNewsVisibility({ isVisible: !isNewsVisible }));
+    dispatch(changeNewsVisibility({ isNewsVisible: !isNewsVisible }));
     setTitle('');
     setText('');
     setTags('');
     setFile(null);
-    if (id != null && currentUser.id === authUser.id) dispatch(getUsersPosts(Number(id)));
-    else if (news != null) dispatch(getPosts());
+    if (news != null) dispatch(getUsersPosts(Number(id)));
   };
 
   const [title, setTitle] = useState('');

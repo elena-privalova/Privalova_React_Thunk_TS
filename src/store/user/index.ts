@@ -1,3 +1,12 @@
-import { getUser, getUsersPosts } from './thunks';
+import {
+  getUser,
+  getUsersPosts,
+  refreshUser
+} from './thunks';
 
-export { getUser, getUsersPosts };
+export {
+  getUser,
+  getUsersPosts,
+  refreshUser
+};
+

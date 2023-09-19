@@ -14,3 +14,8 @@
   padding: 20px 0;
 }
 
+.user-posts div {
+  pointer-events: none;
+  cursor: default;
+}
+

@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { removeToken, setToken } from '../../lib/local-storage';
+import { refreshUser } from '../user';
 
 import {
   logInUser,
@@ -67,7 +68,7 @@ export const authSlice = createSlice({
         }
         else if (action.payload != null && 'accessToken' in action.payload) {
           if (typeof setToken(action.payload.accessToken) !== 'string') {
-            state.authUser = action.payload;
+            state.authUser = action.payload.user;
             state.authError = '';
           }
         }
@@ -87,13 +88,16 @@ export const authSlice = createSlice({
         else {
           state.authUser = null;
         }
+      })
+
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        if (typeof action.payload !== 'string') {
+          state.authUser = action.payload as VerifyUser;
+        }
       });
   }
 });
 
-export const {
-  clearAuth,
-  logoutUser
-} = authSlice.actions;
+export const { clearAuth, logoutUser } = authSlice.actions;
 export default authSlice.reducer;
 

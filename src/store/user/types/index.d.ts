@@ -8,3 +8,16 @@ interface UserState {
   userError: string,
 }
 
+interface RefreshUser {
+  email?: string,
+  password?: string,
+  firstName?: string,
+  lastName?: string,
+  file?: File | null
+}
+
+interface RequestRefreshUser {
+  id: number,
+  refreshUser: RefreshUser
+}
+

@@ -45,8 +45,8 @@ const AuthModal: FC = () => {
   const handleClose = () => {
     dispatch(clearAuth(currentType));
     dispatch(changeAuthVisibility({
-      isVisible: false,
-      kind: currentType
+      isAuthVisible: false,
+      currentType
     }));
     setEmail('');
     setPassword('');

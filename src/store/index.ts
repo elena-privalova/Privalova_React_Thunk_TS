@@ -8,6 +8,7 @@ import authReducer from './auth/slicesAuth';
 import userReducer from './user/slicesUser';
 import newsReducer from './news/slicesNews';
 import newsModalReducer from './modals/slicesNewsModal';
+import refreshModalReducer from './modals/slicesRefreshModal';
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -22,7 +23,8 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     news: newsReducer,
-    newsModal: newsModalReducer
+    newsModal: newsModalReducer,
+    refreshModal: refreshModalReducer
   }
 });
 
