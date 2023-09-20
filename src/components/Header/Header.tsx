@@ -33,6 +33,7 @@ const Header: FC = () => {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const { currentUser } = useSelector((state: RootState) => state.user);
   const { isAuthVisible } = useSelector((state: RootState) => state.authModals);
+  const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -110,8 +111,10 @@ const Header: FC = () => {
       <AuthModal />
       {authUser != null && currentUser != null && (
         <>
-          <NewsModal />
           <RefreshUserModal />
+          {isNewsVisible && (
+            <NewsModal />
+          )}
         </>
       )}
     </>

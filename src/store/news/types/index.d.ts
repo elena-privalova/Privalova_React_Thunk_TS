@@ -1,13 +1,30 @@
+interface UserNewsState {
+  isUserNewsLoading: boolean,
+  userNewsError: string,
+}
+
+interface RequestEditNewsData {
+  id: number,
+  userNews: EditNewsData,
+}
+
 interface AddNewsData {
   title: string,
   text: string,
   file: File,
-  tags: string[]
+  tags: string[],
 }
 
-interface AddNewsState {
-  isAddNewsLoading: boolean,
-  news: AddNewsData | null,
-  addNewsError: string,
+interface EditNewsData {
+  title: string,
+  text: string,
+  file?: File | null,
+}
+
+interface InitialAddNewsState {
+  title: string,
+  text: string,
+  file: File | null,
+  tags: string,
 }
 

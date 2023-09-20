@@ -14,8 +14,7 @@
   padding: 20px 0;
 }
 
-.user-posts div {
-  pointer-events: none;
-  cursor: default;
+.user-posts *:not(.icon-container__edit-icon) {
+  cursor: auto;
 }
 

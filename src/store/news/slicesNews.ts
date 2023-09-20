@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addNews } from './thunks';
+import { addNews, editNews } from './thunks';
 
-const newsInitialState: AddNewsState = {
-  isAddNewsLoading: false,
-  news: null,
-  addNewsError: ''
+const newsInitialState: UserNewsState = {
+  isUserNewsLoading: false,
+  userNewsError: ''
 };
 
 export const newsSlice = createSlice({
@@ -13,32 +12,50 @@ export const newsSlice = createSlice({
   initialState: newsInitialState,
   reducers: {
     clearNews: state => {
-      state.isAddNewsLoading = false;
-      state.news = null;
-      state.addNewsError = '';
+      state.isUserNewsLoading = false;
+      state.userNewsError = '';
     }
   },
   extraReducers(builder) {
     builder
       .addCase(addNews.pending, state => {
-        state.isAddNewsLoading = true;
-        state.addNewsError = '';
+        state.isUserNewsLoading = true;
+        state.userNewsError = '';
       })
 
       .addCase(addNews.fulfilled, (state, action) => {
-        state.isAddNewsLoading = false;
+        state.isUserNewsLoading = false;
         if (typeof action.payload === 'string') {
-          state.addNewsError = action.payload;
+          state.userNewsError = action.payload;
         }
         else {
-          state.news = action.payload;
-          state.addNewsError = '';
+          state.userNewsError = '';
         }
       })
 
       .addCase(addNews.rejected, (state, action) => {
-        state.isAddNewsLoading = false;
-        if (typeof action.error.message === 'string') state.addNewsError = action.error.message;
+        state.isUserNewsLoading = false;
+        if (typeof action.error.message === 'string') state.userNewsError = action.error.message;
+      })
+
+      .addCase(editNews.pending, state => {
+        state.isUserNewsLoading = true;
+        state.userNewsError = '';
+      })
+
+      .addCase(editNews.fulfilled, (state, action) => {
+        state.isUserNewsLoading = false;
+        if (typeof action.payload === 'string') {
+          state.userNewsError = action.payload;
+        }
+        else {
+          state.userNewsError = '';
+        }
+      })
+
+      .addCase(editNews.rejected, (state, action) => {
+        state.isUserNewsLoading = false;
+        if (typeof action.error.message === 'string') state.userNewsError = action.error.message;
       });
   }
 });
