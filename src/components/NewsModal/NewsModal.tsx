@@ -91,10 +91,10 @@ const NewsModal = () => {
     }
   };
 
-  const isDisable = kind === CURRENT_NEWS_TYPE_VALUES.add ?
-    isEmptyTitleOrText
-    || (isTagsInNews && news.tags.length === 0)
-    || news.file == null
+  const isDisable = kind === CURRENT_NEWS_TYPE_VALUES.add
+    ? isEmptyTitleOrText
+      || (isTagsInNews && news.tags.length === 0)
+      || news.file == null
     : isEmptyTitleOrText;
 
   return (
