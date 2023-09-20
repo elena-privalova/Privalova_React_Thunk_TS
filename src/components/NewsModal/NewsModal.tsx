@@ -57,6 +57,9 @@ const NewsModal = () => {
 
   const isTagsInNews = 'tags' in news;
   const isEmptyTitleOrText = news.title === '' || news.text === '';
+  const isAddingNewsChanged = isEmptyTitleOrText
+    || (isTagsInNews && news.tags.length === 0)
+    || news.file == null;
 
   const handleChangeNewsInfo = (event: ChangeEvent<HTMLInputElement>) => {
     setNews({ ...news, [event.target.name]: event.target.value });
@@ -91,11 +94,7 @@ const NewsModal = () => {
     }
   };
 
-  const isDisable = kind === CURRENT_NEWS_TYPE_VALUES.add
-    ? isEmptyTitleOrText
-      || (isTagsInNews && news.tags.length === 0)
-      || news.file == null
-    : isEmptyTitleOrText;
+  const isDisable = isAddNewsType ? isAddingNewsChanged : isEmptyTitleOrText;
 
   return (
     <Modal
