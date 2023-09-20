@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Avatar,
@@ -8,6 +8,7 @@ import {
 
 import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { changeRefreshVisibility } from '../../store/modals/slicesRefreshModal';
+import { getUsersPosts } from '../../store/user';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import { getFormattedFullName } from '../../utils/getFormattedFullName';
 import { getFormattedDate } from '../../utils/getFormattedDate';
@@ -18,13 +19,14 @@ import { StyledInfoCard } from '../DetailCard/styles';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
 
 import { UserCardProps } from './types';
+
 import './userCard.css';
 
 const UserCard: FC<UserCardProps> = ({ user }) => {
   const { isRefreshVisible } = useSelector((state: RootState) => state.refreshModal);
   const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { currentUser, isSuccessUserNews } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -38,6 +40,10 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
       kind: 'add'
     }));
   };
+
+  useEffect(() => {
+    if (isSuccessUserNews) dispatch(getUsersPosts(user.id));
+  }, [isSuccessUserNews]);
 
   return (
     <StyledInfoCard className="user-card">

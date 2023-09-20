@@ -1,11 +1,9 @@
 import {
   ChangeEvent,
   FormEvent,
-  useEffect,
   useState
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { Modal } from '@mui/material';
 
 import { AppDispatch, RootState } from '../../pages/Main/types';
@@ -13,7 +11,6 @@ import { changeNewsVisibility } from '../../store/modals/slicesNewsModal';
 import { CURRENT_NEWS_TYPE_VALUES } from '../../store/modals/types';
 import { clearNews } from '../../store/news/slicesNews';
 import { addNews, editNews } from '../../store/news';
-import { getUsersPosts } from '../../store/user';
 import WarningAlert from '../Error/WarningAlert';
 import {
   StyledButton,
@@ -26,15 +23,14 @@ import {
 import './newsModal.css';
 
 const NewsModal = () => {
-  const { isNewsVisible, kind, userNewsId } = useSelector((state: RootState) => state.newsModal);
+  const { isNewsVisible, kind } = useSelector((state: RootState) => state.newsModal);
   const { isUserNewsLoading, userNewsError } = useSelector((state: RootState) => state.news);
-  const { isSuccessUserNews } = useSelector((state: RootState) => state.user);
+  const { currentUserPost } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const actionNewsType = kind === CURRENT_NEWS_TYPE_VALUES.edit ? editNews : addNews;
-
-  const { id } = useParams();
+  const isAddNewsType = actionNewsType === addNews;
 
   const handleClose = () => {
     dispatch(clearNews());
@@ -44,24 +40,23 @@ const NewsModal = () => {
     }));
   };
 
-  let initialNews: InitialAddNewsState | EditNewsData;
-  if (actionNewsType === addNews) {
-    initialNews = {
+  const initialNews: InitialAddNewsState | EditNewsData = isAddNewsType
+    ? {
       title: '',
       text: '',
       file: null,
       tags: ''
-    };
-  }
-  else {
-    initialNews = {
-      title: '',
-      text: '',
+    }
+    : {
+      title: currentUserPost.title,
+      text: currentUserPost.text,
       file: null
     };
-  }
 
   const [news, setNews] = useState(initialNews);
+
+  const isTagsInNews = 'tags' in news;
+  const isEmptyTitleOrText = news.title === '' || news.text === '';
 
   const handleChangeNewsInfo = (event: ChangeEvent<HTMLInputElement>) => {
     setNews({ ...news, [event.target.name]: event.target.value });
@@ -75,35 +70,32 @@ const NewsModal = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (actionNewsType === addNews) {
-      if ('tags' in news) {
+    if (isAddNewsType) {
+      if (isTagsInNews) {
         const formattedTags = news.tags.split(', ');
         if (news.file != null) {
           dispatch(addNews({
             title: news.title,
             text: news.text,
-            file: news.file,
-            tags: formattedTags
+            tags: formattedTags,
+            file: news.file
           }));
         }
       }
     }
     else {
       dispatch(editNews({
-        id: userNewsId,
+        id: currentUserPost.id,
         userNews: news
       }));
     }
   };
 
-  const isDisable = kind === CURRENT_NEWS_TYPE_VALUES.add
-    ? news.title === '' || news.text === '' || ('tags' in news && news.tags.length === 0) || news.file == null
-    : news.title === '' || news.text === '';
-
-  useEffect(() => {
-    if (!isNewsVisible) setNews(initialNews);
-    if (isSuccessUserNews) dispatch(getUsersPosts(Number(id)));
-  }, [isNewsVisible, isSuccessUserNews]);
+  const isDisable = kind === CURRENT_NEWS_TYPE_VALUES.add ?
+    isEmptyTitleOrText
+    || (isTagsInNews && news.tags.length === 0)
+    || news.file == null
+    : isEmptyTitleOrText;
 
   return (
     <Modal
@@ -132,7 +124,7 @@ const NewsModal = () => {
                 value={news.text}
                 onChange={handleChangeNewsInfo}
               />
-              {kind === CURRENT_NEWS_TYPE_VALUES.add && 'tags' in news && (
+              {isAddNewsType && isTagsInNews && (
                 <StyledTextField
                   name="tags"
                   variant="outlined"

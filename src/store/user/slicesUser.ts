@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { changeNewsVisibility } from '../modals/slicesNewsModal';
+import { NewsModalVisibility } from '../modals/types';
 import { VerifyUser } from '../auth/types';
 import { addNews, editNews } from '../news';
 
@@ -13,6 +15,7 @@ import {
 const userInitialState: UserState = {
   isUserLoading: false,
   currentUser: null,
+  currentUserPost: null,
   usersPosts: [],
   userError: '',
   isSuccessUserNews: false
@@ -84,6 +87,15 @@ export const userSlice = createSlice({
       .addCase(refreshUser.rejected, (state, action) => {
         state.isUserLoading = false;
         if (typeof action.error.message === 'string') state.userError = action.error.message;
+      })
+
+      .addCase(changeNewsVisibility, (state, action: PayloadAction<NewsModalVisibility>) => {
+        if ('newsId' in action.payload) {
+          const findPost = state.usersPosts.find(element => element.id === action.payload.newsId);
+          if (findPost != null) {
+            state.currentUserPost = findPost;
+          }
+        }
       })
 
       .addCase(addNews.fulfilled, (state) => {

@@ -16,7 +16,6 @@ export const newsModalSlice = createSlice({
     changeNewsVisibility: (state, action: PayloadAction<NewsModalVisibility>) => {
       state.isNewsVisible = action.payload.isNewsVisible;
       state.kind = action.payload.kind;
-      if ('userNewsId' in action.payload) state.userNewsId = action.payload.userNewsId;
     }
   },
   extraReducers(builder) {

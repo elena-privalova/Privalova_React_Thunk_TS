@@ -16,7 +16,7 @@ export interface AuthModalVisibility {
 export interface NewsModalVisibility {
   isNewsVisible: boolean,
   kind: keyof typeof CURRENT_NEWS_TYPE_VALUES,
-  userNewsId?: number,
+  newsId?: number,
 }
 
 export interface RefreshUserModalVisibility {

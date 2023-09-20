@@ -36,11 +36,12 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const dispatch = useDispatch();
 
   const location = useLocation().pathname;
+  const isUsersPath = location.includes('users');
 
   const navigate = useNavigate();
 
   const handleClickCard = () => {
-    if (!location.includes('users')) navigate(`news/${post.id}`);
+    if (!isUsersPath) navigate(`news/${post.id}`);
   };
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
@@ -52,7 +53,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
     dispatch(changeNewsVisibility({
       isNewsVisible: !isNewsVisible,
       kind: 'edit',
-      userNewsId: post.id
+      newsId: post.id
     }));
   };
 
@@ -73,7 +74,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           />
           <span className="title-group__date">{getFormattedDate(post.createdAt)}</span>
         </div>
-        {location.includes('users') && authUser.id === currentUser.id && (
+        {isUsersPath && authUser.id === currentUser.id && (
           <div className="header__icon-container icon-container">
             <img
               className="icon-container__edit-icon"
