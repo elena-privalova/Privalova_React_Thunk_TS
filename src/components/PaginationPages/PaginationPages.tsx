@@ -4,9 +4,7 @@ import { StyledPaginationButton } from './styles';
 
 const PaginationPages: FC<PaginationPagesProps> = ({ countPages, currentPage, changePageNumber }) => {
   const handleClickPage = (event: MouseEvent<HTMLButtonElement>) => {
-    if (event.target instanceof HTMLButtonElement) {
-      changePageNumber(Number(event.target.outerText));
-    }
+    changePageNumber(Number(event.currentTarget.outerText));
   };
 
   return (
