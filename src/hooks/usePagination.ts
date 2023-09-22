@@ -6,7 +6,7 @@ import { RootState } from '../pages/Main/types';
 
 const COUNT_COMMENTS_ON_PAGE = 5;
 
-const usePagination = (setSliceComments: Dispatch<React.SetStateAction<CommentData[]>>) => {
+const usePagination = (setSliceComments: Dispatch<React.SetStateAction<CommentData[]>>): PaginationReturnData => {
   const { comment, commentsList } = useSelector((state: RootState) => state.comments);
 
   const [countPages, setCountPages] = useState(0);

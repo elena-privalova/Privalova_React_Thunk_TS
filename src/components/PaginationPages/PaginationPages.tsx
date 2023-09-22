@@ -11,7 +11,7 @@ const PaginationPages: FC<PaginationPagesProps> = ({ countPages, currentPage, ch
 
   return (
     <div className="post__pagination pagination">
-      {Array(countPages).fill(0).map((page, index) => {
+      {Array.from({ length: countPages }).map((page, index) => {
         return <StyledPaginationButton
           key={`${page}-${index}`}
           variant="contained"

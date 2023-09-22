@@ -27,11 +27,10 @@ const DetailCard: FC<NewsData> = (news) => {
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
-    if (event.target instanceof HTMLSpanElement) {
-      if (event.target.outerText === news.author.email) {
-        navigate(`../users/${news.authorId}`, { replace: true });
-      }
+    if (event.currentTarget.outerText === news.author.email) {
+      navigate(`../users/${news.authorId}`, { replace: true });
     }
+
   };
 
   return (

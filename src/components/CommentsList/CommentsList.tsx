@@ -10,7 +10,7 @@ const CommentsList: FC<CommentsListProps> = memo(({ commentsList }) => {
   return (
     <StyledBox>
       <Stack spacing={2}>
-        {commentsList.map((comment) => <CommentItem key={comment.id} {...comment} />)}
+        {commentsList.map((comment) => <CommentItem key={comment.id} comment={comment} />)}
       </Stack>
     </StyledBox>
   );

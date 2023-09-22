@@ -29,7 +29,6 @@ const CommentModal = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { id } = useParams();
-  const postId = Number(id);
 
   const handleClose = () => {
     dispatch(changeCommentVisibility({ isCommentVisible: !isCommentVisible }));
@@ -46,7 +45,7 @@ const CommentModal = () => {
     event.preventDefault();
     dispatch(addComment({
       text,
-      postId
+      postId: Number(id)
     }));
   };
 
@@ -57,10 +56,10 @@ const CommentModal = () => {
     >
       <>
         <StyledForm className="comment-modal" onSubmit={handleSubmit}>
-          {isCommentsLoading && (
+          {isCommentsLoading
+            ?
             <StyledLoader color="inherit" />
-          )}
-          {!isCommentsLoading && (
+            :
             <>
               <StyledTypography>COMMENT</StyledTypography>
               <StyledTextArea
@@ -77,9 +76,9 @@ const CommentModal = () => {
                 add
               </StyledButton>
             </>
-          )}
+          }
         </StyledForm>
-        {commentsError && (
+        {commentsError !== '' && (
           <div className="modal__alert">
             <WarningAlert text="Некорректно введенные данные" type="error" />
           </div>
