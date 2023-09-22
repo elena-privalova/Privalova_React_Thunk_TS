@@ -74,7 +74,7 @@ const CommentModal = () => {
                 type="submit"
                 disabled={text === ''}
               >
-            add
+                add
               </StyledButton>
             </>
           )}
