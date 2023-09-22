@@ -8,13 +8,16 @@ import { useParams } from 'react-router-dom';
 import { Modal } from '@mui/material';
 
 import { AppDispatch, RootState } from '../../pages/Main/types';
-import {
-  StyledButton, StyledForm, StyledLoader, StyledTypography
-} from '../AuthModal/styles';
 import { changeCommentVisibility } from '../../store/modals/slicesCommentModal';
 import { clearComment } from '../../store/comments/slicesComments';
 import { addComment } from '../../store/comments';
 import WarningAlert from '../Error/WarningAlert';
+import {
+  StyledButton,
+  StyledForm,
+  StyledLoader,
+  StyledTypography
+} from '../AuthModal/styles';
 
 import { StyledTextArea } from './styles';
 import './commentModal.css';
