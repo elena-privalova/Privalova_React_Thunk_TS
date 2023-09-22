@@ -1,4 +1,4 @@
-import { getComments } from './thunks';
+import { getComments, addComment } from './thunks';
 
-export { getComments };
+export { getComments, addComment };
 

@@ -19,6 +19,7 @@ import SearchElement from '../SearchElement/SearchElement';
 import FilterElement from '../FilterElement/FilterElement';
 import RefreshUserModal from '../RefreshUserModal/RefreshUserModal';
 import NewsModal from '../NewsModal/NewsModal';
+import CommentModal from '../CommentModal/CommentModal';
 
 import {
   StyledBox,
@@ -34,6 +35,7 @@ const Header: FC = () => {
   const { currentUser } = useSelector((state: RootState) => state.user);
   const { isAuthVisible } = useSelector((state: RootState) => state.authModals);
   const { isNewsVisible } = useSelector((state: RootState) => state.newsModal);
+  const { isCommentVisible } = useSelector((state: RootState) => state.commentModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -109,6 +111,9 @@ const Header: FC = () => {
         </AppBar>
       </StyledBox>
       <AuthModal />
+      {isCommentVisible && (
+        <CommentModal />
+      )}
       {authUser != null && currentUser != null && (
         <>
           <RefreshUserModal />

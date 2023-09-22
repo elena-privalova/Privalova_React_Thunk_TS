@@ -1,6 +1,6 @@
 import { AuthorData } from '../../../components/PostCard/types';
 
-interface CommentsList {
+interface CommentData {
   id: number,
   text: string,
   authorId: number,
@@ -12,12 +12,23 @@ interface CommentsList {
 
 interface CommentsListState {
   isCommentsLoading: boolean,
-  commentsList: CommentsList[],
+  comment: CommentData | null,
+  commentsList: CommentData[],
   commentsError: string
 }
 
 interface ResponseCommentsList {
-  comments: CommentsList[],
+  comments: CommentData[],
   total: number,
+}
+
+interface CreateCommentData {
+  text: string,
+  postId: number,
+}
+
+interface PaginationState {
+  activePage: number,
+  pagesArray: number[]
 }
 
