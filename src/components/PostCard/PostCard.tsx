@@ -46,7 +46,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
-    navigate(`users/${post.authorId}`);
+    if (!isUsersPath) navigate(`users/${post.authorId}`);
   };
 
   const handleClickEditNews = () => {

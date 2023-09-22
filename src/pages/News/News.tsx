@@ -1,15 +1,23 @@
-import { useEffect, type FC } from 'react';
+import {
+  useEffect,
+  type FC,
+  useMemo,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Skeleton, Stack } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 import { getCard } from '../../store/posts';
 import { getComments } from '../../store/comments';
+import { changeCommentVisibility } from '../../store/modals/slicesCommentModal';
+import { CommentData } from '../../store/comments/types';
 import DetailCard from '../../components/DetailCard/DetailCard';
 import WarningAlert from '../../components/Error/WarningAlert';
-import { StyledBox } from '../../components/DetailCard/styles';
-import { CommentsList } from '../../store/comments/types';
-import CommentItem from '../../components/CommentItem/CommentItem';
+import CommentsList from '../../components/CommentsList/CommentsList';
+import PaginationPages from '../../components/PaginationPages/PaginationPages';
+import { StyledButton } from '../../components/AuthModal/styles';
+import usePagination from '../../hooks/usePagination';
 import { AppDispatch, RootState } from '../Main/types';
 
 import './news.css';
@@ -20,6 +28,7 @@ const News: FC = () => {
 
   const { isCardLoading, detailCard, cardError } = useSelector((state: RootState) => state.card);
   const { isCommentsLoading, commentsList, commentsError } = useSelector((state: RootState) => state.comments);
+  const { isCommentVisible } = useSelector((state: RootState) => state.commentModal);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,6 +36,16 @@ const News: FC = () => {
     dispatch(getCard(formattedId));
     dispatch(getComments(formattedId));
   }, [formattedId]);
+
+  const [sliceComments, setSliceComments] = useState<CommentData[]>(commentsList);
+
+  const pagination = usePagination(setSliceComments);
+
+  const memoizedSliceComments = useMemo(() => sliceComments, [sliceComments]);
+
+  const handleClickAddComment = () => {
+    dispatch(changeCommentVisibility({ isCommentVisible: !isCommentVisible }));
+  };
 
   return (
     <>
@@ -38,33 +57,35 @@ const News: FC = () => {
       {detailCard != null && cardError === '' && !isCardLoading && (
         <div className="container__post post">
           <DetailCard {...detailCard} />
-          <div className="post__comments-group">
-            <span>Comments</span>
+          <div className="post__comments-group comments-group">
+            <div className="comments-group__header">
+              <span>Comments</span>
+              <StyledButton
+                variant="contained"
+                onClick={handleClickAddComment}
+              >
+                +
+              </StyledButton>
+            </div>
             {isCommentsLoading && (
               <div className="container__skeletons-group">
                 <Skeleton variant='rounded' width="100%" height={40}/>
               </div>
             )}
-            {commentsList.length > 0 && commentsError === '' && !isCommentsLoading && (
-              <StyledBox>
-                <Stack spacing={2}>
-                  {commentsList.map((comment: CommentsList) => {
-                    return <CommentItem key={comment.id} {...comment} />;
-                  })}
-                </Stack>
-              </StyledBox>
+            {sliceComments.length > 0 && commentsError === '' && !isCommentsLoading && (
+              <CommentsList commentsList={memoizedSliceComments} />
             )}
-            {commentsList.length === 0 && commentsError === '' && !isCommentsLoading && (
+            {sliceComments.length === 0 && commentsError === '' && !isCommentsLoading && (
               <div className="container__empty">
                 <WarningAlert text="Комментариев еще нет" type="info" />
               </div>
             )}
-            {commentsError !== '' && (
-              <div className="container__empty">
-                <WarningAlert text={commentsError} type="error" />
-              </div>
-            )}
           </div>
+          <PaginationPages
+            changePageNumber={pagination.changePageNumber}
+            countPages={pagination.countPages}
+            currentPage={pagination.currentPage}
+          />
         </div>
       )}
       {cardError !== '' && (

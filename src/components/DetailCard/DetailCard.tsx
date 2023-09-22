@@ -1,4 +1,5 @@
-import { BaseSyntheticEvent, type FC } from 'react';
+import { BaseSyntheticEvent, MouseEvent, type FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   Chip,
@@ -22,9 +23,20 @@ const DetailCard: FC<NewsData> = (news) => {
     e.target.src = defaultImage;
   };
 
+  const navigate = useNavigate();
+
+  const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    if (event.currentTarget.outerText === news.author.email) {
+      navigate(`../users/${news.authorId}`, { replace: true });
+    }
+
+  };
+
   return (
     <StyledInfoCard className="detail-card">
       <StyledCardHeader
+        className="detail-card__header"
         avatar={
           <Avatar
             alt="Author Image"
@@ -35,6 +47,7 @@ const DetailCard: FC<NewsData> = (news) => {
         titleTypographyProps={StyledCardHeaderBlock.titleTypographyProps}
         subheader={news.author.email}
         subheaderTypographyProps={StyledCardHeaderBlock.subheaderTypographyProps}
+        onClick={handleClickAuthor}
       />
       <div className="detail-card__picture picture">
         <CardMedia

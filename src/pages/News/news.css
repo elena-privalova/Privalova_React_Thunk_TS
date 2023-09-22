@@ -10,13 +10,42 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  margin: 10px 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
   padding-top: 10px;
   color: #4F493F;
   font-size: 18px;
 }
 
+.comments-group__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.comments-group__header span {
+  margin-top: 20px;
+}
+
+.comments-group__header button {
+  width: 50px;
+}
+
 .post__comments-group span {
   margin-bottom: 20px;
+}
+
+.post__pagination {
+  display: flex;
+  gap: 10px;
+  width: 95%;
+  margin-bottom: 20px;
+}
+
+button.pagination__select {
+  background-color: #7B5037;
 }
 

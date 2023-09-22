@@ -1,7 +1,9 @@
 import { NewsData } from '../../components/PostCard/types';
 import api from '../adapter';
 
-export const fetchGetPosts = async (): Promise<NewsData[]> => {
+import { ResponsePostsList } from './types';
+
+export const fetchGetPosts = async (): Promise<ResponsePostsList> => {
   const { data } = await api.get('posts?limit=4');
   return data;
 };

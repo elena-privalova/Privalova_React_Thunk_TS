@@ -23,3 +23,7 @@ export interface RefreshUserModalVisibility {
   isRefreshVisible: boolean,
 }
 
+export interface CommentModalVisibility {
+  isCommentVisible: boolean,
+}
+

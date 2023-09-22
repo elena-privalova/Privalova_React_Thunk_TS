@@ -1,3 +1,7 @@
+.detail-card__header span.MuiCardHeader-subheader {
+  cursor: pointer;
+}
+
 .detail-card__picture {
   width: 100%;
   display: flex;
