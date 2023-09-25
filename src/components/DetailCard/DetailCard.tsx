@@ -30,7 +30,7 @@ import './detailCard.css';
 
 const DetailCard: FC<NewsData> = (news) => {
   const { cardRating } = useSelector((state: RootState) => state.card);
-  console.log(cardRating);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const handleError = (e: BaseSyntheticEvent) => {
@@ -45,12 +45,11 @@ const DetailCard: FC<NewsData> = (news) => {
   };
 
   const [isOpen, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const handleClickRateButton = () => {
     setOpen(!isOpen);
   };
-
-  const [rating, setRating] = useState(0);
 
   const handleChangeRating = (event: SyntheticEvent) => {
     if (event.target instanceof HTMLInputElement) {
