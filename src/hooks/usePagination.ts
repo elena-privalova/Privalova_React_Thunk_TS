@@ -13,12 +13,10 @@ const usePagination = (setSliceComments: Dispatch<React.SetStateAction<CommentDa
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (commentsList.length !== 0) {
-      const end = currentPage * COUNT_COMMENTS_ON_PAGE;
-      const start = end - COUNT_COMMENTS_ON_PAGE;
-      setCountPages(Math.ceil(commentsList.length / COUNT_COMMENTS_ON_PAGE));
-      setSliceComments(commentsList.slice(start, end));
-    }
+    const end = currentPage * COUNT_COMMENTS_ON_PAGE;
+    const start = end - COUNT_COMMENTS_ON_PAGE;
+    setCountPages(Math.ceil(commentsList.length / COUNT_COMMENTS_ON_PAGE));
+    setSliceComments(commentsList.slice(start, end));
   }, [currentPage, commentsList]);
 
   useEffect(() => {

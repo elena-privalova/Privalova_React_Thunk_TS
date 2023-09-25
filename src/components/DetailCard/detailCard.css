@@ -43,3 +43,16 @@ div.detail-card__tags span {
   color: #4F493F;
 }
 
+.detail-card__rating-group {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rating-group p {
+  color: #4F493F;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+

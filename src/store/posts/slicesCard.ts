@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { NewsData } from '../../components/PostCard/types';
-
 import { CardState } from './types';
 import { getCard } from './thunks';
 
 const cardInitialState: CardState = {
   isCardLoading: false,
   detailCard: null,
+  cardRating: 0,
   cardError: ''
 };
 
@@ -28,7 +27,10 @@ export const cardSlice = createSlice({
           state.cardError = action.payload;
         }
         else {
-          state.detailCard = action.payload as NewsData;
+          if (action.payload != null) {
+            state.detailCard = action.payload;
+            state.cardRating = action.payload.rating;
+          }
           state.cardError = '';
         }
       })

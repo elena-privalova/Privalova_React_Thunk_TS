@@ -1,4 +1,10 @@
-import { BaseSyntheticEvent, MouseEvent, type FC } from 'react';
+import {
+  BaseSyntheticEvent,
+  MouseEvent,
+  type FC,
+  useState,
+  SyntheticEvent
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
@@ -8,17 +14,25 @@ import {
   CardContent,
   Avatar
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
 import { getFormattedAvatarPath } from '../../utils/getFormattedAvatarPath';
 import defaultImage from '../../images/defaultPicture.jpeg';
 import { StyledCardHeader, StyledCardHeaderBlock } from '../PostCard/styles';
 import { NewsData } from '../PostCard/types';
+import { addRating } from '../../store/posts';
+import { AppDispatch, RootState } from '../../pages/Main/types';
+import { StyledButton } from '../Header/styles';
 
 import { StyledInfoCard } from './styles';
 import './detailCard.css';
 
 const DetailCard: FC<NewsData> = (news) => {
+  const { cardRating } = useSelector((state: RootState) => state.card);
+  console.log(cardRating);
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleError = (e: BaseSyntheticEvent) => {
     e.target.src = defaultImage;
   };
@@ -27,10 +41,25 @@ const DetailCard: FC<NewsData> = (news) => {
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
-    if (event.currentTarget.outerText === news.author.email) {
-      navigate(`../users/${news.authorId}`, { replace: true });
-    }
+    navigate(`../users/${news.authorId}`, { replace: true });
+  };
 
+  const [isOpen, setOpen] = useState(false);
+
+  const handleClickRateButton = () => {
+    setOpen(!isOpen);
+  };
+
+  const [rating, setRating] = useState(0);
+
+  const handleChangeRating = (event: SyntheticEvent) => {
+    if (event.target instanceof HTMLInputElement) {
+      dispatch(addRating({
+        postId: news.id,
+        value: Number(event.target.defaultValue)
+      }));
+      setRating(Number(event.target.defaultValue));
+    }
   };
 
   return (
@@ -70,7 +99,22 @@ const DetailCard: FC<NewsData> = (news) => {
         <div className="detail-card__tags">
           {news.tags.map((tag) => <Chip key={tag.id} label={tag.value} />)}
         </div>
-        <Rating name="Rating" readOnly value={news.rating} />
+        <div className="detail-card__rating-group rating-group">
+          <Typography>Rating: {cardRating}</Typography>
+          <StyledButton
+            variant="contained"
+            onClick={handleClickRateButton}
+          >
+          Rate
+          </StyledButton>
+          {isOpen && (
+            <Rating
+              name="Rating"
+              value={rating}
+              onChange={handleChangeRating}
+            />
+          )}
+        </div>
       </CardContent>
       <span className="detail-card__date">{getFormattedDate(news.createdAt)}</span>
     </StyledInfoCard>

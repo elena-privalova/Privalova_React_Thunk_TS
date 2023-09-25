@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
-import { fetchGetCard, fetchGetPosts } from './apis';
+import { fetchAddRating, fetchGetCard, fetchGetPosts } from './apis';
+import { RequestAddRating } from './types';
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
@@ -21,6 +22,18 @@ export const getCard = createAsyncThunk(
   async (id: number) => {
     try {
       return fetchGetCard(id);
+    }
+    catch(e) {
+      if (e instanceof AxiosError) return e.message;
+    }
+  }
+);
+
+export const addRating = createAsyncThunk(
+  'ratings/addRating',
+  async (rating: RequestAddRating) => {
+    try {
+      return fetchAddRating(rating);
     }
     catch(e) {
       if (e instanceof AxiosError) return e.message;

@@ -23,6 +23,7 @@ const commentsSlice = createSlice({
     builder
       .addCase(getComments.pending, (state) => {
         state.isCommentsLoading = true;
+        state.commentsList = [];
         state.commentsError = '';
       })
 
