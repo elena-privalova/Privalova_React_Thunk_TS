@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { composeWithDevTools } from '@reduxjs/toolkit/dist/devtoolsExtension';
 
 import postsReducer from './posts/slicesPosts';
 import cardReducer from './posts/slicesCard';
@@ -16,6 +17,7 @@ const store = configureStore({
     immutableCheck: false,
     serializableCheck: false
   }),
+  devTools: true,
   reducer: {
     posts: postsReducer,
     card: cardReducer,

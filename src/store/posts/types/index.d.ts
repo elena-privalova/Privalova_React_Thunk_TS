@@ -11,6 +11,7 @@ interface PostsState {
 interface CardState {
   isCardLoading: boolean,
   detailCard: NewsData | null,
+  cardRating: number,
   cardError: string,
 }
 
@@ -22,5 +23,19 @@ interface ActionSearchState {
 interface ResponsePostsList {
   posts: NewsData[],
   total: number,
+}
+
+interface RequestAddRating {
+  postId: number,
+  value: number,
+}
+
+interface ResponseRatingData {
+  id: number,
+  postId: number,
+  value: number,
+  userId: number,
+  createdAt: string,
+  updatedAt: string,
 }
 

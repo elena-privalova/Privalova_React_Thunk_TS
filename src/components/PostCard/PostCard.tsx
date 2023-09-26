@@ -100,7 +100,12 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           {post.tags.map((post) => <Chip key={post.id} label={post.value} />)}
         </div>
         <div className="card__rating-group rating-group">
-          <Rating name="Rating" readOnly value={post.rating} />
+          <Rating
+            name="Rating"
+            readOnly
+            precision={0.5}
+            value={post.rating}
+          />
           <div className="rating-group__comments">
             <ModeCommentOutlined fontSize="medium" color="action" />
             <span>{post.commentsCount}</span>

@@ -27,7 +27,7 @@ const News: FC = () => {
   const formattedId = Number(id);
 
   const { isCardLoading, detailCard, cardError } = useSelector((state: RootState) => state.card);
-  const { isCommentsLoading, commentsList, commentsError } = useSelector((state: RootState) => state.comments);
+  const { isCommentsLoading, commentsError } = useSelector((state: RootState) => state.comments);
   const { isCommentVisible } = useSelector((state: RootState) => state.commentModal);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -37,7 +37,7 @@ const News: FC = () => {
     dispatch(getComments(formattedId));
   }, [formattedId]);
 
-  const [sliceComments, setSliceComments] = useState<CommentData[]>(commentsList);
+  const [sliceComments, setSliceComments] = useState<CommentData[]>([]);
 
   const pagination = usePagination(setSliceComments);
 

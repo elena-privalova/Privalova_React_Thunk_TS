@@ -1,4 +1,12 @@
-import { getCard, getPosts } from './thunks';
+import {
+  getCard,
+  getPosts,
+  addRating
+} from './thunks';
 
-export { getCard, getPosts };
+export {
+  getCard,
+  getPosts,
+  addRating
+};
 
