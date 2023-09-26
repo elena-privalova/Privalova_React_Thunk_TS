@@ -19,7 +19,6 @@ export const fetchGetCard = async (id: number): Promise<NewsData> => {
 
 export const fetchAddRating = async (rating: RequestAddRating): Promise<ResponseRatingData> => {
   const { data } = await api.post('ratings', rating);
-  console.log(data);
   return data;
 };
 
