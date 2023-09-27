@@ -1,12 +1,34 @@
 .card:hover {
   border-color: #969286;
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card span.css-biomra-MuiTypography-root {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  word-wrap: break-word;
+}
+
+.card span.css-mpwysi-MuiTypography-root:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .card__header {
-  height: 110px;
+  height: auto;
   display: flex;
+}
+
+.header__title-group {
+  min-width: 200px;
+  max-width: 290px;
+}
+
+span.css-mpwysi-MuiTypography-root {
+  margin-left: 10px
 }
 
 .title-group__date {
@@ -35,11 +57,26 @@
   margin-left: 16px;
 }
 
-span.css-mpwysi-MuiTypography-root {
-  margin-left: 10px
+.card__content {
+  margin-bottom: 10px;
 }
 
-.card__tags {
+.card__content p {
+  margin-bottom: 5px;
+}
+
+.content__about-card {
+  font-size: 16px;
+  font-weight: 700;
+  color: #7B5037;
+  cursor: pointer;
+}
+
+.content__about-card:hover {
+  text-decoration: underline;
+}
+
+.content__tags {
   display: flex;
   gap: 5px;
   overflow: hidden;
@@ -50,11 +87,15 @@ span.css-mpwysi-MuiTypography-root {
   height: 70px;
 }
 
-div.card__tags span {
+div.content__tags span {
   color: #4F493F
 }
 
-.card__rating-group {
+.content__tags div {
+  width: auto;
+}
+
+.content__rating-group {
   display: flex;
   width: 100%;
   justify-content: space-between;

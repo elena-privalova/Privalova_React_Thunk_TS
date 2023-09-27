@@ -7,7 +7,11 @@ import {
   useState
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  Modal
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { AppDispatch, RootState } from '../../pages/Main/types';
@@ -26,7 +30,6 @@ import {
   StyledTypography
 } from '../AuthModal/styles';
 
-import { StyledIconButton } from './styles';
 import './refreshUser.css';
 
 const RefreshUserModal = () => {
@@ -54,13 +57,12 @@ const RefreshUserModal = () => {
 
   const [newUser, setRefreshUser] = useState(initialRefreshUser);
 
-  const [show, setShowPassword] = useState(false);
+  const [isShow, setShowPassword] = useState(false);
   const [isCorrectEmail, setCorrectEmail] = useState(true);
   const [isCorrectPassword, setCorrectPassword] = useState(true);
 
   const handleClickShowPassword = () => {
-    setShowPassword((show) => !show);
-    console.log(show);
+    setShowPassword((isShow) => !isShow);
   };
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
@@ -141,24 +143,33 @@ const RefreshUserModal = () => {
                 onBlur={handleBlurEmail}
                 onChange={handleChangeUserInfo}
                 error={!isCorrectEmail}
+                helperText={!isCorrectEmail ? 'Email must be correct' : ''}
               />
               <StyledTextField
                 name="password"
                 variant="outlined"
                 label="Password"
-                InputProps={{ type: `${show ? 'text' : 'password'}` }}
+                type={isShow ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {isShow ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
                 value={newUser.password}
                 required
                 onBlur={handleBlurPassword}
                 onChange={handleChangeUserInfo}
                 error={!isCorrectPassword}
+                helperText={!isCorrectPassword ? '8 symbols, letters in both cases, numbers' : ''}
               />
-              <StyledIconButton
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {show ? <Visibility /> : <VisibilityOff />}
-              </StyledIconButton>
               <label className="news-form__file-group">
                 <input
                   name="file"

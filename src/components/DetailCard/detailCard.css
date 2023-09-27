@@ -2,6 +2,19 @@
   cursor: pointer;
 }
 
+span.css-cah4f6-MuiTypography-root {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  word-wrap: break-word;
+}
+
+.detail-card__header {
+  height: auto;
+}
+
 .detail-card__picture {
   width: 100%;
   display: flex;
@@ -15,6 +28,9 @@
 
 p.detail-card__text {
   font-size: 18px;
+  width: auto;
+  max-width: 80rem;
+  word-wrap: break-word;
 }
 
 .detail-card__tags {
@@ -32,10 +48,15 @@ div.detail-card__tags span {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100px;
   font-size: 16px;
+  line-height: 3;
   color: #4F493F;
   border-radius: 50%;
+}
+
+.detail-card__tags div {
+  width: auto;
+  height: auto;
 }
 
 .detail-card__date {

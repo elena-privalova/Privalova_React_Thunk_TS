@@ -56,6 +56,10 @@ const Header: FC = () => {
     navigate(`users/${authUser.id}`);
   };
 
+  const goToMainPage = () => {
+    navigate('/');
+  };
+
   useEffect(() => {
     if (getToken() != null) dispatch(getVerifyUser());
   }, []);
@@ -67,11 +71,20 @@ const Header: FC = () => {
       <StyledBox>
         <AppBar>
           <StyledToolbar>
-            <div className='logo-group'>
-              <StyledTypography>News</StyledTypography>
-              <img className='logo-group__logo' src={newsIcon} />
+            <div className="logo-group">
+              <StyledTypography
+                className="logo-group__title"
+                onClick={goToMainPage}
+              >
+                News
+              </StyledTypography>
+              <img
+                className="logo-group__logo"
+                src={newsIcon}
+                onClick={goToMainPage}
+              />
             </div>
-            {!location.pathname.includes('news') && (
+            {!location.pathname.includes('news') && !location.pathname.includes('users') && (
               <div className="search-group">
                 <SearchElement />
                 <FilterElement />

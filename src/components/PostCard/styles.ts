@@ -17,8 +17,7 @@ export const StyledPostCard = styled(Card)({
   width: '45%',
   minWidth: '295px',
   maxWidth: '345px',
-  minHeight: '600px',
-  maxHeight: '680px',
+  height: '720px',
   paddingLeft: '10px',
   paddingRight: '10px',
   position: 'relative',
@@ -29,7 +28,17 @@ export const StyledPostCard = styled(Card)({
   transition: '0.5s ease-out'
 });
 
-export const StyledCardHeader = styled(CardHeader)({ paddingBottom: 0 });
+export const StyledCardHeader = styled(CardHeader)({
+  width: 'auto',
+  maxWidth: '325px',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  WebkitLineClamp: 4,
+  wordWrap: 'break-word',
+  paddingBottom: 0
+});
 
 export const StyledCardHeaderBlock = {
   titleTypographyProps: {

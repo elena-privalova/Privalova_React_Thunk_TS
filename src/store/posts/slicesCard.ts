@@ -6,7 +6,6 @@ import { getCard } from './thunks';
 const cardInitialState: CardState = {
   isCardLoading: false,
   detailCard: null,
-  cardRating: 0,
   cardError: ''
 };
 
@@ -29,7 +28,6 @@ export const cardSlice = createSlice({
         else {
           if (action.payload != null) {
             state.detailCard = action.payload;
-            state.cardRating = action.payload.rating;
           }
           state.cardError = '';
         }

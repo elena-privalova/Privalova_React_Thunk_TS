@@ -22,7 +22,7 @@ const App: FC = () => {
         },
         {
           path: 'news/:id',
-          element: authUser && <News /> || <Navigate to="/" />
+          element: <News />
         },
         {
           path: 'users/:id',

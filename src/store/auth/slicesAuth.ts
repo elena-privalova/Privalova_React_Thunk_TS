@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { removeToken, setToken } from '../../lib/local-storage';
 import { refreshUser } from '../user';
@@ -10,7 +10,6 @@ import {
 } from './thunks';
 import {
   AuthState,
-  AuthUser,
   VerifyUser
 } from './types';
 
@@ -24,12 +23,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: authInitialState,
   reducers: {
-    clearAuth: (state, action: PayloadAction<string>) => {
+    clearAuth: state => {
       state.isAuthLoading = false;
       state.authError = '';
-      if (action.payload === 'signup') state.authUser = null;
     },
-    logoutUser: (state) => {
+    logoutUser: state => {
       if (typeof removeToken() !== 'string') state.authUser = null;
     }
   },
@@ -45,9 +43,11 @@ export const authSlice = createSlice({
         if (typeof action.payload === 'string') {
           state.authError = action.payload;
         }
-        else {
-          state.authUser = action.payload as AuthUser;
-          state.authError = '';
+        else if (action.payload != null && 'accessToken' in action.payload) {
+          if (typeof setToken(action.payload.accessToken) !== 'string') {
+            state.authUser = action.payload.user;
+            state.authError = '';
+          }
         }
       })
 

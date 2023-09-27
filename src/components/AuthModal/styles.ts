@@ -1,7 +1,6 @@
 import {
   Button,
   CircularProgress,
-  IconButton,
   TextField,
   Typography,
   styled
@@ -45,12 +44,6 @@ export const StyledTextField = styled(TextField)({
       color: '#4F493F'
     }
   }
-});
-
-export const StyledIconButton = styled(IconButton)({
-  position: 'absolute',
-  right: '15%',
-  bottom: '31%'
 });
 
 export const StyledButton = styled(Button)({

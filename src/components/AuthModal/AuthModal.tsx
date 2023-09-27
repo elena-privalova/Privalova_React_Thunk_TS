@@ -8,7 +8,11 @@ import {
   useEffect
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '@mui/material/Modal';
+import {
+  Modal,
+  IconButton,
+  InputAdornment
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { clearAuth } from '../../store/auth/slicesAuth';
@@ -23,7 +27,6 @@ import WarningAlert from '../Error/WarningAlert';
 import {
   StyledButton,
   StyledForm,
-  StyledIconButton,
   StyledLoader,
   StyledTextField,
   StyledTypography
@@ -56,7 +59,7 @@ const AuthModal: FC = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [show, setShowPassword] = useState(false);
+  const [isShow, setShowPassword] = useState(false);
   const [isCorrectEmail, setCorrectEmail] = useState(true);
   const [isCorrectPassword, setCorrectPassword] = useState(true);
 
@@ -111,25 +114,36 @@ const AuthModal: FC = () => {
                 variant="outlined"
                 label="Email"
                 value={email}
+                required
                 onBlur={handleBlurEmail}
                 onChange={handleChangeEmail}
                 error={!isCorrectEmail || authError !== ''}
+                helperText={!isCorrectEmail ? 'Email must be correct' : ''}
               />
               <StyledTextField
                 variant="outlined"
                 label="Password"
-                InputProps={{ type: `${show ? 'text' : 'password'}` }}
+                type={isShow ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {isShow ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
                 value={password}
+                required
                 onChange={handleChangePassword}
                 onBlur={handleBlurPassword}
                 error={!isCorrectPassword || authError !== ''}
+                helperText={!isCorrectPassword ? '8 symbols, letters in both cases, numbers' : ''}
               />
-              <StyledIconButton
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {show ? <Visibility /> : <VisibilityOff />}
-              </StyledIconButton>
               <StyledButton
                 variant="contained"
                 type="submit"

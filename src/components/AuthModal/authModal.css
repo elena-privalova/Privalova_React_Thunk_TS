@@ -8,3 +8,9 @@ label.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   top: 95%
 }
 
+p.css-1wc848c-MuiFormHelperText-root.Mui-error {
+  line-height: 1;
+  margin-right: 0;
+  margin-left: 5px;
+}
+
