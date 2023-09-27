@@ -29,6 +29,7 @@ const News: FC = () => {
   const { isCardLoading, detailCard, cardError } = useSelector((state: RootState) => state.card);
   const { isCommentsLoading, commentsError } = useSelector((state: RootState) => state.comments);
   const { isCommentVisible } = useSelector((state: RootState) => state.commentModal);
+  const { authUser } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -60,12 +61,14 @@ const News: FC = () => {
           <div className="post__comments-group comments-group">
             <div className="comments-group__header">
               <span>Comments</span>
-              <StyledButton
-                variant="contained"
-                onClick={handleClickAddComment}
-              >
+              {authUser != null && (
+                <StyledButton
+                  variant="contained"
+                  onClick={handleClickAddComment}
+                >
                 +
-              </StyledButton>
+                </StyledButton>
+              )}
             </div>
             {isCommentsLoading && (
               <div className="container__skeletons-group">

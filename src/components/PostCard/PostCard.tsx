@@ -40,13 +40,17 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
 
   const navigate = useNavigate();
 
-  const handleClickCard = () => {
-    if (!isUsersPath) navigate(`news/${post.id}`);
+  const goToNewsPage = () => {
+    navigate(`news/${post.id}`, { replace: true });
   };
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
-    if (!isUsersPath) navigate(`users/${post.authorId}`);
+    if (event.target instanceof HTMLSpanElement && event.target.innerText === post.author.email) {
+      if (!isUsersPath) {
+        navigate(`users/${post.authorId}`);
+      }
+    }
   };
 
   const handleClickEditNews = () => {
@@ -62,7 +66,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   };
 
   return (
-    <StyledPostCard className="card" onClick={handleClickCard}>
+    <StyledPostCard className="card">
       <div className="card__header header">
         <div className="header__title-group title-group">
           <StyledCardHeader
@@ -94,12 +98,18 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           alt="News image"
         />
       </div>
-      <StyledCardContent>
+      <StyledCardContent className="card__content content">
         <StyledTypography variant="body2" color="text.secondary">{post.text}</StyledTypography>
-        <div className="card__tags">
+        <span
+          className="content__about-card"
+          onClick={goToNewsPage}
+        >
+          Learn more...
+        </span>
+        <div className="content__tags">
           {post.tags.map((post) => <Chip key={post.id} label={post.value} />)}
         </div>
-        <div className="card__rating-group rating-group">
+        <div className="content__rating-group rating-group">
           <Rating
             name="Rating"
             readOnly

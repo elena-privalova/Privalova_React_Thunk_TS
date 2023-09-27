@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 export const StyledInfoCard = styled(Card)({
   userSelect: 'none',
   width: '95%',
+  maxWidth: '620px',
   height: 'auto',
   display: 'flex',
   flexDirection: 'column',

@@ -14,7 +14,8 @@
   padding: 20px 0;
 }
 
-.user-posts *:not(.icon-container__edit-icon) {
+.user-posts span.css-mpwysi-MuiTypography-root:hover {
   cursor: auto;
+  text-decoration: none;
 }
 

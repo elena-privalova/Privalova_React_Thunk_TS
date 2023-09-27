@@ -29,7 +29,7 @@ import { StyledInfoCard } from './styles';
 import './detailCard.css';
 
 const DetailCard: FC<NewsData> = (news) => {
-  const { cardRating } = useSelector((state: RootState) => state.card);
+  const { authUser } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -99,13 +99,15 @@ const DetailCard: FC<NewsData> = (news) => {
           {news.tags.map((tag) => <Chip key={tag.id} label={tag.value} />)}
         </div>
         <div className="detail-card__rating-group rating-group">
-          <Typography>Rating: {cardRating}</Typography>
-          <StyledButton
-            variant="contained"
-            onClick={handleClickRateButton}
-          >
-          Rate
-          </StyledButton>
+          <Typography>Rating: {news.rating}</Typography>
+          {authUser != null && (
+            <StyledButton
+              variant="contained"
+              onClick={handleClickRateButton}
+            >
+              Rate
+            </StyledButton>
+          )}
           {isOpen && (
             <Rating
               name="Rating"

@@ -16,6 +16,11 @@ header.css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   margin-top: 4px;
   height: 30px;
   width: 30px;
+  cursor: pointer;
+}
+
+.logo-group__title {
+  cursor: pointer;
 }
 
 .search-group {
