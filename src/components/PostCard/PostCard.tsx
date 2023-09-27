@@ -41,14 +41,14 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const navigate = useNavigate();
 
   const goToNewsPage = () => {
-    navigate(`news/${post.id}`, { replace: true });
+    navigate(`/news/${post.id}`);
   };
 
   const handleClickAuthor = (event: MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
     if (event.target instanceof HTMLSpanElement && event.target.innerText === post.author.email) {
       if (!isUsersPath) {
-        navigate(`users/${post.authorId}`);
+        navigate(`/users/${post.authorId}`);
       }
     }
   };
